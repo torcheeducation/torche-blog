@@ -1,0 +1,186 @@
+import Image from "next/image";
+import Link from "next/link";
+
+export default function NewPosts() {
+  const limitHeading = (text) => {
+    return text.slice(0, 40) + (text.length > 40 ? '...' : '')
+  }
+
+  const limitParagraphLarge = (text) => {
+    return text.slice(0, 200) + (text.length > 200 ? '...' : '')
+  }
+
+  const limitParagraphMobile = (text) => {
+    return text.slice(0, 70) + (text.length > 70 ? '...' : '')
+  }
+
+  const newestPost = [
+    {
+      id: 1,
+      date: '10 November 2022',
+      title: '10 Bahan Kimia Paling Berbahaya di Tempat Kerja',
+      image: '/image/postingan1.png',
+    }
+  ]
+
+  const rightSidePosts = [
+    {
+      id: 2,
+      date: '10 November 2022',
+      title: '10 bahan kimia paling berbahaya dan paling aman',
+      image: '/image/postingan2.png',
+    },
+    {
+      id: 3,
+      date: '10 November 2022',
+      title: '10 bahan kimia paling berbahaya dan paling aman',
+      image: '/image/postingan2.png',
+    },
+    {
+      id: 4,
+      date: '10 November 2022',
+      title: '10 bahan kimia paling berbahaya dan paling aman',
+      image: '/image/postingan2.png',
+    },
+    {
+      id: 5,
+      date: '10 November 2022',
+      title: '10 bahan kimia paling berbahaya dan paling aman',
+      image: '/image/postingan2.png',
+    },
+    {
+      id: 6,
+      date: '10 November 2022',
+      title: '10 bahan kimia paling berbahaya dan paling aman',
+      image: '/image/postingan2.png',
+    },
+  ]
+
+  const leftSidePosts = [
+    {
+      id: 7,
+      date: '10 November 2022',
+      title: '10 bahan kimia paling berbahaya dan paling aman',
+      text: 'Sementara banyak bahan kimia di tempat kerja mungkin tampak tidak berbahaya, beberapa di antaranya dapat menimbulkan bahaya yang signifikan. Mengetahui mana yang berbahaya dan bagaimana menangani bahan kimia berbahaya dengan benar dapat membantu mencegah cedera dan efek merugikan yang kronis. Di sini kita melihat 10 bahan kimia paling berbahaya di tempat kerja, yaitu arsenik, timbal, benzena, kromium, toluena, kadmium, zinc, merkuri, pestisida, dan limbah elektronik.',
+      image: '/image/postingan2.png',
+    },
+    {
+      id: 8,
+      date: '10 November 2022',
+      title: '10 bahan kimia paling berbahaya dan paling aman',
+      text: 'Sementara banyak bahan kimia di tempat kerja mungkin tampak tidak berbahaya, beberapa di antaranya dapat menimbulkan bahaya yang signifikan. Mengetahui mana yang berbahaya dan bagaimana menangani bahan kimia berbahaya dengan benar dapat membantu mencegah cedera dan efek merugikan yang kronis. Di sini kita melihat 10 bahan kimia paling berbahaya di tempat kerja, yaitu arsenik, timbal, benzena, kromium, toluena, kadmium, zinc, merkuri, pestisida, dan limbah elektronik.',
+      image: '/image/postingan2.png',
+    },
+  ]
+
+  return (
+    <div className="w-full px-4 py-6 md:px-14">
+      <div className="w-full h-4 bg-slate-100"></div>
+      <h2 className="mt-6 text-2xl text-slate-500 uppercase">Postingan Terbaru</h2>
+      <div className="mt-6 flex flex-col gap-10 lg:flex-row lg:gap-4">
+        <div className="flex flex-col-reverse gap-10 lg:w-3/4 lg:flex-row lg:gap-4">
+          <div className="flex flex-col gap-10 lg:w-1/3">
+            {leftSidePosts.map(({ id, date, title, text, image }) => {
+              const titleContent = limitHeading(title)
+
+              let paragraph = limitParagraphMobile(text)
+      
+              return (
+                <div key={id} className="grid grid-cols-2 gap-4 lg:grid-cols-1">
+                  <Image 
+                    src={image}
+                    alt={title}
+                    width={250}
+                    height={118}
+                    sizes="100vw"
+                    style={{
+                      objectFit: 'cover'
+                    }}
+                    className="w-full h-full rounded-md"
+                  />
+                  <div>
+                    <div className="flex flex-col justify-center">
+                      <p className="mb-4 text-sm text-blueDate">{date}</p>
+                      <Link href={`/posts/${id}`} className="hover:text-blue-600">
+                        <h2 className="font-bold capitalize lg:text-lg">{titleContent}</h2>
+                      </Link>
+                    </div>
+                    <div className="mt-6">
+                      <p className="text-sm text-slate-600">{paragraph}</p>
+                    </div>
+                  </div>
+                </div>
+              )
+            })}
+          </div>
+          <div className="lg:w-2/3">
+            {newestPost.map(({ id, date, title, image }) => {
+              return (
+                <div key={id}>
+                  <Image
+                    src={image}
+                    alt={title}
+                    width={700}
+                    height={328}
+                    priority
+                    className="w-full h-full"
+                  />
+                  <div className="mt-6">
+                    <p className="text-sm text-blueDate">{date}</p>
+                    <Link href={`/posts/${id}`} className="hover:text-blue-600">
+                      <h3 className="mt-4 font-bold text-lg">{title}</h3>
+                    </Link>
+                  </div>
+                  <div className="mt-6 text-slate-600">
+                    <p>
+                      Sementara banyak bahan kimia di tempat kerja mungkin tampak tidak berbahaya, beberapa di antaranya dapat menimbulkan bahaya yang signifikan. Mengetahui mana yang berbahaya dan bagaimana menangani bahan kimia berbahaya dengan benar dapat membantu mencegah cedera dan efek merugikan yang kronis. Di sini kita melihat 10 bahan kimia paling berbahaya di tempat kerja, yaitu arsenik, timbal, benzena, kromium, toluena, kadmium, zinc, merkuri, pestisida, dan limbah elektronik. Bahan kimia berbahaya adalah segala jenis zat yang berpotensi menyebabkan kerusakan pada organisme hidup, termasuk manusia, dan lingkungan pada umumnya.
+                    </p>
+                    <p className="mt-4">
+                      Berbagai negara dan yurisdiksi memiliki peraturan khusus dan klasifikasi bahan kimia berbahaya. Meskipun ini tidak berbeda secara signifikan, ada beberapa perbedaan kecil dan kasus khusus. Di Inggris, misalnya, bahan kimia berbahaya dikelompokkan ke dalam kategori berikut, yaitu peledak, mengoksidasi, mudah terbakar, beracun, berbahaya, korosif, mengiritasi, dan berbahaya bagi lingkungan. Zat yang dikendalikan juga diklasifikasikan sebagai berbahaya, meskipun dengan berbagai tingkat bahaya. Demikian pula, obat-obatan, seperti antibiotik, bisa berbahaya tanpa resep yang tepat.
+                    </p>
+                  </div>
+                </div>
+              )
+            })}
+          </div>
+        </div>
+        <div className="flex flex-col gap-8 lg:w-1/4">
+          {rightSidePosts.map(({ id, date, title, image }) => {
+            const titleContent = limitHeading(title)
+
+            return (
+              <div key={id} className="flex flex-col gap-4 lg:flex-row">
+                <Image 
+                  src={image}
+                  alt={title}
+                  width={128}
+                  height={128}
+                  sizes="100vw"
+                  style={{
+                    objectFit: 'cover',
+                  }}
+                  className="w-full h-40 rounded-md lg:w-32 lg:h-32"
+                />
+                <div className="flex flex-col justify-center">
+                  <p className="mb-3 text-sm text-blueDate">{date}</p>
+                  <Link href={`/posts/${id}`} className="hover:text-blue-600">
+                    <h2 className="font-bold capitalize">{titleContent}</h2>
+                  </Link>
+                </div>
+              </div>
+            )
+          })}
+        </div>
+      </div>
+      <div className="relative mt-20 px-4 lg:px-20 py-10 lg:py-14 border-[15px] border-slate-100 text-center">
+        <div className="w-full relative -top-[4.2rem] lg:-top-[5.3rem] left-0">
+          <div className="mx-auto capitalize md:w-80">
+            <h2 className="text-4xl font-rajdhaniMedium bg-white">Selamat Datang</h2>
+          </div>
+        </div>
+        <p className="mb-10 text-lg">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Consequuntur, similique debitis voluptate illum tempora repellat repudiandae aliquid ducimus ipsum sit commodi ea eveniet, unde neque doloribus cumque minus sed nemo.</p>
+      </div>
+      <div className="w-full mt-16 h-4 bg-slate-100"></div>
+    </div>
+  )
+}

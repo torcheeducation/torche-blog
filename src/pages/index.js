@@ -1,12 +1,14 @@
 import Hero from '@/components/Hero'
 import Layout from '@/components/Layout'
-import TrendingPost from '@/components/TrendingPost'
+import NewPosts from '@/components/NewPosts'
+import TrendingPosts from '@/components/TrendingPosts'
 
 export default function Home() {
   return (
     <Layout title="Beranda">
       <Hero />
-      <TrendingPost />
+      <TrendingPosts />
+      <NewPosts />
     </Layout>
   )
 }

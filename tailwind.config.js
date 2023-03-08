@@ -12,6 +12,7 @@ module.exports = {
       },
       backgroundImage: {
         homeHero: "linear-gradient(173.59deg, rgba(69, 100, 159, 0.78) 26.07%, rgba(0, 12, 52, 0.4446) 85.14%), url('/image/hero.png')",
+        gradientHero: "url('/image/herogradient.png')"
       },
       fontFamily: {
         rajdhaniMedium: '"Rajdhani Medium", sand-serif',
@@ -19,5 +20,8 @@ module.exports = {
       },
     },
   },
-  plugins: [require('prettier-plugin-tailwindcss')],
+  plugins: [
+    require('prettier-plugin-tailwindcss'),
+    require('@tailwindcss/line-clamp'),
+  ],
 }

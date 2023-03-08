@@ -5,8 +5,10 @@ import { CgClose } from 'react-icons/cg';
 import { ImSearch } from 'react-icons/im';
 import { IoIosCloseCircle } from 'react-icons/io';
 import { useState } from 'react';
+import { useRouter } from 'next/navigation';
 
 export default function Navbar() {
+  const router = useRouter()
   const [navbar, setNavbar] = useState(false)
   const [search, setSearch] = useState('')
 
@@ -39,6 +41,15 @@ export default function Navbar() {
     document.querySelector('input[name=searchDesktop]').value = ''
   }
 
+  const searchPosts = (e) => {
+    console.log(e.code, e.key)
+    if (e.target.value) {
+      if (e.code === 'Enter' || e.code === 'NumpadEnter' || e.key === 'Enter') {
+        router.push(`/search?target=${e.target.value}`)
+      }
+    }
+  }
+
   return (
     <div className="w-full px-4 bg-navbar flex justify-between md:px-8 lg:px-5 lg:items-center xl:px-20">
       <Link href="/">
@@ -60,7 +71,7 @@ export default function Navbar() {
         </button>
         <div className="w-full mb-8 px-4 py-1 flex gap-4 items-center bg-white rounded-3xl lg:hidden">
           <ImSearch className="text-searchIcon font-bold -scale-x-100" />
-          <input type="text" name="searchMobile" placeholder="Telusuri" className="w-full text-sm outline-none" onChange={(e) => setSearch(e.target.value)} />
+          <input type="text" name="searchMobile" placeholder="Telusuri" className="w-full text-sm outline-none" onChange={(e) => setSearch(e.target.value)} onKeyDown={(e) => searchPosts(e)} />
           <button className={(search ? "opacity-1" : "opacity-0")} onClick={() => deleteSearch()} aria-label="Clear Search Input">
             <IoIosCloseCircle className="text-lg opacity-40 hover:opacity-70" />
           </button>
@@ -77,7 +88,7 @@ export default function Navbar() {
       </div>
       <div className="hidden px-4 py-1 gap-4 bg-white rounded-3xl lg:flex lg:items-center">
         <ImSearch className="text-searchIcon font-bold text-lg -scale-x-100" />
-        <input type="text" name="searchDesktop" placeholder="Telusuri" className="w-full text-sm outline-none" onChange={(e) => setSearch(e.target.value)} />
+        <input type="text" name="searchDesktop" placeholder="Telusuri" className="w-full text-sm outline-none" onChange={(e) => setSearch(e.target.value)} onKeyDown={(e) => searchPosts(e)} />
         <button className={(search ? "opacity-1" : "opacity-0")} onClick={() => deleteSearch()} aria-label="Clear Search Input">
           <IoIosCloseCircle className="text-lg opacity-40 hover:opacity-70" />
         </button>

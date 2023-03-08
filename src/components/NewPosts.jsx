@@ -2,18 +2,6 @@ import Image from "next/image";
 import Link from "next/link";
 
 export default function NewPosts() {
-  const limitHeading = (text) => {
-    return text.slice(0, 40) + (text.length > 40 ? '...' : '')
-  }
-
-  const limitParagraphLarge = (text) => {
-    return text.slice(0, 200) + (text.length > 200 ? '...' : '')
-  }
-
-  const limitParagraphMobile = (text) => {
-    return text.slice(0, 70) + (text.length > 70 ? '...' : '')
-  }
-
   const newestPost = [
     {
       id: 1,
@@ -81,12 +69,8 @@ export default function NewPosts() {
         <div className="flex flex-col-reverse gap-10 lg:w-3/4 lg:flex-row lg:gap-4">
           <div className="flex flex-col gap-10 lg:w-1/3">
             {leftSidePosts.map(({ id, date, title, text, image }) => {
-              const titleContent = limitHeading(title)
-
-              let paragraph = limitParagraphMobile(text)
-      
               return (
-                <div key={id} className="grid grid-cols-2 gap-4 lg:grid-cols-1">
+                <Link key={id} href={`/posts/${id}`} className="group grid grid-cols-2 gap-4 lg:grid-cols-1">
                   <Image 
                     src={image}
                     alt={title}
@@ -101,15 +85,13 @@ export default function NewPosts() {
                   <div>
                     <div className="flex flex-col justify-center">
                       <p className="mb-4 text-sm text-blueDate">{date}</p>
-                      <Link href={`/posts/${id}`} className="hover:text-blue-600">
-                        <h2 className="font-bold capitalize lg:text-lg">{titleContent}</h2>
-                      </Link>
+                      <h2 className="font-bold capitalize line-clamp-2 lg:text-lg group-hover:text-blue-600">{title}</h2>
                     </div>
                     <div className="mt-6">
-                      <p className="text-sm text-slate-600">{paragraph}</p>
+                      <p className="text-sm text-slate-600 line-clamp-2 lg:line-clamp-4">{text}</p>
                     </div>
                   </div>
-                </div>
+                </Link>
               )
             })}
           </div>
@@ -146,10 +128,8 @@ export default function NewPosts() {
         </div>
         <div className="flex flex-col gap-8 lg:w-1/4">
           {rightSidePosts.map(({ id, date, title, image }) => {
-            const titleContent = limitHeading(title)
-
             return (
-              <div key={id} className="flex flex-col gap-4 lg:flex-row">
+              <Link key={id} href={`/posts/${id}`} className="group flex flex-col gap-4 lg:flex-row">
                 <Image 
                   src={image}
                   alt={title}
@@ -163,11 +143,9 @@ export default function NewPosts() {
                 />
                 <div className="flex flex-col justify-center">
                   <p className="mb-3 text-sm text-blueDate">{date}</p>
-                  <Link href={`/posts/${id}`} className="hover:text-blue-600">
-                    <h2 className="font-bold capitalize">{titleContent}</h2>
-                  </Link>
+                  <h2 className="font-bold capitalize line-clamp-1 md:line-clamp-2 group-hover:text-blue-600">{title}</h2>
                 </div>
-              </div>
+              </Link>
             )
           })}
         </div>

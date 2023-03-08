@@ -42,10 +42,11 @@ export default function Navbar() {
   }
 
   const searchPosts = (e) => {
-    console.log(e.code, e.key)
-    if (e.target.value) {
-      if (e.code === 'Enter' || e.code === 'NumpadEnter' || e.key === 'Enter') {
+    if (e.code === 'Enter' || e.code === 'NumpadEnter' || e.key === 'Enter') {
+      if (e.target.value.length > 0) {
         router.push(`/search?target=${e.target.value}`)
+      } else {
+        alert('Form pencarian tidak boleh kosong!')
       }
     }
   }

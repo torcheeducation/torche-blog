@@ -34,7 +34,7 @@ export default function SearchHero() {
       if (e.target.value.length > 0) {
         router.push(`/search?target=${e.target.value}`)
       } else {
-        alert('Form pencarian tidak boleh kosong!')
+        router.push(`/search?target=`)
       }
     }
   }

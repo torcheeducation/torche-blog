@@ -70,13 +70,13 @@ export default function NewPosts() {
   ]
 
   return (
-    <div className="w-full px-4 py-6 md:px-14">
+    <div className="w-full px-4 py-6 xl:px-14">
       <div className="w-full h-4 bg-slate-200"></div>
       <h2 className="mt-10 text-2xl text-slate-500 uppercase">Postingan Terbaru</h2>
-      <div className="mt-6 flex flex-col gap-10 lg:flex-row lg:gap-4">
-        <div className="flex flex-col-reverse gap-10 lg:w-3/4 lg:flex-row lg:gap-4">
+      <div className="mt-6 flex flex-col gap-10 lg:flex-row lg:gap-6">
+        <div className="flex flex-col-reverse gap-10 lg:w-2/3 lg:flex-row lg:gap-6">
           <div className="flex flex-col gap-10 lg:w-1/3">
-            {leftSidePosts.map(({ id, date, title, text, image, category }) => {
+            {leftSidePosts.map(({ id, date, title, text, image }) => {
               return (
                 <Link key={id} href={`/posts/${id}`} className="group grid grid-cols-2 gap-4 lg:grid-cols-1">
                   <Image 
@@ -92,15 +92,11 @@ export default function NewPosts() {
                   />
                   <div>
                     <div className="flex flex-col justify-center">
-                      <p className="mb-4 text-sm capitalize flex flex-wrap gap-1 items-center lg:gap-2">
-                        <span className="text-slate-500">{category}</span>
-                        <span className="text-slate-700">&#x2022;</span>
-                        <span className="text-blueDate">{date}</span>
-                      </p>
+                      <p className="mb-5 text-sm capitalize text-blueDate">{date}</p>
                       <h2 className="font-bold capitalize line-clamp-2 lg:text-lg group-hover:text-blue-600">{title}</h2>
                     </div>
                     <div className="mt-6">
-                      <p className="text-sm text-slate-600 line-clamp-2 lg:line-clamp-4">{text}</p>
+                      <p className="text-sm text-slate-600 line-clamp-2 lg:text-base lg:line-clamp-4">{text}</p>
                     </div>
                   </div>
                 </Link>
@@ -108,7 +104,7 @@ export default function NewPosts() {
             })}
           </div>
           <div className="lg:w-2/3">
-            {newestPost.map(({ id, date, title, image, category }) => {
+            {newestPost.map(({ id, date, title, image }) => {
               return (
                 <div key={id}>
                   <Image
@@ -120,16 +116,12 @@ export default function NewPosts() {
                     className="w-full h-full"
                   />
                   <div className="mt-6">
-                    <p className="mb-4 text-sm capitalize flex gap-2 items-center">
-                      <span className="text-slate-500">{category}</span>
-                      <span className="text-slate-700">&#x2022;</span>
-                      <span className="text-blueDate">{date}</span>
-                    </p>
+                    <p className="mb-4 text-sm capitalize text-blueDate">{date}</p>
                     <Link href={`/posts/${id}`} className="hover:text-blue-600">
                       <h3 className="mt-4 font-bold text-lg">{title}</h3>
                     </Link>
                   </div>
-                  <div className="mt-6 text-slate-600 lg:line-clamp-[12]">
+                  <div className="mt-6 text-slate-600 lg:line-clamp-[16] xl:line-clamp-[14]">
                     <p>
                       Sementara banyak bahan kimia di tempat kerja mungkin tampak tidak berbahaya, beberapa di antaranya dapat menimbulkan bahaya yang signifikan. Mengetahui mana yang berbahaya dan bagaimana menangani bahan kimia berbahaya dengan benar dapat membantu mencegah cedera dan efek merugikan yang kronis. Di sini kita melihat 10 bahan kimia paling berbahaya di tempat kerja, yaitu arsenik, timbal, benzena, kromium, toluena, kadmium, zinc, merkuri, pestisida, dan limbah elektronik. Bahan kimia berbahaya adalah segala jenis zat yang berpotensi menyebabkan kerusakan pada organisme hidup, termasuk manusia, dan lingkungan pada umumnya.
                     </p>
@@ -142,8 +134,8 @@ export default function NewPosts() {
             })}
           </div>
         </div>
-        <div className="flex flex-col gap-8 lg:w-1/4">
-          {rightSidePosts.map(({ id, date, title, image, category }) => {
+        <div className="flex flex-col gap-8 lg:w-1/3 xl:gap-9">
+          {rightSidePosts.map(({ id, date, title, image }) => {
             return (
               <Link key={id} href={`/posts/${id}`} className="group flex flex-col gap-4 lg:flex-row">
                 <Image 
@@ -158,11 +150,7 @@ export default function NewPosts() {
                   className="w-full h-40 rounded-md lg:w-32 lg:h-32"
                 />
                 <div className="flex flex-col justify-center">
-                  <p className="mb-4 text-sm capitalize flex flex-wrap gap-2 items-center lg:gap-1">
-                    <span className="text-slate-500">{category}</span>
-                    <span className="text-slate-700">&#x2022;</span>
-                    <span className="text-blueDate">{date}</span>
-                  </p>
+                  <p className="mb-4 text-sm capitalize text-blueDate">{date}</p>
                   <h2 className="font-bold capitalize line-clamp-1 md:line-clamp-2 group-hover:text-blue-600">{title}</h2>
                 </div>
               </Link>

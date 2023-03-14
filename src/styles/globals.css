@@ -6,12 +6,12 @@
 
 @font-face {
   font-family: 'Rajdhani Medium';
-  src: url('../../public/fonts/rajdhani/Rajdhani-Medium.ttf');
+  src: url('../fonts/rajdhani/Rajdhani-Medium.ttf');
 }
 
 @font-face {
   font-family: 'Rajdhani Bold';
-  src: url('../../public/fonts/rajdhani/Rajdhani-Bold.ttf');
+  src: url('../fonts/rajdhani/Rajdhani-Bold.ttf');
 }
 
 .edukasi {

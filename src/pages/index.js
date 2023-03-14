@@ -9,9 +9,12 @@ export default function Home() {
     <Layout title="Beranda">
       <Hero />
       <TrendingPosts />
-      <NewPosts>
-        <Welcome />
-      </NewPosts>
+      <div className="w-full px-4 py-6 xl:px-14">
+        <div className="w-full mb-10 h-4 bg-slate-200"></div>
+        <NewPosts>
+          <Welcome />
+        </NewPosts>
+      </div>
     </Layout>
   )
 }

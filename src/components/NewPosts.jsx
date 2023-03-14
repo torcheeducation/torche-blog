@@ -1,10 +1,7 @@
 import Image from "next/image";
 import Link from "next/link";
-import { useRouter } from "next/router";
 
 export default function NewPosts({ children }) {
-  const router = useRouter();
-
   const newestPost = [
     {
       id: 1,
@@ -73,11 +70,8 @@ export default function NewPosts({ children }) {
   ]
 
   return (
-    <div className="w-full px-4 py-6 xl:px-14">
-      {router.pathname != '/posts' && (
-        <div className="w-full h-4 bg-slate-200"></div>
-      )}
-      <h2 className="mt-10 text-2xl text-slate-500 uppercase">Postingan Terbaru</h2>
+    <div>
+      <h2 className="text-2xl text-slate-500 uppercase">Postingan Terbaru</h2>
       <div className="mt-6 flex flex-col gap-10 lg:flex-row lg:gap-6">
         <div className="flex flex-col-reverse gap-10 lg:w-2/3 lg:flex-row lg:gap-6">
           <div className="flex flex-col gap-10 lg:w-1/3">
@@ -95,13 +89,13 @@ export default function NewPosts({ children }) {
                     }}
                     className="w-full h-full rounded-md"
                   />
-                  <div>
+                  <div className="flex flex-col justify-center">
                     <div className="flex flex-col justify-center">
-                      <p className="mb-5 text-sm capitalize text-blueDate">{date}</p>
-                      <h2 className="font-bold capitalize line-clamp-2 lg:text-lg group-hover:text-blue-600">{title}</h2>
+                      <p className="mb-5 capitalize text-blueDate">{date}</p>
+                      <h2 className="font-bold capitalize line-clamp-2 text-lg group-hover:text-blue-600">{title}</h2>
                     </div>
                     <div className="mt-6">
-                      <p className="text-sm text-slate-600 line-clamp-2 lg:text-base lg:line-clamp-4">{text}</p>
+                      <p className="text-slate-600 line-clamp-2 lg:line-clamp-4">{text}</p>
                     </div>
                   </div>
                 </Link>
@@ -164,7 +158,7 @@ export default function NewPosts({ children }) {
         </div>
       </div>
       {children}
-      <div className="w-full mt-10 h-4 bg-slate-200"></div>
+      <div className="w-full mt-20 h-4 bg-slate-200"></div>
     </div>
   )
 }

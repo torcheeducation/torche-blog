@@ -1,7 +1,10 @@
 import Image from "next/image";
 import Link from "next/link";
+import { useRouter } from "next/router";
 
-export default function NewPosts() {
+export default function NewPosts({ children }) {
+  const router = useRouter();
+
   const newestPost = [
     {
       id: 1,
@@ -71,7 +74,9 @@ export default function NewPosts() {
 
   return (
     <div className="w-full px-4 py-6 xl:px-14">
-      <div className="w-full h-4 bg-slate-200"></div>
+      {router.pathname != '/posts' && (
+        <div className="w-full h-4 bg-slate-200"></div>
+      )}
       <h2 className="mt-10 text-2xl text-slate-500 uppercase">Postingan Terbaru</h2>
       <div className="mt-6 flex flex-col gap-10 lg:flex-row lg:gap-6">
         <div className="flex flex-col-reverse gap-10 lg:w-2/3 lg:flex-row lg:gap-6">
@@ -158,14 +163,7 @@ export default function NewPosts() {
           })}
         </div>
       </div>
-      <div className="relative mt-20 px-4 lg:px-20 py-10 lg:py-14 border-[15px] border-slate-200 text-center">
-        <div className="w-full relative -top-[4.2rem] lg:-top-[5.3rem] left-0">
-          <div className="mx-auto capitalize md:w-80">
-            <h2 className="text-4xl font-rajdhaniMedium bg-white">Selamat Datang</h2>
-          </div>
-        </div>
-        <p className="mb-10 text-lg">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Consequuntur, similique debitis voluptate illum tempora repellat repudiandae aliquid ducimus ipsum sit commodi ea eveniet, unde neque doloribus cumque minus sed nemo.</p>
-      </div>
+      {children}
       <div className="w-full mt-10 h-4 bg-slate-200"></div>
     </div>
   )

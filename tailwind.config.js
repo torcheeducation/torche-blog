@@ -15,8 +15,7 @@ module.exports = {
         gradientHero: "url('/image/herogradient.png')"
       },
       fontFamily: {
-        rajdhaniMedium: '"Rajdhani Medium", sand-serif',
-        rajdhaniBold: '"Rajdhani Bold", sans-serif'
+        rajdhani: "'Rajdhani', sans-serif",
       },
     },
   },

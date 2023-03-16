@@ -22,7 +22,6 @@ export default function Home() {
       <Education />
       <News />
       <LifeStyle />
-      <Footer />
     </Layout>
   );
 }

@@ -124,7 +124,7 @@ export default function Footer() {
         </span>
         <div class="mt-4 space-x-6  sm:mt-0  sm:justify-center">
           <div className="flex flex-col gap-4 text-base text-white sm:flex-row ">
-            <div className="flex gap-7">
+            <div className=" flex gap-7">
               <a href="https://twitter.com/TorcheEdu/">
                 <SiTwitter />
               </a>
@@ -141,7 +141,7 @@ export default function Footer() {
                 <SiLinkedin />
               </a>
             </div>
-            <div className="flex gap-7">
+            <div className="ml-0 flex gap-7 sm:ml-3">
               <a href="https://vt.tiktok.com/ZSeu2n4ca/">
                 <SiTiktok />
               </a>

@@ -1,6 +1,10 @@
 {
   "name":"Torche Education",
   "short_name":"Torche Education",
+  "theme_color":"#0B122A",
+  "background_color":"#0B122A",
+  "start_url": "/",
+  "display":"standalone",
   "icons": [
     {
       "src":"/android-chrome-192x192.png",
@@ -12,9 +16,5 @@
       "sizes":"512x512",
       "type":"image/png"
     }
-  ],
-  "theme_color":"#0B122A",
-  "background_color":"#0B122A",
-  "start_url": "/",
-  "display":"standalone"
+  ]
 }

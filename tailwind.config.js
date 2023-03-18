@@ -11,8 +11,8 @@ module.exports = {
         orangeLight: "#FF6442",
       },
       backgroundImage: {
-        homeHero: "linear-gradient(173.59deg, rgba(69, 100, 159, 0.78) 26.07%, rgba(0, 12, 52, 0.4446) 85.14%), url('/images/hero.webp')",
-        gradientHero: "url('/images/herogradient.webp')"
+        homeHero: "linear-gradient(173.59deg, rgba(69, 100, 159, 0.78) 26.07%, rgba(0, 12, 52, 0.4446) 85.14%), url('/img/hero.webp')",
+        gradientHero: "url('/img/herogradient.webp')"
       },
       fontFamily: {
         rajdhani: "'Rajdhani', sans-serif",

@@ -7,19 +7,19 @@ export default function TrendingPosts() {
       id: 1,
       date: '10 November 2022',
       title: '10 bahan kimia paling berbahaya dan paling aman',
-      image: '/images/trendingpost.png',
+      image: '/img/trendingpost.png',
     },
     {
       id: 2,
       date: '10 November 2022',
       title: '10 bahan kimia paling berbahaya dan paling aman',
-      image: '/images/trendingpost.png',
+      image: '/img/trendingpost.png',
     },
     {
       id: 3,
       date: '10 November 2022',
       title: '10 bahan kimia paling berbahaya dan paling aman',
-      image: '/images/trendingpost.png',
+      image: '/img/trendingpost.png',
     },
   ];
 

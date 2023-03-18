@@ -11,14 +11,11 @@ module.exports = {
         orangeLight: "#FF6442",
       },
       backgroundImage: {
-        homeHero:
-          "linear-gradient(173.59deg, rgba(69, 100, 159, 0.78) 26.07%, rgba(0, 12, 52, 0.4446) 85.14%), url('/image/hero.png')",
-        gradientHero: "url('/image/herogradient.png')",
+        homeHero: "linear-gradient(173.59deg, rgba(69, 100, 159, 0.78) 26.07%, rgba(0, 12, 52, 0.4446) 85.14%), url('/images/hero.webp')",
+        gradientHero: "url('/images/herogradient.webp')"
       },
       fontFamily: {
-        rajdhaniMedium: '"Rajdhani Medium", sand-serif',
-        rajdhaniBold: '"Rajdhani Bold", sans-serif',
-        Cairo: '"Cairo Light", sans-serif',
+        rajdhani: "'Rajdhani', sans-serif",
       },
     },
   },

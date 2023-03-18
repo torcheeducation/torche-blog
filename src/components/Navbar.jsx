@@ -54,8 +54,8 @@ export default function Navbar() {
   return (
     <div className="flex w-full justify-between bg-navbar px-4 md:px-8 lg:items-center lg:px-5 xl:px-20">
       <Link href="/">
-        <Image
-          src="/image/logo.png"
+        <Image 
+          src="/images/logo.png"
           alt="logo"
           width={128}
           height={72}

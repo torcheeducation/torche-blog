@@ -17,22 +17,22 @@ export default function PostDetail() {
       time: "10 menit baca",
       title: "10 Bahan Kimia Paling Berbahaya di Tempat Kerja",
       text: "Bahan kimia berbahaya harus disimpan dalam wadah tertutup rapat. Mereka tidak boleh terkena suhu tinggi dan mereka juga harus memiliki label yang sesuai yang ditempelkan padanya.",
-      person: "/images/writer.jpg",
+      person: "/img/writer.jpg",
       WriterName: "Adem Saridewi, Penulis Rajin",
       date: "10 November 2022",
-      image: "/images/postingan1.png",
+      image: "/img/postingan1.png",
     },
   ];
   const RelatedPosts = [
     {
       id: 1,
-      image: "/images/detailpost.jpg",
+      image: "/img/detailpost.jpg",
       date: "10 November 2022",
       title: "10 Bahan Kimia Paling Berbahaya di Tempat Kerja",
     },
     {
       id: 2,
-      image: "/images/detailpost.jpg",
+      image: "/img/detailpost.jpg",
       date: "10 November 2022",
       title: "10 Bahan Kimia Paling Berbahaya di Tempat Kerja",
     },

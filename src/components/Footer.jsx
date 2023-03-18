@@ -21,7 +21,7 @@ export default function Footer() {
                 className="md:w-[128px]"
                 width={200}
                 height={200}
-                src={"/images/logo.png"}
+                src={"/img/logo.png"}
                 color="white"
                 alt="torche education Logo "
               />
@@ -44,7 +44,7 @@ export default function Footer() {
             </h2>
             <ul className="font-['Cairo Light'] text-sm font-light leading-7 text-white">
               <li>
-                <Link href={``} className="hover:underline">
+                <Link href={'/'} className="hover:underline">
                   Beranda
                 </Link>
               </li>

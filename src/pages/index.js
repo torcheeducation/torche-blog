@@ -6,7 +6,6 @@ import NewPosts from "@/components/NewPosts";
 import News from "@/components/News";
 import TrendingPosts from "@/components/TrendingPosts";
 import Welcome from "@/components/Welcome";
-import Footer from "@/components/Footer";
 
 export default function Home() {
   return (

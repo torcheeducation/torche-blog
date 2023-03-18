@@ -27,7 +27,7 @@ export default function Footer() {
               />
             </li>
             <li>
-              <p className="text-sm font-light leading-7 text-white">
+              <p className=" font-['Cairo Light'] text-sm font-light leading-7 text-white">
                 Torche Education adalah perusahaan startup teknologi pendidikan
                 yang <br className="hidden md:hidden lg:inline" />
                 berbasis di Indonesia, dengan fokus pada teknik kimia, teknik
@@ -39,52 +39,32 @@ export default function Footer() {
         </div>
         <div className="mt-7 leading-5 md:mt-8 md:grid md:grid-cols-3 md:gap-0 lg:order-2 lg:mt-0 lg:flex lg:justify-center lg:gap-32">
           <div>
-            <h2 className="mb-6 text-[28px] font-semibold text-white md:text-[19px] lg:text-[18px]">
+            <h2 className="mb-6 font-['Rajdhani'] text-[30px] font-semibold text-white md:text-[19px] lg:text-[18px]">
               Link
             </h2>
-            <ul className="text-sm font-light leading-7 text-white">
+            <ul className="font-['Cairo Light'] text-sm font-light leading-7 text-white">
               <li>
-                <Link
-                  key={URL}
-                  href={`/posts/${URL}`}
-                  className="hover:underline"
-                >
+                <Link href={``} className="hover:underline">
                   Beranda
                 </Link>
               </li>
               <li>
-                <Link
-                  key={URL}
-                  href={`/posts/${URL}`}
-                  className="hover:underline"
-                >
+                <Link href={``} className="hover:underline">
                   Tentang Kami
                 </Link>
               </li>
               <li>
-                <Link
-                  key={URL}
-                  href={`/posts/${URL}`}
-                  className="hover:underline"
-                >
+                <Link href={``} className="hover:underline">
                   Layanan
                 </Link>
               </li>
               <li>
-                <Link
-                  key={URL}
-                  href={`/posts/${URL}`}
-                  className="hover:underline"
-                >
+                <Link href={``} className="hover:underline">
                   Kursus
                 </Link>
               </li>
               <li>
-                <Link
-                  key={URL}
-                  href={`/posts/${URL}`}
-                  className="hover:underline"
-                >
+                <Link href={``} className="hover:underline">
                   Karir
                 </Link>
               </li>
@@ -92,14 +72,14 @@ export default function Footer() {
           </div>
           <div className="order-2 flex justify-center pt-7 sm:pt-0 md:col-span-2 md:px-11">
             <div>
-              <h2 className="mb-6 text-[28px] font-semibold text-white md:text-[19px] lg:text-[18px]">
+              <h2 className="mb-6 font-['Rajdhani'] text-[28px] font-semibold text-white md:text-[19px] lg:text-[18px]">
                 Kontak Kami
               </h2>
               <ul className="text-white">
-                <li className="mb-4 leading-7">
+                <li className="font-['Cairo Light'] mb-4 leading-7">
                   <span className="text-base">
                     PT. Obor Pengetahuan Indonesia untuk Masyarakat
-                  </span>{" "}
+                  </span>
                   <br />
                   <span className="text-sm font-light">
                     Jl. Kelapa Lilin Utara XIV Blok DG 8 No. 27 Kab. Tangerang,
@@ -107,7 +87,7 @@ export default function Footer() {
                     <br className="hidden md:hidden lg:inline" />
                     15810 Indonesia <br />
                   </span>
-                  Whatsapp Business:{" "}
+                  Whatsapp Business:
                   <span className="font-light">
                     +62 851 5521 6117
                   </span> <br /> Email:
@@ -118,42 +98,42 @@ export default function Footer() {
           </div>
         </div>
       </div>
-      <div className="my-5 flex flex-col-reverse pb-3 sm:flex-row sm:items-center sm:justify-between md:mx-12 lg:mx-20 lg:pb-2">
-        <span className="mt-7 text-sm text-white sm:mt-0 sm:text-center">
+      <div className=" flex flex-col-reverse pb-3 sm:flex-row sm:items-center sm:justify-between md:mx-12 lg:mx-20 lg:pb-2">
+        <span className="font-['Cairo Light'] mt-7 text-sm font-semibold text-white sm:mt-0 sm:text-center">
           Copyright Torche 2023
         </span>
         <div class="mt-4 space-x-6  sm:mt-0  sm:justify-center">
           <div className="flex flex-col gap-4 text-base text-white sm:flex-row ">
             <div className=" flex gap-7">
-              <a href="https://twitter.com/TorcheEdu/">
+              <Link href="https://twitter.com/TorcheEdu/">
                 <SiTwitter />
-              </a>
-              <a href="https://www.facebook.com/torche.edu/">
+              </Link>
+              <Link href="https://www.facebook.com/torche.edu/">
                 <SiFacebook />
-              </a>
-              <a href="https://www.instagram.com/torche.app/">
+              </Link>
+              <Link href="https://www.instagram.com/torche.app/">
                 <SiInstagram />
-              </a>
-              <a href="https://www.youtube.com/channel/UCQnYuE3KU3CzcAjVhuCQtNw">
+              </Link>
+              <Link href="https://www.youtube.com/channel/UCQnYuE3KU3CzcAjVhuCQtNw">
                 <SiYoutube />
-              </a>
-              <a href="https://www.linkedin.com/company/torche-education/">
+              </Link>
+              <Link href="https://www.linkedin.com/company/torche-education/">
                 <SiLinkedin />
-              </a>
+              </Link>
             </div>
             <div className="ml-0 flex gap-7 sm:ml-3">
-              <a href="https://vt.tiktok.com/ZSeu2n4ca/">
+              <Link href="https://vt.tiktok.com/ZSeu2n4ca/">
                 <SiTiktok />
-              </a>
-              <a href="https://discord.com/invite/2fYBrcK785">
+              </Link>
+              <Link href="https://discord.com/invite/2fYBrcK785">
                 <SiDiscord />
-              </a>
-              <a href="https://wa.me/+6285155216117">
+              </Link>
+              <Link href="https://wa.me/+6285155216117">
                 <SiWhatsapp />
-              </a>
-              <a href="https://page.line.me/229wiguf/">
+              </Link>
+              <Link href="https://page.line.me/229wiguf/">
                 <SiLine />
-              </a>
+              </Link>
             </div>
           </div>
         </div>

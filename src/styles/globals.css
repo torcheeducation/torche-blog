@@ -1,19 +1,23 @@
-@import url('https://fonts.googleapis.com/css2?family=Rajdhani:wght@400;500;600;700&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Rajdhani:wght@400;500;600;700&display=swap");
 
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
 @font-face {
-  font-family: 'Rajdhani Medium';
-  src: url('/fonts/rajdhani/Rajdhani-Medium.ttf');
+  font-family: "Rajdhani Medium";
+  src: url("/fonts/rajdhani/Rajdhani-Medium.ttf");
 }
 
 @font-face {
-  font-family: 'Rajdhani Bold';
-  src: url('/fonts/rajdhani/Rajdhani-Bold.ttf');
+  font-family: "Rajdhani Bold";
+  src: url("/fonts/rajdhani/Rajdhani-Bold.ttf");
 }
 
+@font-face {
+  font-family: "Cairo Light";
+  src: url("/fonts/Cairo/Cairo-Light.ttf");
+}
 .edukasi {
-  background-color: #3E5294;
+  background-color: #3e5294;
 }

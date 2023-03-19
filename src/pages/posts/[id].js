@@ -1,5 +1,5 @@
 import Layout from "@/components/Layout";
-import PostDetail from "@/components/PostDetail";
+import PostDetail from "@/components/posts-page/PostDetail";
 
 export default function Posts() {
   return (

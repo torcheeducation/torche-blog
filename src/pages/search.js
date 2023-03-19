@@ -1,6 +1,6 @@
 import Layout from "@/components/Layout"
-import SearchHero from "@/components/SearchHero"
-import SearchPosts from "@/components/SearchPosts"
+import SearchHero from "@/components/search-page/SearchHero"
+import SearchPosts from "@/components/search-page/SearchPosts"
 
 export default function Search() {
   return (

@@ -1,6 +1,6 @@
-import AllPosts from "@/components/AllPosts";
+import AllPosts from "@/components/posts-page/AllPosts";
 import Layout from "@/components/Layout";
-import NewPosts from "@/components/NewPosts";
+import NewPosts from "@/components/posts-page/NewPosts";
 
 export default function Posts() {
   return (

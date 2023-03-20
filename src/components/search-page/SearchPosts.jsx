@@ -2,7 +2,7 @@ import { paginate } from "@/lib/paginate"
 import Image from "next/image"
 import Link from "next/link"
 import { useSearchParams } from "next/navigation"
-import { useEffect, useState } from "react"
+import { useState } from "react"
 import Pagination from "./Pagination"
 
 export default function SearchPosts() {
@@ -104,7 +104,7 @@ export default function SearchPosts() {
       {result.length > 0 ? (
         <>
           <div className="min-h-[30rem] flex flex-col gap-10">
-            {paginatedPosts.map(({ id, title, description, image, category }) => (
+            {paginatedPosts.map(({ id, title, description, category }) => (
                 <Link key={id} href={`/posts/${id}`} className="group flex flex-col items-center gap-2 md:h-36 md:flex-row md:gap-4">
                   <div className={`w-full h-4 rounded-md ${category} md:w-16 md:h-full`}></div>
                   <div className="w-full bg-trendingpost p-4 rounded-md md:h-full md:w-full">

@@ -1,11 +1,11 @@
-import Education from "@/components/Education";
-import Hero from "@/components/Hero";
+import Education from "@/components/home-page/Education";
+import Hero from "@/components/home-page/Hero";
+import LifeStyle from "@/components/home-page/LifeStyle";
+import News from "@/components/home-page/News";
+import Welcome from "@/components/home-page/Welcome";
 import Layout from "@/components/Layout";
-import LifeStyle from "@/components/LifeStyle";
-import NewPosts from "@/components/NewPosts";
-import News from "@/components/News";
-import TrendingPosts from "@/components/TrendingPosts";
-import Welcome from "@/components/Welcome";
+import TrendingPosts from "@/components/home-page/TrendingPosts";
+import NewPosts from "@/components/posts-page/NewPosts";
 
 export default function Home() {
   return (

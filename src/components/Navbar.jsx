@@ -30,7 +30,7 @@ export default function Navbar() {
     },
     {
       id: 5,
-      href: "/about",
+      href: "https://torche.app/#about",
       text: "Tentang Kami",
     },
   ];

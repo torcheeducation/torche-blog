@@ -31,7 +31,7 @@ export default function Layout({ children, title }) {
           href="/favicon-16x16.png"
         />
         <link rel="manifest" href="/site.webmanifest"></link>
-        <title>{title + " - Torche Education Blog"}</title>
+        <title>{title + " - Torche Blog"}</title>
       </Head>
       <main className={cairo.className}>
         <Navbar />

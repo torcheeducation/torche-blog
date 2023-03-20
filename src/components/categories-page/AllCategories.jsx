@@ -2,8 +2,8 @@ import { paginate } from "@/lib/paginate";
 import Image from "next/image";
 import Link from "next/link";
 import { useSearchParams } from "next/navigation";
-import { useEffect, useState } from "react";
-import Pagination from "./Pagination";
+import { useState } from "react";
+import Pagination from "@/components/search-page/Pagination";
 import Select from "react-select";
 
 export default function AllCategories() {
@@ -24,7 +24,7 @@ export default function AllCategories() {
       title: "10 Bahan Kimia Paling Berbahaya di Tempat Kerja",
       description:
         "Sementara banyak bahan kimia di tempat kerja mungkin tampak tidak berbahaya, beberapa di antaranya dapat menimbulkan bahaya yang signifikan. Mengetahui mana yang berbahaya dan bagaimana menangani bahan kimia berbahaya dengan benar dapat membantu mencegah cedera dan efek merugikan yang kronis. Di sini kita melihat 10 bahan kimia paling berbahaya di tempat kerja, yaitu arsenik, timbal, benzena, kromium, toluena, kadmium, zinc, merkuri, pestisida, dan limbah elektronik. ",
-      img: "/image/postingan4.png",
+      img: "/img/postingan4.png",
       category: "edukasi",
     },
     {
@@ -32,7 +32,7 @@ export default function AllCategories() {
       title: "10 Bahan Kimia Paling Berbahaya di Tempat Kerja",
       description:
         "Sementara banyak bahan kimia di tempat kerja mungkin tampak tidak berbahaya, beberapa di antaranya dapat menimbulkan bahaya yang signifikan. Mengetahui mana yang berbahaya dan bagaimana menangani bahan kimia berbahaya dengan benar dapat membantu mencegah cedera dan efek merugikan yang kronis. Di sini kita melihat 10 bahan kimia paling berbahaya di tempat kerja, yaitu arsenik, timbal, benzena, kromium, toluena, kadmium, zinc, merkuri, pestisida, dan limbah elektronik. ",
-      img: "/image/postingan4.png",
+      img: "/img/postingan4.png",
       category: "edukasi",
     },
     {
@@ -40,7 +40,7 @@ export default function AllCategories() {
       title: "10 Bahan Kimia Paling Berbahaya di Tempat Kerja",
       description:
         "Sementara banyak bahan kimia di tempat kerja mungkin tampak tidak berbahaya, beberapa di antaranya dapat menimbulkan bahaya yang signifikan. Mengetahui mana yang berbahaya dan bagaimana menangani bahan kimia berbahaya dengan benar dapat membantu mencegah cedera dan efek merugikan yang kronis. Di sini kita melihat 10 bahan kimia paling berbahaya di tempat kerja, yaitu arsenik, timbal, benzena, kromium, toluena, kadmium, zinc, merkuri, pestisida, dan limbah elektronik. ",
-      img: "/image/postingan4.png",
+      img: "/img/postingan4.png",
       category: "edukasi",
     },
     {
@@ -48,7 +48,7 @@ export default function AllCategories() {
       title: "10 Bahan Kimia Paling Berbahaya di Tempat Kerja",
       description:
         "Sementara banyak bahan kimia di tempat kerja mungkin tampak tidak berbahaya, beberapa di antaranya dapat menimbulkan bahaya yang signifikan. Mengetahui mana yang berbahaya dan bagaimana menangani bahan kimia berbahaya dengan benar dapat membantu mencegah cedera dan efek merugikan yang kronis. Di sini kita melihat 10 bahan kimia paling berbahaya di tempat kerja, yaitu arsenik, timbal, benzena, kromium, toluena, kadmium, zinc, merkuri, pestisida, dan limbah elektronik. ",
-      img: "/image/postingan4.png",
+      img: "/img/postingan4.png",
       category: "edukasi",
     },
     {
@@ -56,7 +56,7 @@ export default function AllCategories() {
       title: "10 Bahan Kimia Paling Berbahaya di Tempat Kerja",
       description:
         "Sementara banyak bahan kimia di tempat kerja mungkin tampak tidak berbahaya, beberapa di antaranya dapat menimbulkan bahaya yang signifikan. Mengetahui mana yang berbahaya dan bagaimana menangani bahan kimia berbahaya dengan benar dapat membantu mencegah cedera dan efek merugikan yang kronis. Di sini kita melihat 10 bahan kimia paling berbahaya di tempat kerja, yaitu arsenik, timbal, benzena, kromium, toluena, kadmium, zinc, merkuri, pestisida, dan limbah elektronik. ",
-      img: "/image/postingan4.png",
+      img: "/img/postingan4.png",
       category: "edukasi",
     },
     {
@@ -64,7 +64,7 @@ export default function AllCategories() {
       title: "10 Bahan Percobaan Paling Berbahaya di Tempat Kerja",
       description:
         "Sementara banyak bahan kimia di tempat kerja mungkin tampak tidak berbahaya, beberapa di antaranya dapat menimbulkan bahaya yang signifikan. Mengetahui mana yang berbahaya dan bagaimana menangani bahan kimia berbahaya dengan benar dapat membantu mencegah cedera dan efek merugikan yang kronis. Di sini kita melihat 10 bahan kimia paling berbahaya di tempat kerja, yaitu arsenik, timbal, benzena, kromium, toluena, kadmium, zinc, merkuri, pestisida, dan limbah elektronik. ",
-      img: "/image/postingan4.png",
+      img: "/img/postingan4.png",
       category: "edukasi",
     },
     {
@@ -72,7 +72,7 @@ export default function AllCategories() {
       title: "10 Bahan Percobaan Paling Berbahaya di Tempat Kerja",
       description:
         "Sementara banyak bahan kimia di tempat kerja mungkin tampak tidak berbahaya, beberapa di antaranya dapat menimbulkan bahaya yang signifikan. Mengetahui mana yang berbahaya dan bagaimana menangani bahan kimia berbahaya dengan benar dapat membantu mencegah cedera dan efek merugikan yang kronis. Di sini kita melihat 10 bahan kimia paling berbahaya di tempat kerja, yaitu arsenik, timbal, benzena, kromium, toluena, kadmium, zinc, merkuri, pestisida, dan limbah elektronik. ",
-      img: "/image/postingan4.png",
+      img: "/img/postingan4.png",
       category: "edukasi",
     },
     {
@@ -80,7 +80,7 @@ export default function AllCategories() {
       title: "10 Bahan Percobaan Paling Berbahaya di Tempat Kerja",
       description:
         "Sementara banyak bahan kimia di tempat kerja mungkin tampak tidak berbahaya, beberapa di antaranya dapat menimbulkan bahaya yang signifikan. Mengetahui mana yang berbahaya dan bagaimana menangani bahan kimia berbahaya dengan benar dapat membantu mencegah cedera dan efek merugikan yang kronis. Di sini kita melihat 10 bahan kimia paling berbahaya di tempat kerja, yaitu arsenik, timbal, benzena, kromium, toluena, kadmium, zinc, merkuri, pestisida, dan limbah elektronik. ",
-      img: "/image/postingan4.png",
+      img: "/img/postingan4.png",
       category: "edukasi",
     },
     {
@@ -88,7 +88,7 @@ export default function AllCategories() {
       title: "10 Bahan Percobaan Paling Berbahaya di Tempat Kerja",
       description:
         "Sementara banyak bahan kimia di tempat kerja mungkin tampak tidak berbahaya, beberapa di antaranya dapat menimbulkan bahaya yang signifikan. Mengetahui mana yang berbahaya dan bagaimana menangani bahan kimia berbahaya dengan benar dapat membantu mencegah cedera dan efek merugikan yang kronis. Di sini kita melihat 10 bahan kimia paling berbahaya di tempat kerja, yaitu arsenik, timbal, benzena, kromium, toluena, kadmium, zinc, merkuri, pestisida, dan limbah elektronik. ",
-      img: "/image/postingan4.png",
+      img: "/img/postingan4.png",
       category: "edukasi",
     },
     {
@@ -96,26 +96,24 @@ export default function AllCategories() {
       title: "10 Bahan Percobaan Paling Berbahaya di Tempat Kerja",
       description:
         "Sementara banyak bahan kimia di tempat kerja mungkin tampak tidak berbahaya, beberapa di antaranya dapat menimbulkan bahaya yang signifikan. Mengetahui mana yang berbahaya dan bagaimana menangani bahan kimia berbahaya dengan benar dapat membantu mencegah cedera dan efek merugikan yang kronis. Di sini kita melihat 10 bahan kimia paling berbahaya di tempat kerja, yaitu arsenik, timbal, benzena, kromium, toluena, kadmium, zinc, merkuri, pestisida, dan limbah elektronik. ",
-      img: "/image/postingan4.png",
+      img: "/img/postingan4.png",
       category: "edukasi",
     },
     {
-      id: 10,
+      id: 11,
       title: "10 Bahan Percobaan Paling Aman di Tempat Kerja",
       description:
         "Sementara banyak bahan kimia di tempat kerja mungkin tampak tidak berbahaya, beberapa di antaranya dapat menimbulkan bahaya yang signifikan. Mengetahui mana yang berbahaya dan bagaimana menangani bahan kimia berbahaya dengan benar dapat membantu mencegah cedera dan efek merugikan yang kronis. Di sini kita melihat 10 bahan kimia paling berbahaya di tempat kerja, yaitu arsenik, timbal, benzena, kromium, toluena, kadmium, zinc, merkuri, pestisida, dan limbah elektronik. ",
-      img: "/image/postingan4.png",
+      img: "/img/postingan4.png",
       category: "edukasi",
     },
   ];
 
   const [selectedCategory, setSelectedCategory] = useState("");
-  console.log(selectedCategory);
 
   const result = CategoriesResult.filter((categories) =>
     categories.category.toLowerCase().includes(selectedCategory.toLowerCase())
   );
-  console.log(result);
 
   const pageSize = 5;
   const onPageChange = (page) => {
@@ -180,7 +178,7 @@ export default function AllCategories() {
       ) : (
         <div className="mx-auto mt-10 flex w-full flex-col gap-20 md:flex-row md:items-center md:justify-center lg:w-[80%]">
           <Image
-            src="/image/notfound.png"
+            src="/img/notfound.png"
             alt="not found"
             width={433}
             height={364}

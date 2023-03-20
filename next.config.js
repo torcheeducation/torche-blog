@@ -1,6 +1,6 @@
 /** @type {import('next').NextConfig} */
-const nextConfig = {
-  reactStrictMode: true,
-}
+const withWorkbox = require('next-with-workbox');
 
-module.exports = nextConfig
+module.exports = withWorkbox({
+  reactStrictMode: true,
+})

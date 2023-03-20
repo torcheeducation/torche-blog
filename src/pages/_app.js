@@ -1,25 +1,16 @@
 import '@/styles/globals.css'
 import { useEffect } from 'react'
+import { Workbox } from 'workbox-window'
 
 export default function App({ Component, pageProps }) {
   useEffect(() => {
-    const registerSW = async () => {
-      if (!('serviceWorker' in navigator)) {
-        console.log('Browser tidak mendukung Service Worker')
-        return
-      }
-  
-      try {
-        await navigator.serviceWorker.register('/sw.js')
-        console.log('Service Worker registered')
-      } catch (error) {
-        console.log('Failed to register Service Worker', error)
-      }
+    if (!('serviceWorker' in navigator) || process.env.NODE_ENV !== 'production') {
+      console.warn('Progressive Web App support is disabled')
+      return
     }
-    
-    window.addEventListener('load', () => {
-      registerSW()
-    })
+
+    const wb = new Workbox('sw.js', { scope: '/' })
+    wb.register()
   }, [])
 
   return <Component {...pageProps} />

@@ -15,7 +15,7 @@ export default function LifeStyle() {
         "10 Bahan Kimia Paling Berbahaya dan Paling Aman di Tempat Kerja Lengkap Dengan Penjelasannya",
       description:
         "Sementara banyak bahan kimia di tempat kerja mungkin tampak tidak berbahaya, beberapa di antaranya dapat menimbulkan bahaya yang signifikan. Mengetahui mana yang berbahaya dan bagaimana menangani bahan kimia berbahaya dengan benar dapat membantu mencegah cedera dan efek merugikan yang kronis. Di sini kita melihat 10 bahan kimia paling berbahaya di tempat kerja, yaitu arsenik, timbal, benzena, kromium, toluena, kadmium, zinc, merkuri, pestisida, dan limbah elektronik. ",
-      image: "/image/postingan4.png",
+      image: "/img/postingan4.png",
     },
     {
       id: 2,
@@ -24,7 +24,7 @@ export default function LifeStyle() {
         "10 Bahan Kimia Paling Berbahaya dan Paling Aman di Tempat Kerja Lengkap Dengan Penjelasannya",
       description:
         "Sementara banyak bahan kimia di tempat kerja mungkin tampak tidak berbahaya, beberapa di antaranya dapat menimbulkan bahaya yang signifikan. Mengetahui mana yang berbahaya dan bagaimana menangani bahan kimia berbahaya dengan benar dapat membantu mencegah cedera dan efek merugikan yang kronis. Di sini kita melihat 10 bahan kimia paling berbahaya di tempat kerja, yaitu arsenik, timbal, benzena, kromium, toluena, kadmium, zinc, merkuri, pestisida, dan limbah elektronik. ",
-      image: "/image/postingan4.png",
+      image: "/img/postingan4.png",
     },
     {
       id: 3,
@@ -33,14 +33,14 @@ export default function LifeStyle() {
         "10 Bahan Kimia Paling Berbahaya dan Paling Aman di Tempat Kerja Lengkap Dengan Penjelasannya",
       description:
         "Sementara banyak bahan kimia di tempat kerja mungkin tampak tidak berbahaya, beberapa di antaranya dapat menimbulkan bahaya yang signifikan. Mengetahui mana yang berbahaya dan bagaimana menangani bahan kimia berbahaya dengan benar dapat membantu mencegah cedera dan efek merugikan yang kronis. Di sini kita melihat 10 bahan kimia paling berbahaya di tempat kerja, yaitu arsenik, timbal, benzena, kromium, toluena, kadmium, zinc, merkuri, pestisida, dan limbah elektronik. ",
-      image: "/image/postingan4.png",
+      image: "/img/postingan4.png",
     },
   ];
 
   return (
     <div className=" mt-11 px-4 md:px-14">
       <div className="section-title relative">
-        <h2 className="  left-0 top-0 inline-block text-2xl uppercase text-slate-500">
+        <h2 className="left-0 top-0 inline-block text-2xl uppercase text-slate-500">
           GAYA HIDUP
         </h2>
         <Link
@@ -56,7 +56,7 @@ export default function LifeStyle() {
         {LifeStyle.slice(0, numLifeStyleLeft).map(
           ({ id, date, title, description, image }) => {
             return (
-              <aside className="group col-span-4 mb-7 w-full md:col-span-5 md:mb-0 lg:col-span-4">
+              <aside key={id} className="group col-span-4 mb-7 w-full md:col-span-5 md:mb-0 lg:col-span-4">
                 <Link key={id} href={`/posts/${id}`} className="  bg-slate-50">
                   <figure>
                     <Image
@@ -94,7 +94,7 @@ export default function LifeStyle() {
           {LifeStyle.slice(0, numLifeStylee).map(
             ({ id, title, description }) => {
               return (
-                <article className="rounded-t-lg border-t-[16px] border-[#51C1CB] md:rounded-l-lg md:border-t-[0px] md:border-l-[50px]">
+                <article key={id} className="rounded-t-lg border-t-[16px] border-[#51C1CB] md:rounded-l-lg md:border-t-[0px] md:border-l-[50px]">
                   <div className="group bg-slate-100 px-4 py-4">
                     <Link key={id} href={`/posts/${id}`}>
                       <div className="font-bold capitalize line-clamp-1 group-hover:text-blue-600 lg:text-lg">

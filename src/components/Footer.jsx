@@ -18,10 +18,10 @@ export default function Footer() {
           <ul>
             <li>
               <Image
-                className=" md:w-[128px]"
+                className="md:w-[128px]"
                 width={200}
                 height={200}
-                src={"/image/logo.png"}
+                src={"/img/logo.png"}
                 color="white"
                 alt="torche education Logo "
               />
@@ -44,7 +44,7 @@ export default function Footer() {
             </h2>
             <ul className="font-['Cairo Light'] text-sm font-light leading-7 text-white">
               <li>
-                <Link href={``} className="hover:underline">
+                <Link href={'/'} className="hover:underline">
                   Beranda
                 </Link>
               </li>
@@ -102,7 +102,7 @@ export default function Footer() {
         <span className="font-['Cairo Light'] mt-7 text-sm font-semibold text-white sm:mt-0 sm:text-center">
           Copyright Torche 2023
         </span>
-        <div class="mt-4 space-x-6  sm:mt-0  sm:justify-center">
+        <div className="mt-4 space-x-6  sm:mt-0  sm:justify-center">
           <div className="flex flex-col gap-4 text-base text-white sm:flex-row ">
             <div className=" flex gap-7">
               <Link href="https://twitter.com/TorcheEdu/">

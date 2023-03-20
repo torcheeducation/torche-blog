@@ -17,22 +17,22 @@ export default function PostDetail() {
       time: "10 menit baca",
       title: "10 Bahan Kimia Paling Berbahaya di Tempat Kerja",
       text: "Bahan kimia berbahaya harus disimpan dalam wadah tertutup rapat. Mereka tidak boleh terkena suhu tinggi dan mereka juga harus memiliki label yang sesuai yang ditempelkan padanya.",
-      person: "/image/writer.jpg",
+      person: "/img/writer.jpg",
       WriterName: "Adem Saridewi, Penulis Rajin",
       date: "10 November 2022",
-      image: "/image/postingan1.png",
+      image: "/img/postingan1.png",
     },
   ];
   const RelatedPosts = [
     {
       id: 1,
-      image: "/image/detailpost.jpg",
+      image: "/img/detailpost.jpg",
       date: "10 November 2022",
       title: "10 Bahan Kimia Paling Berbahaya di Tempat Kerja",
     },
     {
       id: 2,
-      image: "/image/detailpost.jpg",
+      image: "/img/detailpost.jpg",
       date: "10 November 2022",
       title: "10 Bahan Kimia Paling Berbahaya di Tempat Kerja",
     },
@@ -41,9 +41,9 @@ export default function PostDetail() {
   return (
     <div className="mx-2 sm:mx-7">
       {PostDetails.map(
-        ({ date, title, image, category, time, text, person, WriterName }) => {
+        ({ id, date, title, image, category, time, text, person, WriterName }) => {
           return (
-            <div>
+            <div key={id}>
               <div className="flex gap-1 ">
                 <h6 className="text-sm font-semibold text-[#9284F1]">
                   {category}

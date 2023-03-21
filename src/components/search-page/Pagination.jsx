@@ -3,11 +3,15 @@ import { BiChevronLeft, BiChevronRight } from 'react-icons/bi';
 export default function Pagination({ items, currentPage, pageSize, onPageChange }) {
   const pagesCount = Math.ceil(items / pageSize)
 
-  if (pagesCount === 1) {
+  const pages = Array.from({ length: pagesCount }, (_, i) => i + 1)
+
+  if (currentPage > pages.length) {
     onPageChange(1)
+  }
+
+  if (pagesCount === 1) {
     return null
   }
-  const pages = Array.from({ length: pagesCount }, (_, i) => i + 1)
 
   const sibling = 2;
   const number = [];

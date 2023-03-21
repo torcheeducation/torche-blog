@@ -9,6 +9,7 @@ module.exports = {
         trendingpost: "#F5F7FF",
         blueDate: "#5885E9",
         orangeLight: "#FF6442",
+        postColor: "#3E5294",
       },
       backgroundImage: {
         homeHero: "linear-gradient(173.59deg, rgba(69, 100, 159, 0.78) 26.07%, rgba(0, 12, 52, 0.4446) 85.14%), url('/img/hero.webp')",

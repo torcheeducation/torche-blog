@@ -1,14 +1,15 @@
-import { useRouter, useSearchParams } from "next/navigation";
+import { useSearchParams } from "next/navigation";
+import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
 import { ImSearch } from "react-icons/im";
 import { IoIosCloseCircle } from "react-icons/io";
 
 export default function SearchHero() {
-  const router = useRouter();
-  const searchParams = useSearchParams();
-  const searchTarget = searchParams.get("target");
+  const router = useRouter()
+  const searchParams = useSearchParams()
+  const searchTarget = searchParams.get("target")
 
-  const [search, setSearch] = useState("");
+  const [search, setSearch] = useState("")
 
   useEffect(() => {
     const inputValueSet = () => {
@@ -17,24 +18,32 @@ export default function SearchHero() {
       });
 
       if (searchTarget) {
-        setSearch(searchTarget);
+        setSearch(searchTarget)
       }
     };
 
-    inputValueSet();
-  }, [searchTarget]);
+    inputValueSet()
+  }, [searchTarget])
 
   const deleteSearch = () => {
-    setSearch("");
-    document.querySelector("input[name=search]").value = "";
+    setSearch("")
+    document.querySelector("input[name=search]").value = ""
   };
 
   const searchPosts = (e) => {
     if (e.code === "Enter" || e.code === "NumpadEnter" || e.key === "Enter") {
-      if (e.target.value.length > 0) {
-        router.push(`/search?target=${e.target.value}`);
-      } else {
-        router.push(`/search?target=`);
+      if (router.pathname === "/search") {
+        if (e.target.value.length > 0) {
+          router.push(`/search?target=${e.target.value}`)
+        } else {
+          router.push(`/search?target=`)
+        }
+      } else if (router.pathname === "/categories") {
+        if (e.target.value.length > 0) {
+          router.push(`/categories?target=${e.target.value}`)
+        } else {
+          router.push(`/categories?target=`)
+        }
       }
     }
   };

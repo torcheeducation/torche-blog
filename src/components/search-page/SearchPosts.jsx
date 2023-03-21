@@ -104,9 +104,9 @@ export default function SearchPosts() {
       {result.length > 0 ? (
         <>
           <div className="min-h-[30rem] flex flex-col gap-10">
-            {paginatedPosts.map(({ id, title, description, category }) => (
+            {paginatedPosts.map(({ id, title, description }) => (
                 <Link key={id} href={`/posts/${id}`} className="group flex flex-col items-center gap-2 md:h-36 md:flex-row md:gap-4">
-                  <div className={`w-full h-4 rounded-md ${category} md:w-16 md:h-full`}></div>
+                  <div className={`w-full h-4 rounded-md bg-postColor md:w-16 md:h-full`}></div>
                   <div className="w-full bg-trendingpost p-4 rounded-md md:h-full md:w-full">
                     <h2 className="font-bold text-xl group-hover:text-blue-600">{title}</h2>
                     <p className="mt-4 text-sm text-slate-600 line-clamp-3">{description}</p>

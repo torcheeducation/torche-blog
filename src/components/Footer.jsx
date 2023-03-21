@@ -54,17 +54,17 @@ export default function Footer() {
                 </Link>
               </li>
               <li>
-                <Link href={``} className="hover:underline">
+                <Link href={`https://torche.app/#services`} className="hover:underline">
                   Layanan
                 </Link>
               </li>
               <li>
-                <Link href={``} className="hover:underline">
+                <Link href={`https://torche.app/`} className="hover:underline">
                   Kursus
                 </Link>
               </li>
               <li>
-                <Link href={``} className="hover:underline">
+                <Link href={`https://torche.app/careers/`} className="hover:underline">
                   Karir
                 </Link>
               </li>

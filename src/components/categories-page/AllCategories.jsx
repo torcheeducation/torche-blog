@@ -7,15 +7,17 @@ import Pagination from "@/components/search-page/Pagination";
 import Select from "react-select";
 
 export default function AllCategories() {
-  const CategoriesParams = useSearchParams();
-  const CategoriesTarget = CategoriesParams.get("target") || "";
+  const categoriesParams = useSearchParams();
+  const categoriesTarget = categoriesParams.get("target") || "";
 
   const [currentPage, setCurrentPage] = useState(1);
+  const [selectedCategory, setSelectedCategory] = useState("");
 
   const categories = [
-    { value: "Edukasi", label: "Edukasi" },
-    { value: "Berita", label: "Berita" },
-    { value: "Gaya Hidup", label: "Gaya Hidup" },
+    { value: "", label: "Semua" },
+    { value: "edukasi", label: "Edukasi" },
+    { value: "berita", label: "Berita" },
+    { value: "gaya hidup", label: "Gaya Hidup" },
   ];
 
   const CategoriesResult = [
@@ -33,7 +35,7 @@ export default function AllCategories() {
       description:
         "Sementara banyak bahan kimia di tempat kerja mungkin tampak tidak berbahaya, beberapa di antaranya dapat menimbulkan bahaya yang signifikan. Mengetahui mana yang berbahaya dan bagaimana menangani bahan kimia berbahaya dengan benar dapat membantu mencegah cedera dan efek merugikan yang kronis. Di sini kita melihat 10 bahan kimia paling berbahaya di tempat kerja, yaitu arsenik, timbal, benzena, kromium, toluena, kadmium, zinc, merkuri, pestisida, dan limbah elektronik. ",
       img: "/img/postingan4.png",
-      category: "edukasi",
+      category: "gaya hidup",
     },
     {
       id: 3,
@@ -49,7 +51,7 @@ export default function AllCategories() {
       description:
         "Sementara banyak bahan kimia di tempat kerja mungkin tampak tidak berbahaya, beberapa di antaranya dapat menimbulkan bahaya yang signifikan. Mengetahui mana yang berbahaya dan bagaimana menangani bahan kimia berbahaya dengan benar dapat membantu mencegah cedera dan efek merugikan yang kronis. Di sini kita melihat 10 bahan kimia paling berbahaya di tempat kerja, yaitu arsenik, timbal, benzena, kromium, toluena, kadmium, zinc, merkuri, pestisida, dan limbah elektronik. ",
       img: "/img/postingan4.png",
-      category: "edukasi",
+      category: "gaya hidup",
     },
     {
       id: 5,
@@ -65,7 +67,7 @@ export default function AllCategories() {
       description:
         "Sementara banyak bahan kimia di tempat kerja mungkin tampak tidak berbahaya, beberapa di antaranya dapat menimbulkan bahaya yang signifikan. Mengetahui mana yang berbahaya dan bagaimana menangani bahan kimia berbahaya dengan benar dapat membantu mencegah cedera dan efek merugikan yang kronis. Di sini kita melihat 10 bahan kimia paling berbahaya di tempat kerja, yaitu arsenik, timbal, benzena, kromium, toluena, kadmium, zinc, merkuri, pestisida, dan limbah elektronik. ",
       img: "/img/postingan4.png",
-      category: "edukasi",
+      category: "berita",
     },
     {
       id: 7,
@@ -81,7 +83,7 @@ export default function AllCategories() {
       description:
         "Sementara banyak bahan kimia di tempat kerja mungkin tampak tidak berbahaya, beberapa di antaranya dapat menimbulkan bahaya yang signifikan. Mengetahui mana yang berbahaya dan bagaimana menangani bahan kimia berbahaya dengan benar dapat membantu mencegah cedera dan efek merugikan yang kronis. Di sini kita melihat 10 bahan kimia paling berbahaya di tempat kerja, yaitu arsenik, timbal, benzena, kromium, toluena, kadmium, zinc, merkuri, pestisida, dan limbah elektronik. ",
       img: "/img/postingan4.png",
-      category: "edukasi",
+      category: "berita",
     },
     {
       id: 9,
@@ -109,11 +111,8 @@ export default function AllCategories() {
     },
   ];
 
-  const [selectedCategory, setSelectedCategory] = useState("");
-
-  const result = CategoriesResult.filter((categories) =>
-    categories.category.toLowerCase().includes(selectedCategory.toLowerCase())
-  );
+  const categoryFilter = CategoriesResult.filter((post) => post.category.toLowerCase().includes(selectedCategory.toLowerCase()))
+  const result = categoryFilter.filter((search) => search.title.toLowerCase().includes(categoriesTarget.toLowerCase()))
 
   const pageSize = 5;
   const onPageChange = (page) => {
@@ -132,7 +131,6 @@ export default function AllCategories() {
       className="px-6 py-10 md:px-20 md:py-14 lg:min-h-screen lg:px-40 lg:py-14"
     >
       <Select
-        value={selectedCategory}
         onChange={handleChange}
         options={categories}
         placeholder="Select Option"

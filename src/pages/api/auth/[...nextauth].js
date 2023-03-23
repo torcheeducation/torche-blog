@@ -1,39 +1,55 @@
-import { MongoClient } from "mongodb"
-import NextAuth from "next-auth/next"
+import NextAuth from "next-auth/next";
 import CredentialsProvider from "next-auth/providers/credentials"
-import bcrypt from "bcrypt"
 
-export const authOptions = {
+import User from "@/models/user";
+import dbConnect from "@/utils/dbConnect";
+
+export default NextAuth({
   session: {
-    jwt: "true"
+    jwt: true
   },
   providers: [
     CredentialsProvider({
-      async authorize(credentials, req) {
-        const uri = `mongodb+srv://${process.env.MONGO_USER}:${process.env.MONGO_PASS}@${process.env.MONGO_CLUSTER}.avbotnb.mongodb.net/?retryWrites=true&w=majority`
-        const client = await MongoClient.connect(uri, {
-          useNewUrlParser: true,
-          useUnifiedTopology: true,
-        })
+      name: "credentials",
+      credentials: {
+        username: { label: "Username", type: "text" },
+        password: { label: "Password", type: "password" }
+      },
+      authorize: async (credentials) => {
+        dbConnect()
 
-        const users = client.db().collection("users")
-        const result = await users.findOne({ username: credentials.username })
-        if (!result) {
-          client.close()
-          throw new Error("No user found with this username")
+        const user = await User.findOne({ username: credentials.username }).select("+password")
+        if (!user) {
+          throw new Error("Tidak ditemukan User dengan username tersebut, pastikan Anda memasukkan username dan password yang benar!")
         }
 
-        const checkPassword = await bcrypt.compare(credentials.password, result.password)
-        if (!checkPassword) {
-          client.close()
-          throw new Error("Password doesn't match!")
+        const passwordValid = await user.comparePassword(credentials.password)
+        if (!passwordValid) {
+          throw new Error("Password Anda salah!")
         }
-
-        client.close()
-        return { username: result.username }
+        
+        return user
       }
     })
   ],
-}
-
-export default NextAuth(authOptions)
+  callbacks: {
+    async jwt({ token, user }) {
+      if (user) {
+        token.user = {
+          _id: user._id,
+          username: user.username
+        }
+      }
+      return token
+    },
+    session: async({ session, token }) => {
+      if (token) {
+        session.user = token.user
+      }
+      return session
+    }
+  },
+  pages: {
+    signIn: "/admin/login"
+  },
+})

@@ -1,29 +1,32 @@
-import { getSession, signOut } from "next-auth/react";
+import Layout from "@/components/admin-page/Layout"
+import { hasToken } from "@/utils/checkUser"
+import { signOut } from "next-auth/react"
 
-export default function Admin({ session }) {
-  if (session) {
-    console.log("Session ada")
-  }
-
+export default function Admin({ data }) {
   return (
-    <div>
-      <h1>Check!</h1>
-      <button onClick={signOut}>Logout ?</button>
-    </div>
+    <Layout title="Dashboard">
+      <h1>This is Admin Page. Need login to access this page!</h1>
+      <p>Login as <b>{data.name}</b></p>
+      <button onClick={() => signOut()}>Sign Out</button>
+    </Layout>
   )
 }
 
 export async function getServerSideProps(context) {
-  const session = await getSession({ req: context.req });
-  if (!session) {
+  const getToken = await hasToken(context.req)
+
+  if (!getToken.isToken) {
     return {
       redirect: {
-        destination: '/admin/login',
+        destination: "/admin/login",
         permanent: false,
       },
-    };
+    }
   }
-  return {
-    props: { session },
-  };
+
+  return { 
+    props: {
+      data: getToken.data
+    } 
+  }
 }

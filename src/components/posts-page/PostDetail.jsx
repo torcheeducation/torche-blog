@@ -41,7 +41,17 @@ export default function PostDetail() {
   return (
     <div className="mx-2 sm:mx-7">
       {PostDetails.map(
-        ({ id, date, title, image, category, time, text, person, WriterName }) => {
+        ({
+          id,
+          date,
+          title,
+          image,
+          category,
+          time,
+          text,
+          person,
+          WriterName,
+        }) => {
           return (
             <div key={id}>
               <div className="flex gap-1 ">

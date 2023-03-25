@@ -1,5 +1,8 @@
 import Layout from "@/components/admin-page/Layout"
-import { useEffect, useState } from "react"
+import { useRouter } from "next/router"
+import { useState } from "react"
+import Swal from "sweetalert2"
+import withReactContent from "sweetalert2-react-content"
 
 const key = "torcheblogadmin"
 
@@ -21,22 +24,52 @@ async function createUser(name, username, password) {
   return data
 }
 
-export default function SignUpTest() {
+export default function SignUp() {
   const [name, setName] = useState("")
   const [username, setUsername] = useState("")
   const [password, setPassword] = useState("")
+  const [passPage, setPassPage] = useState("")
   const [isCode, setIsCode] = useState(false)
 
-  useEffect(() => {
-    if (!isCode) {
-      let code = prompt("Masukkan password untuk mengakses halaman ini (Masukkan 2 kali) :")
-      if (code === key) {
-        setIsCode(true)
-      } else {
-        alert("Password yang Anda masukkan salah!")
+  const router = useRouter()
+  const MySwal = withReactContent(Swal)
+
+  const handleVerify = (e) => {
+    e.preventDefault()
+
+    const Toast = MySwal.mixin({
+      toast: true,
+      position: 'top-end',
+      showConfirmButton: false,
+      timer: 3000,
+      timerProgressBar: true,
+      didOpen: (toast) => {
+        toast.addEventListener('mouseenter', MySwal.stopTimer)
+        toast.addEventListener('mouseleave', MySwal.resumeTimer)
       }
-      }
-  }, [isCode])
+    })
+
+    if (!passPage) {
+      Toast.fire({
+        icon: 'error',
+        title: "Harap isi form terlebih dahulu!"
+      })
+    } 
+    
+    if (passPage === key) {
+      setIsCode(true)
+      document.querySelector("#passPage").value = ""
+      Toast.fire({
+        icon: "success",
+        title: "Password Benar!"
+      })
+    } else {
+      Toast.fire({
+        icon: "error",
+        title: "Gagal Akses. Password Yang Anda Masukkan Salah!"
+      })
+    }
+  }
 
   const handleSignup = async (e) => {
     e.preventDefault()
@@ -59,7 +92,10 @@ export default function SignUpTest() {
           <button type="submit" onClick={handleSignup}>Sign Up</button>
         </form>
       ) : (
-        <></>
+        <form>
+          <input type="text" id="passPage" placeholder="Masukkan Password untuk Mengakses" required onChange={(e) => setPassPage(e.target.value)} />
+          <button type="submit" onClick={handleVerify}>Verify Password</button>
+        </form>
       )}
     </Layout>
   )

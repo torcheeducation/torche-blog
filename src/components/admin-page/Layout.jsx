@@ -12,7 +12,7 @@ export default function Layout({ children, title }) {
         <title>{title + " - Torche Blog Admin"}</title>
       </Head>
       <main className={cairo.className}>
-        <Navbar />
+        <Navbar title={title} />
         {children}
       </main>
     </>

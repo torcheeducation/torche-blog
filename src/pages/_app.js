@@ -8,8 +8,9 @@ import "nprogress/nprogress.css"; //styles of nprogress//Binding events.
 Router.events.on("routeChangeStart", () => NProgress.start());
 Router.events.on("routeChangeComplete", () => NProgress.done());
 Router.events.on("routeChangeError", () => NProgress.done());
+import { SessionProvider } from 'next-auth/react'
 
-export default function App({ Component, pageProps }) {
+export default function App({ Component, pageProps: { session, ...pageProps } }) {
   useEffect(() => {
     if (
       !("serviceWorker" in navigator) ||
@@ -23,5 +24,9 @@ export default function App({ Component, pageProps }) {
     wb.register();
   }, []);
 
-  return <Component {...pageProps} />;
+  return (
+    <SessionProvider session={session}>
+      <Component {...pageProps} />
+    </SessionProvider>
+  )
 }

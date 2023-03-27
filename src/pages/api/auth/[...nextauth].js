@@ -16,6 +16,7 @@ export default NextAuth({
         password: { label: "Password", type: "password" }
       },
       authorize: async (credentials) => {
+        console.log(credentials)
         dbConnect()
 
         const user = await User.findOne({ username: credentials.username }).select("+password")

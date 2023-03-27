@@ -13,7 +13,7 @@ export default function Admin({ data }) {
       </div>
       <div className="p-4 md:px-8">
         <AdminInfo />
-        <AddPost />
+        <AddPost owner={data} />
       </div>
     </Layout>
   )

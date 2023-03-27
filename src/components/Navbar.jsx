@@ -71,7 +71,7 @@ export default function Navbar() {
       </button>
       <div
         className={
-          "absolute top-0 left-0 z-20 h-full w-full bg-black transition-all duration-300 lg:hidden" +
+          "fixed top-0 left-0 z-20 h-full w-full bg-black transition-all duration-300 lg:hidden" +
           (navbar ? " visible opacity-70" : " invisible opacity-0")
         }
       ></div>

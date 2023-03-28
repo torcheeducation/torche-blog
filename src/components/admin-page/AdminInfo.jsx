@@ -1,7 +1,20 @@
+import { getPosts } from "@/lib/get-posts"
+import { useEffect, useState } from "react"
 import { BsFileEarmarkPostFill } from "react-icons/bs"
 import { FiUser, FiUsers } from "react-icons/fi"
 
 export default function AdminInfo() {
+  const [posts, setPosts] = useState("")
+
+  useEffect(() => {
+    const Posts = async () => {
+      const data = await getPosts()
+      setPosts(data.posts)
+    }
+
+    Posts()
+  }, [])
+
   return (
     <div className="flex flex-col gap-4 items-center justify-center md:flex-row md:justify-around">
       <div className="w-full md:w-64 lg:w-72 h-20 flex rounded-lg shadow-lg">
@@ -10,7 +23,7 @@ export default function AdminInfo() {
         </div>
         <div className="w-2/3 pl-5 flex flex-col justify-center">
           <h2 className="font-semibold text-lg">Jumlah Postingan</h2>
-          <p className="text-slate-700">20 Postingan</p>
+          <p className="text-slate-700">{posts.length} Postingan</p>
         </div>
       </div>
       <div className="w-full md:w-64 lg:w-72 h-20 flex rounded-lg shadow-lg">

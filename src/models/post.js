@@ -21,6 +21,10 @@ const postSchema = new mongoose.Schema({
     type: String,
     required: [true, "Please enter the owner of this post"]
   },
+  visitor: {
+    type: Number,
+    required: [true, "Please enter the number of visitor in this post"]
+  },
   createdAt: {
     type: Date,
     default: Date.now,

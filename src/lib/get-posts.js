@@ -4,3 +4,10 @@ export async function getPosts() {
 
   return data
 }
+
+export async function getVisitor() {
+  const res = await fetch("/api/visitor")
+  const data = await res.json()
+
+  return data
+}

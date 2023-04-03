@@ -7,8 +7,7 @@
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
-    "export": "next export",
-    "migrate": "node-pg-migrate"
+    "export": "next export"
   },
   "dependencies": {
     "@aws-sdk/client-s3": "^3.299.0",
@@ -20,7 +19,6 @@
     "next": "13.2.3",
     "next-auth": "^4.20.1",
     "next-connect": "^0.13.0",
-    "next-s3-upload": "^0.3.0",
     "next-with-workbox": "^3.0.5",
     "nprogress": "^0.2.0",
     "react": "18.2.0",

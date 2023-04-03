@@ -13,12 +13,12 @@ import { SiLine } from "react-icons/si";
 export default function Footer() {
   return (
     <footer className="mt-20 bg-[#151515] p-5 ">
-      <div className="md:grid md:grid-cols-1 md:py-12 md:px-11 md:pt-10 lg:flex lg:justify-between lg:p-20">
+      <div className="py-12 md:grid md:grid-cols-1 md:px-11 md:pt-10 lg:flex lg:justify-between lg:p-20">
         <div className="md:order-0 object-contain lg:order-1">
           <ul>
-            <li>
+            <li className="pb-6">
               <Image
-                className="md:w-[128px]"
+                className="w-[128px]"
                 width={200}
                 height={200}
                 src={"/img/logo.png"}
@@ -105,33 +105,33 @@ export default function Footer() {
         <div className="mt-4 space-x-6  sm:mt-0  sm:justify-center">
           <div className="flex flex-col gap-4 text-base text-white sm:flex-row ">
             <div className=" flex gap-7">
-              <Link href="https://twitter.com/TorcheEdu/">
+              <Link href="https://twitter.com/TorcheEdu/" target="_blank">
                 <SiTwitter />
               </Link>
-              <Link href="https://www.facebook.com/torche.edu/">
+              <Link href="https://www.facebook.com/torche.edu/" target="_blank">
                 <SiFacebook />
               </Link>
-              <Link href="https://www.instagram.com/torche.app/">
+              <Link href="https://www.instagram.com/torche.app/" target="_blank">
                 <SiInstagram />
               </Link>
-              <Link href="https://www.youtube.com/channel/UCQnYuE3KU3CzcAjVhuCQtNw">
+              <Link href="https://www.youtube.com/channel/UCQnYuE3KU3CzcAjVhuCQtNw" target="_blank">
                 <SiYoutube />
               </Link>
-              <Link href="https://www.linkedin.com/company/torche-education/">
+              <Link href="https://www.linkedin.com/company/torche-education/" target="_blank">
                 <SiLinkedin />
               </Link>
             </div>
             <div className="ml-0 flex gap-7 sm:ml-3">
-              <Link href="https://vt.tiktok.com/ZSeu2n4ca/">
+              <Link href="https://vt.tiktok.com/ZSeu2n4ca/" target="_blank">
                 <SiTiktok />
               </Link>
-              <Link href="https://discord.com/invite/2fYBrcK785">
+              <Link href="https://discord.com/invite/2fYBrcK785" target="_blank">
                 <SiDiscord />
               </Link>
-              <Link href="https://wa.me/+6285155216117">
+              <Link href="https://wa.me/+6285155216117" target="_blank">
                 <SiWhatsapp />
               </Link>
-              <Link href="https://page.line.me/229wiguf/">
+              <Link href="https://page.line.me/229wiguf/" target="_blank">
                 <SiLine />
               </Link>
             </div>

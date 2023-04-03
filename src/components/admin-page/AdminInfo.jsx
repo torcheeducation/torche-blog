@@ -1,4 +1,4 @@
-import { getPosts } from "@/lib/get-posts"
+import { getPosts, getVisitor } from "@/lib/get-posts"
 import { useEffect, useState } from "react"
 import { BsFileEarmarkPostFill } from "react-icons/bs"
 import { FiUser, FiUsers } from "react-icons/fi"
@@ -11,21 +11,17 @@ export default function AdminInfo() {
   useEffect(() => {
     const Posts = async () => {
       const data = await getPosts()
+      const visitor = await getVisitor()
       setPosts(data.posts)
-
-      const today = new Date()
-      today.setHours(0)
-      today.setMinutes(0)
-      today.setSeconds(0)
-
-      const getTodayPosts = data.posts.filter((d) => new Date(d.editedAt).getTime() > today.getTime())
-      if (getTodayPosts) {
-        const visitorToday = getTodayPosts.map((g) => g.visitor).reduce((a, b) => a + b, 0)
-        setTodayVisitor(visitorToday)
+      
+      if (visitor.data) {
+        setTodayVisitor(visitor.data.count)
+      } else {
+        setTodayVisitor(0)
       }
 
       const allVisitor = data.posts.map((post) => post.visitor).reduce((a, b) => a + b, 0)
-      setAllVisitor(allVisitor)
+      setAllVisitor(allVisitor ? allVisitor : 0)
     }
 
     Posts()

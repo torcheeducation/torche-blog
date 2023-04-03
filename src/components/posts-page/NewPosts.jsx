@@ -1,7 +1,7 @@
 import Image from "next/image";
 import Link from "next/link";
 
-export default function NewPosts({ children }) {
+export default function NewPosts({ children, data }) {
   const newestPost = [
     {
       id: 1,

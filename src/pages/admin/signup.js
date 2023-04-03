@@ -1,5 +1,5 @@
 import Layout from "@/components/admin-page/Layout"
-import { useS3Upload } from "next-s3-upload"
+import { uploadUserImageToS3 } from "@/utils/s3/uploadFile"
 import Image from "next/image"
 import { useRouter } from "next/router"
 import { useState } from "react"
@@ -31,11 +31,11 @@ export default function SignUp() {
   const [password, setPassword] = useState("")
   const [passPage, setPassPage] = useState("")
   const [isCode, setIsCode] = useState(false)
+  const [preview, setPreview] = useState("")
   const [image, setImage] = useState("")
   const router = useRouter()
 
   const MySwal = withReactContent(Swal)
-  const { uploadToS3 } = useS3Upload()
 
   const Toast = MySwal.mixin({
     toast: true,
@@ -79,13 +79,20 @@ export default function SignUp() {
 
     if (name && username && password && file) {
       try {
-        const { url } = await uploadToS3(file)
+        const url = uploadUserImageToS3(image)
+        if (!url) {
+          throw new Error("URL Tidak ditemukan")
+        }
   
         const result = await createUser(name, username, password, url)
         console.log(result)
         router.reload()
       } catch (error) {
         console.log(error)
+        Toast.fire({
+          icon: "warning",
+          title: "Terdapat Kesalahan!"
+        })
       }
     } else {
       Toast.fire({
@@ -99,8 +106,19 @@ export default function SignUp() {
     const target = e.target.files[0]
     setFile(target)
 
+    const reader = new FileReader();
+    reader.onload = function(e) {
+      const data = e.target.result;
+      setImage({
+        name: target.name,
+        data: new Uint8Array(data),
+        type: target.type
+      });
+    };
+    reader.readAsArrayBuffer(target);
+
     const preview = URL.createObjectURL(target)
-    setImage(preview)
+    setPreview(preview)
   }
 
   return (
@@ -114,7 +132,7 @@ export default function SignUp() {
                 <div className="flex justify-between items-center">
                   <input type="file" id="profile" onChange={handleImagePreview} />
                   <Image
-                    src={image ? image : "/img/blank.webp"}
+                    src={preview ? preview : "/img/blank.webp"}
                     alt="profile"
                     width={200}
                     height={200}

@@ -1,105 +1,42 @@
+import useWindowDimensions from "@/lib/useWindowDimensions";
 import Image from "next/image";
 import Link from "next/link";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
-export default function AllPosts() {
+export default function AllPosts({ posts }) {
   const [numPost, setNumPost] = useState(9);
 
-  const posts = [
-    {
-      id: 1,
-      date: "10 November 2022",
-      title: "10 bahan kimia paling berbahaya dan paling aman",
-      text: "Sementara banyak bahan kimia di tempat kerja mungkin tampak tidak berbahaya, beberapa di antaranya dapat menimbulkan bahaya yang signifikan. Mengetahui mana yang berbahaya dan bagaimana menangani bahan kimia berbahaya dengan benar dapat membantu mencegah cedera dan efek merugikan yang kronis. Di sini kita melihat 10 bahan kimia paling berbahaya di tempat kerja, yaitu arsenik, timbal, benzena, kromium, toluena, kadmium, zinc, merkuri, pestisida, dan limbah elektronik.",
-      category: "edukasi",
-      image: "/img/postingan3.png",
-    },
-    {
-      id: 2,
-      date: "10 November 2022",
-      title: "10 bahan kimia paling berbahaya dan paling aman",
-      text: "Sementara banyak bahan kimia di tempat kerja mungkin tampak tidak berbahaya, beberapa di antaranya dapat menimbulkan bahaya yang signifikan. Mengetahui mana yang berbahaya dan bagaimana menangani bahan kimia berbahaya dengan benar dapat membantu mencegah cedera dan efek merugikan yang kronis. Di sini kita melihat 10 bahan kimia paling berbahaya di tempat kerja, yaitu arsenik, timbal, benzena, kromium, toluena, kadmium, zinc, merkuri, pestisida, dan limbah elektronik.",
-      category: "edukasi",
-      image: "/img/postingan3.png",
-    },
-    {
-      id: 3,
-      date: "10 November 2022",
-      title: "10 bahan kimia paling berbahaya dan paling aman",
-      text: "Sementara banyak bahan kimia di tempat kerja mungkin tampak tidak berbahaya, beberapa di antaranya dapat menimbulkan bahaya yang signifikan. Mengetahui mana yang berbahaya dan bagaimana menangani bahan kimia berbahaya dengan benar dapat membantu mencegah cedera dan efek merugikan yang kronis. Di sini kita melihat 10 bahan kimia paling berbahaya di tempat kerja, yaitu arsenik, timbal, benzena, kromium, toluena, kadmium, zinc, merkuri, pestisida, dan limbah elektronik.",
-      category: "edukasi",
-      image: "/img/postingan3.png",
-    },
-    {
-      id: 4,
-      date: "10 November 2022",
-      title: "10 bahan kimia paling berbahaya dan paling aman",
-      text: "Sementara banyak bahan kimia di tempat kerja mungkin tampak tidak berbahaya, beberapa di antaranya dapat menimbulkan bahaya yang signifikan. Mengetahui mana yang berbahaya dan bagaimana menangani bahan kimia berbahaya dengan benar dapat membantu mencegah cedera dan efek merugikan yang kronis. Di sini kita melihat 10 bahan kimia paling berbahaya di tempat kerja, yaitu arsenik, timbal, benzena, kromium, toluena, kadmium, zinc, merkuri, pestisida, dan limbah elektronik.",
-      category: "edukasi",
-      image: "/img/postingan3.png",
-    },
-    {
-      id: 5,
-      date: "10 November 2022",
-      title: "10 bahan kimia paling berbahaya dan paling aman",
-      text: "Sementara banyak bahan kimia di tempat kerja mungkin tampak tidak berbahaya, beberapa di antaranya dapat menimbulkan bahaya yang signifikan. Mengetahui mana yang berbahaya dan bagaimana menangani bahan kimia berbahaya dengan benar dapat membantu mencegah cedera dan efek merugikan yang kronis. Di sini kita melihat 10 bahan kimia paling berbahaya di tempat kerja, yaitu arsenik, timbal, benzena, kromium, toluena, kadmium, zinc, merkuri, pestisida, dan limbah elektronik.",
-      category: "edukasi",
-      image: "/img/postingan3.png",
-    },
-    {
-      id: 6,
-      date: "10 November 2022",
-      title: "10 bahan kimia paling berbahaya dan paling aman",
-      text: "Sementara banyak bahan kimia di tempat kerja mungkin tampak tidak berbahaya, beberapa di antaranya dapat menimbulkan bahaya yang signifikan. Mengetahui mana yang berbahaya dan bagaimana menangani bahan kimia berbahaya dengan benar dapat membantu mencegah cedera dan efek merugikan yang kronis. Di sini kita melihat 10 bahan kimia paling berbahaya di tempat kerja, yaitu arsenik, timbal, benzena, kromium, toluena, kadmium, zinc, merkuri, pestisida, dan limbah elektronik.",
-      category: "edukasi",
-      image: "/img/postingan3.png",
-    },
-    {
-      id: 7,
-      date: "10 November 2022",
-      title: "10 bahan kimia paling berbahaya dan paling aman",
-      text: "Sementara banyak bahan kimia di tempat kerja mungkin tampak tidak berbahaya, beberapa di antaranya dapat menimbulkan bahaya yang signifikan. Mengetahui mana yang berbahaya dan bagaimana menangani bahan kimia berbahaya dengan benar dapat membantu mencegah cedera dan efek merugikan yang kronis. Di sini kita melihat 10 bahan kimia paling berbahaya di tempat kerja, yaitu arsenik, timbal, benzena, kromium, toluena, kadmium, zinc, merkuri, pestisida, dan limbah elektronik.",
-      category: "edukasi",
-      image: "/img/postingan3.png",
-    },
-    {
-      id: 8,
-      date: "10 November 2022",
-      title: "10 bahan kimia paling berbahaya dan paling aman",
-      text: "Sementara banyak bahan kimia di tempat kerja mungkin tampak tidak berbahaya, beberapa di antaranya dapat menimbulkan bahaya yang signifikan. Mengetahui mana yang berbahaya dan bagaimana menangani bahan kimia berbahaya dengan benar dapat membantu mencegah cedera dan efek merugikan yang kronis. Di sini kita melihat 10 bahan kimia paling berbahaya di tempat kerja, yaitu arsenik, timbal, benzena, kromium, toluena, kadmium, zinc, merkuri, pestisida, dan limbah elektronik.",
-      category: "edukasi",
-      image: "/img/postingan3.png",
-    },
-    {
-      id: 9,
-      date: "10 November 2022",
-      title: "10 bahan kimia paling berbahaya dan paling aman",
-      text: "Sementara banyak bahan kimia di tempat kerja mungkin tampak tidak berbahaya, beberapa di antaranya dapat menimbulkan bahaya yang signifikan. Mengetahui mana yang berbahaya dan bagaimana menangani bahan kimia berbahaya dengan benar dapat membantu mencegah cedera dan efek merugikan yang kronis. Di sini kita melihat 10 bahan kimia paling berbahaya di tempat kerja, yaitu arsenik, timbal, benzena, kromium, toluena, kadmium, zinc, merkuri, pestisida, dan limbah elektronik.",
-      category: "edukasi",
-      image: "/img/postingan3.png",
-    },
-    {
-      id: 10,
-      date: "10 November 2022",
-      title: "10 bahan kimia paling berbahaya dan paling aman",
-      text: "Sementara banyak bahan kimia di tempat kerja mungkin tampak tidak berbahaya, beberapa di antaranya dapat menimbulkan bahaya yang signifikan. Mengetahui mana yang berbahaya dan bagaimana menangani bahan kimia berbahaya dengan benar dapat membantu mencegah cedera dan efek merugikan yang kronis. Di sini kita melihat 10 bahan kimia paling berbahaya di tempat kerja, yaitu arsenik, timbal, benzena, kromium, toluena, kadmium, zinc, merkuri, pestisida, dan limbah elektronik.",
-      category: "edukasi",
-      image: "/img/postingan3.png",
-    },
-  ];
+  const { width } = useWindowDimensions()
+  
+  useEffect(() => {
+    if (width >= 1280) {
+      setNumPost(12)
+    }
+  }, [width])
+
+  const HandleLoadMore = (e) => {
+    e.preventDefault()
+
+    if (width >= 1280) {
+      setNumPost((prevNumPost) => prevNumPost + 4)
+    } else {
+      setNumPost((prevNumPost) => prevNumPost + 3)
+    }
+  }
 
   return (
     <div className="my-10">
       <h2 className="text-2xl uppercase text-slate-500">Semua Postingan</h2>
-      <div className="mt-10 grid grid-cols-1 gap-10 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
-        {posts.slice(0, numPost).map(({ id, date, title, text, image }) => (
+      {posts.length < 1 && ( <p className="mt-10 font-semibold text-lg">Belum Ada Postingan</p> )}
+      <div className="mt-10 grid grid-cols-1 gap-10 lg:grid-cols-3 xl:grid-cols-4">
+        {posts.slice(0, numPost).map(({ _id, title, description, imageUrl, date }) => (
           <Link
-            key={id}
-            href={`/posts/${id}`}
-            className="group grid grid-cols-1 gap-4"
+            key={_id}
+            href={`/posts/${_id}`}
+            className="group flex flex-col gap-4"
           >
             <Image
-              src={image}
+              src={imageUrl}
               alt={title}
               width={250}
               height={118}
@@ -117,7 +54,7 @@ export default function AllPosts() {
                 </h2>
               </div>
               <div className="mt-2">
-                <p className="text-slate-600 line-clamp-4">{text}</p>
+                <div className="text-slate-600 line-clamp-4" dangerouslySetInnerHTML={{ __html: description }}></div>
               </div>
             </div>
           </Link>
@@ -127,7 +64,7 @@ export default function AllPosts() {
         <div className="mt-20 text-center">
           <button
             className="rounded-3xl bg-searchIcon py-3 px-6 font-bold text-white shadow-lg shadow-indigo-500/40"
-            onClick={() => setNumPost((prevNumPost) => prevNumPost + 3)}
+            onClick={HandleLoadMore}
           >
             Muat Lebih Banyak
           </button>

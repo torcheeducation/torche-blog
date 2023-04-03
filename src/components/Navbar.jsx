@@ -52,7 +52,7 @@ export default function Navbar() {
   };
 
   return (
-    <div className="flex w-full justify-between bg-navbar px-4 md:px-8 lg:items-center lg:px-5 xl:px-20">
+    <div className="flex w-full justify-between bg-navbar py-5 px-4 md:px-8 lg:items-center lg:px-5 xl:px-20">
       <Link href="/">
         <Image
           src="/img/logo.png"

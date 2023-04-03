@@ -3,11 +3,12 @@ import { CgClose } from "react-icons/cg"
 import Select from "react-select"
 import 'react-quill/dist/quill.snow.css';
 import dynamic from "next/dynamic";
-import { useS3Upload } from "next-s3-upload";
 import withReactContent from "sweetalert2-react-content";
 import Swal from "sweetalert2";
 import Image from "next/image";
 import { useRouter } from "next/router";
+import { ThreeDots } from "react-loading-icons";
+import { uploadPostImageToS3 } from "@/utils/s3/uploadFile";
 
 const MySwal = withReactContent(Swal)
 
@@ -89,8 +90,9 @@ export default function InputPost({ condition, setCondition, ownerId }) {
   const [title, setTitle] = useState("")
   const [description, setDescription] = useState("")
   const [category, setCategory] = useState("")
+  const [isLoading, setIsLoading] = useState(false)
+  const [image, setImage] = useState(null)
   const router = useRouter()
-  const { uploadToS3 } = useS3Upload()
 
   const options = [
     { value: "edukasi", label: "Edukasi" },
@@ -105,15 +107,27 @@ export default function InputPost({ condition, setCondition, ownerId }) {
     setDescription("")
     setCategory("")
     setPreview("")
+    setImage(null)
   }
 
   const handleSelectChange = (selected) => {
     setCategory(selected.value)
   }
 
-  const handleImagePreview = (e) => {
+  const handleImagePreview = async (e) => {
     const target = e.target.files[0]
     setFile(target)
+
+    const reader = new FileReader();
+    reader.onload = function(e) {
+      const data = e.target.result;
+      setImage({
+        name: target.name,
+        data: new Uint8Array(data),
+        type: target.type
+      });
+    };
+    reader.readAsArrayBuffer(target);
 
     const preview = URL.createObjectURL(target)
     setPreview(preview)
@@ -121,38 +135,56 @@ export default function InputPost({ condition, setCondition, ownerId }) {
 
   const handleSubmit = async (e) => {
     e.preventDefault()
+    setIsLoading(true)
 
     if (title && description && category && file) {
-      try {
-        let { url } = await uploadToS3(file)
-
-        const result = await createPost(title, description, category, url, ownerId)
-        
-        if (result) {
-          setCondition(false)
-          setPreview("")
-          setFile("")
-          setTitle("")
-          setDescription("")
-          setCategory("")
-          Toast.fire({
-            icon: "success",
-            title: "Menambahkan Postingan Berhasil"
-          })
-          router.reload()
-        } else {
+      if (file.size < 2097152) {
+        try {
+          const url = await uploadPostImageToS3(image)
+          if (!url) {
+            throw new Error("URL tidak ditemukan")
+          }
+  
+          const result = await createPost(title, description, category, url, ownerId)
+          
+          if (result) {
+            setCondition(false)
+            setPreview("")
+            setFile("")
+            setTitle("")
+            setDescription("")
+            setCategory("")
+            setIsLoading(false)
+            setImage(null)
+            Toast.fire({
+              icon: "success",
+              title: "Menambahkan Postingan Berhasil"
+            })
+            router.reload()
+          } else {
+            setIsLoading(false)
+            Toast.fire({
+              icon: "error",
+              title: "Gagal menambahkan Postingan"
+            })
+          }
+        } catch (error) {
+          setIsLoading(false)
+          console.log(error)
           Toast.fire({
             icon: "error",
-            title: "Gagal menambahkan Postingan"
+            title: "Terjadi Kesalahan!",
           })
         }
-      } catch (error) {
+      } else {
+        setIsLoading(false)
         Toast.fire({
-          icon: "error",
-          title: error,
+          icon: "warning",
+          title: "Ukuran gambar terlalu besar!"
         })
       }
     } else {
+      setIsLoading(false)
       Toast.fire({
         icon: "warning",
         title: "Lengkapilah form terlebih dahulu"
@@ -176,7 +208,7 @@ export default function InputPost({ condition, setCondition, ownerId }) {
                 <h2 className="font-bold text-2xl text-center tracking-wider">Form Tambah Postingan Baru</h2>
                 <form className="mt-10 flex flex-col gap-4">
                   <div className="w-full flex flex-col gap-2">
-                    <label className="font-semibold">Gambar Postingan <span className="text-slate-400 italic">( Pastikan gambar sudah benar sebelum di upload )</span></label>
+                    <label className="font-semibold">Gambar Postingan <span className="text-slate-400 italic">( Ukuran Maksimal 2MB )</span></label>
                     <div className="flex justify-between items-center p-4 bg-slate-100 rounded-lg">
                       <input type="file" required onChange={handleImagePreview} />
                     </div>
@@ -207,7 +239,15 @@ export default function InputPost({ condition, setCondition, ownerId }) {
                       placeholder="Pilih kategori yang sesuai"
                     />
                   </div>
-                  <div className="mt-10 w-full text-center">
+                  <div className="mt-10 flex justify-center">
+                    {isLoading && (
+                      <div className="flex gap-3 items-center">
+                        <span className="font-bold uppercase tracking-widest">Loading</span>
+                        <ThreeDots fill="#000000" width="30px" />
+                      </div>
+                    )}
+                  </div>
+                  <div className="mb-4 w-full text-center">
                     <button type="submit" className="py-1 px-10 font-semibold text-lg bg-navbar text-white border border-navbar rounded-lg hover:bg-white hover:text-navbar" onClick={handleSubmit}>Tambah Postingan</button>
                   </div>
                 </form>

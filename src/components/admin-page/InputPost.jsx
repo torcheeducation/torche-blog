@@ -72,6 +72,21 @@ async function createPost(title, description, category, imageUrl, ownerId, visit
   return data
 }
 
+async function uploadImage(image) {
+  const formDataSend = new FormData()
+  formDataSend.append("name", image.name)
+  formDataSend.append("data", image.data)
+  formDataSend.append("type", image.type)
+
+  const res = await fetch("/api/s3", {
+    method: "POST",
+    body: formDataSend,
+  })
+
+  console.log(await res.json())
+  return
+}
+
 const Toast = MySwal.mixin({
   toast: true,
   position: 'top-end',
@@ -86,7 +101,6 @@ const Toast = MySwal.mixin({
 
 export default function InputPost({ condition, setCondition, ownerId }) {
   const [preview, setPreview] = useState("")
-  const [file, setFile] = useState("")
   const [title, setTitle] = useState("")
   const [description, setDescription] = useState("")
   const [category, setCategory] = useState("")
@@ -102,7 +116,6 @@ export default function InputPost({ condition, setCondition, ownerId }) {
 
   const handleClose = () => {
     setCondition(false)
-    setFile("")
     setTitle("")
     setDescription("")
     setCategory("")
@@ -116,15 +129,14 @@ export default function InputPost({ condition, setCondition, ownerId }) {
 
   const handleImagePreview = async (e) => {
     const target = e.target.files[0]
-    setFile(target)
-
     const reader = new FileReader();
     reader.onload = function(e) {
       const data = e.target.result;
       setImage({
         name: target.name,
         data: new Uint8Array(data),
-        type: target.type
+        type: target.type,
+        size: target.size
       });
     };
     reader.readAsArrayBuffer(target);
@@ -137,57 +149,67 @@ export default function InputPost({ condition, setCondition, ownerId }) {
     e.preventDefault()
     setIsLoading(true)
 
-    if (title && description && category && file) {
-      if (file.size < 2097152) {
-        try {
-          const url = await uploadPostImageToS3(image)
-          if (!url) {
-            throw new Error("URL tidak ditemukan")
-          }
-  
-          const result = await createPost(title, description, category, url, ownerId)
-          
-          if (result) {
-            setCondition(false)
-            setPreview("")
-            setFile("")
-            setTitle("")
-            setDescription("")
-            setCategory("")
-            setIsLoading(false)
-            setImage(null)
-            Toast.fire({
-              icon: "success",
-              title: "Menambahkan Postingan Berhasil"
-            })
-            router.reload()
-          } else {
-            setIsLoading(false)
-            Toast.fire({
-              icon: "error",
-              title: "Gagal menambahkan Postingan"
-            })
-          }
-        } catch (error) {
-          setIsLoading(false)
-          console.log(error)
-          Toast.fire({
-            icon: "error",
-            title: "Terjadi Kesalahan!",
-          })
-        }
-      } else {
-        setIsLoading(false)
-        Toast.fire({
-          icon: "warning",
-          title: "Ukuran gambar terlalu besar!"
-        })
-      }
-    } else {
+    if (!title && !description && !category && !image) {
       setIsLoading(false)
       Toast.fire({
         icon: "warning",
         title: "Lengkapilah form terlebih dahulu"
+      })
+      return
+    }
+
+    if (image.name.match(/\.(jpg|jpeg|png|webp)$/) == null) {
+      setIsLoading(false)
+      Toast.fire({
+        icon: "warning",
+        title: "Format gambar yang diperbolehkan adalah jpg, jpeg, png, dan webp"
+      })
+      return
+    }
+
+    if (image.size > 2097152) {
+      setIsLoading(false)
+      Toast.fire({
+        icon: "warning",
+        title: "Ukuran gambar terlalu besar!"
+      })
+      return
+    }
+
+    try {
+      const url = await uploadPostImageToS3(image)
+      if (!url) {
+        throw new Error("URL tidak ditemukan")
+      }
+
+      const result = await createPost(title, description, category, url, ownerId)
+      
+      if (result) {
+        setCondition(false)
+        setPreview("")
+        setTitle("")
+        setDescription("")
+        setCategory("")
+        setIsLoading(false)
+        setImage(null)
+        Toast.fire({
+          icon: "success",
+          title: "Menambahkan Postingan Berhasil"
+        })
+        router.reload()
+      } else {
+        setIsLoading(false)
+        Toast.fire({
+          icon: "error",
+          title: "Gagal menambahkan Postingan"
+        })
+      }
+    } catch (error) {
+      setIsLoading(false)
+      console.log(error)
+      Toast.fire({
+        icon: "error",
+        title: "Terjadi Kesalahan!",
       })
     }
   }

@@ -10,7 +10,7 @@ const s3 = new AWS.S3({
 export async function uploadPostImageToS3(file) {
   const params = {
     Bucket: process.env.NEXT_PUBLIC_S3BUCKET,
-    Key: `posts/${new Date().getTime()}-${file.name}`,
+    Key: `${file.category ? file.category : "posts"}/${new Date().getTime()}-${file.name}`,
     Body: file.data,
     ACL: "public-read",
     ContentType: file.type,

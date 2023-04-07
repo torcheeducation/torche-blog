@@ -1,14 +1,13 @@
+import { deletePostImageFromS3 } from "@/utils/s3/deleteFile"
+import { uploadPostImageToS3 } from "@/utils/s3/uploadFile"
+import dynamic from "next/dynamic"
+import Image from "next/image"
+import { useRouter } from "next/router"
 import { useState } from "react"
 import { CgClose } from "react-icons/cg"
-import Select from "react-select"
-import 'react-quill/dist/quill.snow.css';
-import dynamic from "next/dynamic";
-import withReactContent from "sweetalert2-react-content";
-import Swal from "sweetalert2";
-import Image from "next/image";
-import { useRouter } from "next/router";
-import { ThreeDots } from "react-loading-icons";
-import { uploadPostImageToS3 } from "@/utils/s3/uploadFile";
+import { ThreeDots } from "react-loading-icons"
+import Swal from "sweetalert2"
+import withReactContent from "sweetalert2-react-content"
 
 const MySwal = withReactContent(Swal)
 
@@ -16,6 +15,7 @@ const QuillNoSSRWrapper = dynamic(import("react-quill"), {
   ssr: false,
   loading: () => <p>Loading...</p>
 })
+const SelectWithNoSSR = dynamic(() => import('react-select'), { ssr: false })
 
 const modules = {
   toolbar: [
@@ -52,25 +52,7 @@ const formats = [
   'link',
   'image',
   'video',
-];
-
-async function createPost(title, description, category, imageUrl, ownerId, visitor = 0) {
-  const response = await fetch("/api/posts", {
-    method: "POST",
-    body: JSON.stringify({ title, description, category, imageUrl, ownerId, visitor }),
-    headers: {
-      "Content-Type": "application/json"
-    },
-  })
-
-  const data = await response.json()
-
-  if (!response.ok) {
-    throw new Error(data.message || "Something went wrong!")
-  }
-
-  return data
-}
+]
 
 const Toast = MySwal.mixin({
   toast: true,
@@ -84,19 +66,47 @@ const Toast = MySwal.mixin({
   }
 })
 
-export default function InputPost({ condition, setCondition, ownerId }) {
-  const [preview, setPreview] = useState("")
-  const [title, setTitle] = useState("")
-  const [description, setDescription] = useState("")
-  const [category, setCategory] = useState("")
+async function editPost(id, title, description, category, imageUrl) {
+  const response = await fetch("/api/posts", {
+    method: "PUT",
+    body: JSON.stringify({ id, title, description, category, imageUrl }),
+    headers: {
+      "Content-Type": "application/json"
+    }
+  })
+
+  const data = response.json()
+
+  if (!response.ok) {
+    throw new Error(data.message || "Something went wrong!")
+  }
+
+  return data
+}
+
+export default function EditPost() {
+  const post = {
+    _id: "642a29595342df1e2ed380fd",
+    title: "Hidup Tanpa Listrik Apakah Bisa ?",
+    description: "<p>Pada saat ini, listrik merupakan kebutuhan primer setiap manusia di bumi ini. Tanpa adanya listrik kemungkinan besar akan membuat pekerjaan manusia menjadi terhenti dan membuat hasil yang dibutuhkan juga tidak kunjung selesai.</p>",
+    category:	"edukasi",
+    imageUrl:	"https://torche-blog-images.s3.ap-southeast-1.amazonaws.com/posts/1680851562738-sutet2.jpg",
+    ownerId: "641be1922a991a494954029a"
+  }
+
+  const [condition, setCondition] = useState(true)
+  const [preview, setPreview] = useState(post.imageUrl)
+  const [title, setTitle] = useState(post.title)
+  const [description, setDescription] = useState(post.description)
+  const [category, setCategory] = useState(post.category)
   const [isLoading, setIsLoading] = useState(false)
   const [image, setImage] = useState(null)
   const router = useRouter()
 
   const options = [
-    { value: "edukasi", label: "Edukasi" },
-    { value: "berita", label: "Berita" },
-    { value: "gaya hidup", label: "Gaya Hidup" },
+    { id: 1, value: "edukasi", label: "Edukasi" },
+    { id: 2, value: "berita", label: "Berita" },
+    { id: 3, value: "gaya hidup", label: "Gaya Hidup" },
   ]
 
   const handleClose = () => {
@@ -134,7 +144,7 @@ export default function InputPost({ condition, setCondition, ownerId }) {
     e.preventDefault()
     setIsLoading(true)
 
-    if (!title && !description && !category && !image) {
+    if (!title && !description && !category && !image || !preview) {
       setIsLoading(false)
       Toast.fire({
         icon: "warning",
@@ -143,32 +153,43 @@ export default function InputPost({ condition, setCondition, ownerId }) {
       return
     }
 
-    if (image.name.match(/\.(jpg|jpeg|png|webp)$/) == null) {
-      setIsLoading(false)
-      Toast.fire({
-        icon: "warning",
-        title: "Format gambar yang diperbolehkan adalah jpg, jpeg, png, dan webp"
-      })
-      return
-    }
-
-    if (image.size > 2097152) {
-      setIsLoading(false)
-      Toast.fire({
-        icon: "warning",
-        title: "Ukuran gambar terlalu besar!"
-      })
-      return
+    if (image) {
+      if (image.name.match(/\.(jpg|jpeg|png|webp)$/) == null) {
+        setIsLoading(false)
+        Toast.fire({
+          icon: "warning",
+          title: "Format gambar yang diperbolehkan adalah jpg, jpeg, png, dan webp"
+        })
+        return
+      }
+  
+      if (image.size > 2097152) {
+        setIsLoading(false)
+        Toast.fire({
+          icon: "warning",
+          title: "Ukuran gambar terlalu besar!"
+        })
+        return
+      }
     }
 
     try {
-      const url = await uploadPostImageToS3(image)
-      if (!url) {
-        throw new Error("URL tidak ditemukan")
+      let result
+      if (image) {
+        const keyDelete = post.imageUrl.slice(59)
+        const deleteFile = await deletePostImageFromS3(keyDelete)
+        console.log(deleteFile)
+
+        const url = await uploadPostImageToS3(image)
+        if (!url) {
+          throw new Error("URL tidak ditemukan")
+        }
+        
+        result = await editPost(post._id, title, description, category, url)
+      } else {
+        result = await editPost(post._id, title, description, category, preview)
       }
 
-      const result = await createPost(title, description, category, url, ownerId)
-      
       if (result) {
         setCondition(false)
         setPreview("")
@@ -200,19 +221,19 @@ export default function InputPost({ condition, setCondition, ownerId }) {
   }
 
   return (
-    <>
+    <div>
       {condition && (
         <>
           <div className="fixed top-0 left-0 w-full h-full bg-black opacity-70 z-10"></div>
           <div className="fixed top-0 left-0 w-full h-full grid place-items-center z-20">
-            <div className="mx-auto w-[80vw] h-[80vh] bg-white rounded-lg overflow-auto">
+          <div className="mx-auto w-[80vw] h-[80vh] bg-white rounded-lg overflow-auto">
               <div className="py-3 px-4 flex gap-3 justify-end items-center bg-gray-100 rounded-t-lg">
                 <button className="p-2 border rounded-lg hover:bg-red-500 hover:text-white hover:border-red-500" onClick={handleClose}>
                   <CgClose className="text-2xl" />
                 </button>
               </div>
               <div className="p-4">
-                <h2 className="font-bold text-2xl text-center tracking-wider">Form Tambah Postingan Baru</h2>
+                <h2 className="font-bold text-2xl text-center tracking-wider">Form Edit Postingan</h2>
                 <form className="mt-10 flex flex-col gap-4">
                   <div className="w-full flex flex-col gap-2">
                     <label className="font-semibold">Gambar Postingan <span className="text-slate-400 italic">( Ukuran Maksimal 2MB )</span></label>
@@ -232,18 +253,20 @@ export default function InputPost({ condition, setCondition, ownerId }) {
                   </div>
                   <div className="w-full flex flex-col gap-2">
                     <label className="font-semibold">Judul Postingan</label>
-                    <input type="text" name="title" placeholder="Masukkan Judul Postingan" className="w-full py-1 px-2 border rounded-lg placeholder:italic" required onChange={(e) => setTitle(e.target.value)} />
+                    <input type="text" name="title" placeholder="Masukkan Judul Postingan" className="w-full py-1 px-2 border rounded-lg placeholder:italic" required value={title} onChange={(e) => setTitle(e.target.value)} />
                   </div>
                   <div className="w-full flex flex-col gap-2">
                     <label className="font-semibold">Isi Postingan</label>
-                    <QuillNoSSRWrapper theme="snow" modules={modules} formats={formats} onChange={setDescription} />
+                    <QuillNoSSRWrapper theme="snow" modules={modules} formats={formats} value={description} onChange={setDescription} />
                   </div>
                   <div className="w-full flex flex-col gap-2">
                     <label className="font-semibold">Kategori Postingan</label>
-                    <Select
+                    <SelectWithNoSSR
                       onChange={handleSelectChange}
                       options={options}
+                      defaultValue={options[options.indexOf(options.find((e) => e = category))]}
                       placeholder="Pilih kategori yang sesuai"
+                      key={"react-select-22-input"}
                     />
                   </div>
                   <div className="mt-10 flex justify-center">
@@ -263,6 +286,6 @@ export default function InputPost({ condition, setCondition, ownerId }) {
           </div>
         </>
       )}
-    </>
+    </div>
   )
 }

@@ -1,6 +1,7 @@
 import AddPost from "@/components/admin-page/AddPost"
 import AdminInfo from "@/components/admin-page/AdminInfo"
 import Layout from "@/components/admin-page/Layout"
+import EditPost from "@/components/admin-page/editPost"
 import { hasToken } from "@/utils/checkUser"
 import { signOut } from "next-auth/react"
 import Image from "next/image"
@@ -28,6 +29,7 @@ export default function Admin({ data }) {
       <div className="p-4 md:px-8">
         <AdminInfo />
         <AddPost owner={data} />
+        <EditPost />
       </div>
     </Layout>
   )

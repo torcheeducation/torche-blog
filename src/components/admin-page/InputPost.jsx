@@ -169,7 +169,7 @@ export default function InputPost({ condition, setCondition, ownerId }) {
 
       const result = await createPost(title, description, category, url, ownerId)
       
-      if (result) {
+      if (result.status === "success") {
         setCondition(false)
         setPreview("")
         setTitle("")
@@ -177,11 +177,15 @@ export default function InputPost({ condition, setCondition, ownerId }) {
         setCategory("")
         setIsLoading(false)
         setImage(null)
-        Toast.fire({
+        MySwal.fire({
           icon: "success",
-          title: "Menambahkan Postingan Berhasil"
+          title: "Success!",
+          text: "Menambahkan Postingan Berhasil"
+        }).then((result) => {
+          if (result.isConfirmed) {
+            router.reload()
+          }
         })
-        router.reload()
       } else {
         setIsLoading(false)
         Toast.fire({

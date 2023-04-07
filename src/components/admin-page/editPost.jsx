@@ -4,7 +4,7 @@ import dynamic from "next/dynamic"
 import Image from "next/image"
 import { useRouter } from "next/router"
 import { useState } from "react"
-import { CgClose } from "react-icons/cg"
+import { CgClose, CgTrash } from "react-icons/cg"
 import { ThreeDots } from "react-loading-icons"
 import Swal from "sweetalert2"
 import withReactContent from "sweetalert2-react-content"
@@ -84,14 +84,32 @@ async function editPost(id, title, description, category, imageUrl) {
   return data
 }
 
+async function deletePost(id) {
+  const response = await fetch("/api/posts", {
+    method: "DELETE",
+    body: JSON.stringify({ id }),
+    headers: {
+      "Content-Type": "application/json"
+    }
+  })
+
+  const data = response.json()
+
+  if (!response.ok) {
+    throw new Error(data.message || "Something went wrong!")
+  }
+
+  return data
+}
+
 export default function EditPost() {
   const post = {
-    _id: "642a29595342df1e2ed380fd",
-    title: "Hidup Tanpa Listrik Apakah Bisa ?",
-    description: "<p>Pada saat ini, listrik merupakan kebutuhan primer setiap manusia di bumi ini. Tanpa adanya listrik kemungkinan besar akan membuat pekerjaan manusia menjadi terhenti dan membuat hasil yang dibutuhkan juga tidak kunjung selesai.</p>",
-    category:	"edukasi",
-    imageUrl:	"https://torche-blog-images.s3.ap-southeast-1.amazonaws.com/posts/1680851562738-sutet2.jpg",
-    ownerId: "641be1922a991a494954029a"
+    _id:	"642a2a805342df1e2ed3811f",
+    title:	"Kendaraan Listrik Bisa Bantu Bumi ?",
+    description:	"<p>Dengan menggunakan kendaraan listrik, kita turut membantu perlambatan dalam global warming. Tetapi kita memang masih perlu memperhatikan dan mengkaji lebih dalam terkait penggunaan kendaraan listrik seperti asal sumber energi listrik tersebut, limbah baterai jika masa pakai sudah habis, dan lain sebagainya. Dengan menggunakan kendaraan listrik, kita turut membantu perlambatan dalam global warming. Tetapi kita memang masih perlu memperhatikan dan mengkaji lebih dalam terkait penggunaan kendaraan listrik seperti asal sumber energi listrik tersebut, limbah baterai jika masa pakai sudah habis, dan lain sebagainya.</p>",
+    category:	"berita",
+    imageUrl:	"https://torche-blog-images.s3.ap-southeast-1.amazonaws.com/posts/1680484991999-kendaraan%20listrik.jpg",
+    ownerId:	"641be1922a991a494954029a",
   }
 
   const [condition, setCondition] = useState(true)
@@ -177,8 +195,7 @@ export default function EditPost() {
       let result
       if (image) {
         const keyDelete = post.imageUrl.slice(59)
-        const deleteFile = await deletePostImageFromS3(keyDelete)
-        console.log(deleteFile)
+        await deletePostImageFromS3(keyDelete)
 
         const url = await uploadPostImageToS3(image)
         if (!url) {
@@ -190,7 +207,7 @@ export default function EditPost() {
         result = await editPost(post._id, title, description, category, preview)
       }
 
-      if (result) {
+      if (result.status === "success") {
         setCondition(false)
         setPreview("")
         setTitle("")
@@ -220,6 +237,48 @@ export default function EditPost() {
     }
   }
 
+  const handleDeletePost = async () => {
+    MySwal.fire({
+      title: "Apakah Anda Yakin ?",
+      text: "Anda tidak akan dapat mengembalikan postingan ini lagi!",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#3085d6",
+      cancelButtonColor: "#d33",
+      confirmButtonText: "Ya, hapus postingan ini!",
+      cancelButtonText: "Batalkan"
+    }).then(async (result) => {
+      if (result.isConfirmed) {
+        try {
+          const keyDelete = post.imageUrl.slice(59)
+          await deletePostImageFromS3(keyDelete)
+          const delPost = await deletePost(post._id)
+          if (delPost.status !== "success") {
+            Toast.fire({
+              icon: "error",
+              title: "Tejadi Kesalahan"
+            })
+            return
+          }
+          setCondition(false)
+        } catch (error) {
+          console.log(error)
+          Toast.fire({
+            icon: "error",
+            title: "Tejadi Kesalahan"
+          })
+          return
+        }
+        MySwal.fire(
+          'Deleted!',
+          'Postingan ini berhasil dihapus!',
+          'success'
+        )
+        router.reload()
+      }
+    })
+  }
+
   return (
     <div>
       {condition && (
@@ -228,6 +287,9 @@ export default function EditPost() {
           <div className="fixed top-0 left-0 w-full h-full grid place-items-center z-20">
           <div className="mx-auto w-[80vw] h-[80vh] bg-white rounded-lg overflow-auto">
               <div className="py-3 px-4 flex gap-3 justify-end items-center bg-gray-100 rounded-t-lg">
+                <button className="p-2 border rounded-lg hover:bg-red-600 hover:text-white hover:border-red-600" onClick={handleDeletePost}>
+                  <CgTrash className="text-2xl" />
+                </button>
                 <button className="p-2 border rounded-lg hover:bg-red-500 hover:text-white hover:border-red-500" onClick={handleClose}>
                   <CgClose className="text-2xl" />
                 </button>
@@ -278,7 +340,7 @@ export default function EditPost() {
                     )}
                   </div>
                   <div className="mb-4 w-full text-center">
-                    <button type="submit" className="py-1 px-10 font-semibold text-lg bg-navbar text-white border border-navbar rounded-lg hover:bg-white hover:text-navbar" onClick={handleSubmit}>Tambah Postingan</button>
+                    <button type="submit" className="py-1 px-10 font-semibold text-lg bg-navbar text-white border border-navbar rounded-lg hover:bg-white hover:text-navbar" onClick={handleSubmit}>Simpan Postingan</button>
                   </div>
                 </form>
               </div>

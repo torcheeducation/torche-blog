@@ -24,8 +24,21 @@ async function createUser(name, username, password, imageUrl) {
   return data
 }
 
+const MySwal = withReactContent(Swal)
+
+const Toast = MySwal.mixin({
+  toast: true,
+  position: 'top-end',
+  showConfirmButton: false,
+  timer: 3000,
+  timerProgressBar: true,
+  didOpen: (toast) => {
+    toast.addEventListener('mouseenter', MySwal.stopTimer)
+    toast.addEventListener('mouseleave', MySwal.resumeTimer)
+  }
+})
+
 export default function SignUp() {
-  const [file, setFile] = useState("")
   const [name, setName] = useState("")
   const [username, setUsername] = useState("")
   const [password, setPassword] = useState("")
@@ -34,20 +47,6 @@ export default function SignUp() {
   const [preview, setPreview] = useState("")
   const [image, setImage] = useState("")
   const router = useRouter()
-
-  const MySwal = withReactContent(Swal)
-
-  const Toast = MySwal.mixin({
-    toast: true,
-    position: 'top-end',
-    showConfirmButton: false,
-    timer: 3000,
-    timerProgressBar: true,
-    didOpen: (toast) => {
-      toast.addEventListener('mouseenter', MySwal.stopTimer)
-      toast.addEventListener('mouseleave', MySwal.resumeTimer)
-    }
-  })
 
   const handleVerify = (e) => {
     e.preventDefault()
@@ -74,51 +73,67 @@ export default function SignUp() {
     }
   }
 
-  const handleSignup = async (e) => {
-    e.preventDefault()
-
-    if (name && username && password && file) {
-      try {
-        const url = uploadUserImageToS3(image)
-        if (!url) {
-          throw new Error("URL Tidak ditemukan")
-        }
-  
-        const result = await createUser(name, username, password, url)
-        console.log(result)
-        router.reload()
-      } catch (error) {
-        console.log(error)
-        Toast.fire({
-          icon: "warning",
-          title: "Terdapat Kesalahan!"
-        })
-      }
-    } else {
-      Toast.fire({
-        icon: "warning",
-        title: "Lengkapilah form terlebih dahulu!"
-      })
-    }
-  }
-
   const handleImagePreview = (e) => {
     const target = e.target.files[0]
-    setFile(target)
-
     const reader = new FileReader();
     reader.onload = function(e) {
       const data = e.target.result;
       setImage({
         name: target.name,
         data: new Uint8Array(data),
-        type: target.type
+        type: target.type,
+        size: target.size,
       });
     };
     reader.readAsArrayBuffer(target);
 
     const preview = URL.createObjectURL(target)
     setPreview(preview)
+  }
+
+  const handleSignup = async (e) => {
+    e.preventDefault()
+
+    if (!name && !username && !password && !image) {
+      Toast.fire({
+        icon: "warning",
+        title: "Lengkapilah form terlebih dahulu!"
+      })
+      return
+    }
+
+    if (image.name.match(/\.(jpg|jpeg|png|webp)$/) == null) {
+      Toast.fire({
+        icon: "warning",
+        title: "Format gambar yang diperbolehkan adalah jpg, jpeg, png, dan webp"
+      })
+      return
+    }
+
+    if (image.size > 2097152) {
+      Toast.fire({
+        icon: "warning",
+        title: "Ukuran gambar terlalu besar!"
+      })
+      return
+    }
+
+    try {
+      const url = await uploadUserImageToS3(image)
+      if (!url) {
+        throw new Error("URL Tidak ditemukan")
+      }
+
+      const result = await createUser(name, username, password, url)
+      console.log(result)
+      router.reload()
+    } catch (error) {
+      console.log(error)
+      Toast.fire({
+        icon: "warning",
+        title: "Terdapat Kesalahan!"
+      })
+    }
   }
 
   return (

@@ -29,7 +29,7 @@ export default function AllPosts({ posts }) {
       <h2 className="text-2xl uppercase text-slate-500">Semua Postingan</h2>
       {posts.length < 1 && ( <p className="mt-10 font-semibold text-lg">Belum Ada Postingan</p> )}
       <div className="mt-10 grid grid-cols-1 gap-10 lg:grid-cols-3 xl:grid-cols-4">
-        {posts.slice(0, numPost).map(({ _id, title, description, imageUrl, date }) => (
+        {posts.slice(-numPost).reverse().map(({ _id, title, description, imageUrl, date }) => (
           <Link
             key={_id}
             href={`/posts/${_id}`}

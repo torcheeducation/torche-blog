@@ -6,7 +6,25 @@ import { hasToken } from "@/utils/checkUser";
 import { signOut } from "next-auth/react";
 import Image from "next/image";
 
-export default function Admin({ data }) {
+export default function Admin({ data, allPost }) {
+  const month = [ "januari", "februari", "maret", "april", "mei", "juni", "juli", "agustus", "september", "oktober", "november", "desember" ]
+      
+  const processData = () => {
+    const result = []
+    if (allPost) {
+      allPost.forEach((d) => {
+        const date = `${new Date(d.createdAt).getDate()} ${month[new Date(d.createdAt).getMonth()]} ${new Date(d.createdAt).getFullYear()}`
+          
+        result.push({
+          ...d,
+          date,
+        })
+      })
+    }
+
+    return result
+  }
+
   return (
     <Layout title="Dashboard">
       <div className="flex items-center justify-between p-4">
@@ -36,14 +54,17 @@ export default function Admin({ data }) {
       <div className="p-4 md:px-8">
         <AdminInfo />
         <AddPost owner={data} />
-        <PostAdmin />
+        <PostAdmin posts={processData()} owner={data} />
       </div>
     </Layout>
   );
 }
 
 export async function getServerSideProps(context) {
-  const getToken = await hasToken(context.req);
+  const getToken = await hasToken(context.req)
+  const res = await fetch(`${process.env.NEXTAUTH_URL}/api/posts`)
+  const data = await res.json()
+  const allPost = data.posts || null
 
   if (!getToken.isToken) {
     return {
@@ -57,6 +78,7 @@ export async function getServerSideProps(context) {
   return {
     props: {
       data: getToken.data,
+      allPost,
     },
   };
 }

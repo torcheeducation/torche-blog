@@ -29,7 +29,6 @@ export default function Admin({ data }) {
       <div className="p-4 md:px-8">
         <AdminInfo />
         <AddPost owner={data} />
-        <EditPost />
       </div>
     </Layout>
   )

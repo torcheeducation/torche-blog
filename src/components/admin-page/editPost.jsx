@@ -66,10 +66,10 @@ const Toast = MySwal.mixin({
   }
 })
 
-async function editPost(id, title, description, category, imageUrl) {
+async function editPost(id, title, description, category, imageUrl, estimatedReading) {
   const response = await fetch("/api/posts", {
     method: "PUT",
-    body: JSON.stringify({ id, title, description, category, imageUrl }),
+    body: JSON.stringify({ id, title, description, category, imageUrl, estimatedReading }),
     headers: {
       "Content-Type": "application/json"
     }
@@ -102,19 +102,10 @@ async function deletePost(id) {
   return data
 }
 
-export default function EditPost() {
-  const post = {
-    _id:	"642a2a805342df1e2ed3811f",
-    title:	"Kendaraan Listrik Bisa Bantu Bumi ?",
-    description:	"<p>Dengan menggunakan kendaraan listrik, kita turut membantu perlambatan dalam global warming. Tetapi kita memang masih perlu memperhatikan dan mengkaji lebih dalam terkait penggunaan kendaraan listrik seperti asal sumber energi listrik tersebut, limbah baterai jika masa pakai sudah habis, dan lain sebagainya. Dengan menggunakan kendaraan listrik, kita turut membantu perlambatan dalam global warming. Tetapi kita memang masih perlu memperhatikan dan mengkaji lebih dalam terkait penggunaan kendaraan listrik seperti asal sumber energi listrik tersebut, limbah baterai jika masa pakai sudah habis, dan lain sebagainya.</p>",
-    category:	"berita",
-    imageUrl:	"https://torche-blog-images.s3.ap-southeast-1.amazonaws.com/posts/1680484991999-kendaraan%20listrik.jpg",
-    ownerId:	"641be1922a991a494954029a",
-  }
-
-  const [condition, setCondition] = useState(true)
+export default function EditPost({ post, isEdit, setIsEdit }) {
   const [preview, setPreview] = useState(post.imageUrl)
   const [title, setTitle] = useState(post.title)
+  const [shortText, setShortText] = useState(post.shortText)
   const [description, setDescription] = useState(post.description)
   const [category, setCategory] = useState(post.category)
   const [isLoading, setIsLoading] = useState(false)
@@ -122,18 +113,13 @@ export default function EditPost() {
   const router = useRouter()
 
   const options = [
-    { id: 1, value: "edukasi", label: "Edukasi" },
-    { id: 2, value: "berita", label: "Berita" },
-    { id: 3, value: "gaya hidup", label: "Gaya Hidup" },
+    { value: "edukasi", label: "Edukasi" },
+    { value: "berita", label: "Berita" },
+    { value: "gaya hidup", label: "Gaya Hidup" },
   ]
 
   const handleClose = () => {
-    setCondition(false)
-    setTitle("")
-    setDescription("")
-    setCategory("")
-    setPreview("")
-    setImage(null)
+    setIsEdit(false)
   }
 
   const handleSelectChange = (selected) => {
@@ -191,6 +177,13 @@ export default function EditPost() {
       }
     }
 
+    const readingTime = () => {
+      const words = description.trim().split(/\s+/).length
+      const time = Math.ceil(words / 225)
+      return time
+    }
+    const estimatedReading = readingTime()
+
     try {
       let result
       if (image) {
@@ -202,29 +195,32 @@ export default function EditPost() {
           throw new Error("URL tidak ditemukan")
         }
         
-        result = await editPost(post._id, title, description, category, url)
+        result = await editPost(post._id, title, description, category, url, estimatedReading)
       } else {
-        result = await editPost(post._id, title, description, category, preview)
+        result = await editPost(post._id, title, description, category, preview, estimatedReading)
       }
 
       if (result.status === "success") {
-        setCondition(false)
+        setIsEdit(false)
         setPreview("")
         setTitle("")
         setDescription("")
         setCategory("")
         setIsLoading(false)
         setImage(null)
-        Toast.fire({
+        MySwal.fire({
           icon: "success",
-          title: "Menambahkan Postingan Berhasil"
+          title: "Postingan Berhasil Diupdate"
+        }).then((result) => {
+          if (result.isConfirmed) {
+            router.reload()
+          }
         })
-        router.reload()
       } else {
         setIsLoading(false)
         Toast.fire({
           icon: "error",
-          title: "Gagal menambahkan Postingan"
+          title: "Gagal Update Postingan"
         })
       }
     } catch (error) {
@@ -260,7 +256,7 @@ export default function EditPost() {
             })
             return
           }
-          setCondition(false)
+          setIsEdit(false)
         } catch (error) {
           console.log(error)
           Toast.fire({
@@ -281,9 +277,8 @@ export default function EditPost() {
 
   return (
     <div>
-      {condition && (
+      {isEdit && (
         <>
-          <div className="fixed top-0 left-0 w-full h-full bg-black opacity-70 z-10"></div>
           <div className="fixed top-0 left-0 w-full h-full grid place-items-center z-20">
           <div className="mx-auto w-[80vw] h-[80vh] bg-white rounded-lg overflow-auto">
               <div className="py-3 px-4 flex gap-3 justify-end items-center bg-gray-100 rounded-t-lg">
@@ -318,6 +313,10 @@ export default function EditPost() {
                     <input type="text" name="title" placeholder="Masukkan Judul Postingan" className="w-full py-1 px-2 border rounded-lg placeholder:italic" required value={title} onChange={(e) => setTitle(e.target.value)} />
                   </div>
                   <div className="w-full flex flex-col gap-2">
+                    <label className="font-semibold">Deskripsi Singkat Postingan</label>
+                    <input type="text" name="shortText" placeholder="Masukkan Deskripsi Singkat Postingan" className="w-full py-1 px-2 border rounded-lg placeholder:italic" required value={shortText} onChange={(e) => setShortText(e.target.value)} />
+                  </div>
+                  <div className="w-full flex flex-col gap-2">
                     <label className="font-semibold">Isi Postingan</label>
                     <QuillNoSSRWrapper theme="snow" modules={modules} formats={formats} value={description} onChange={setDescription} />
                   </div>
@@ -326,9 +325,8 @@ export default function EditPost() {
                     <SelectWithNoSSR
                       onChange={handleSelectChange}
                       options={options}
-                      defaultValue={options[options.indexOf(options.find((e) => e = category))]}
+                      defaultValue={options[options.indexOf(options.find((e) => e.value === category))]}
                       placeholder="Pilih kategori yang sesuai"
-                      key={"react-select-22-input"}
                     />
                   </div>
                   <div className="mt-10 flex justify-center">

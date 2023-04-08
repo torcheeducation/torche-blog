@@ -54,10 +54,10 @@ const formats = [
   'video',
 ];
 
-async function createPost(title, description, category, imageUrl, ownerId, visitor = 0) {
+async function createPost(title, shortText, description, category, imageUrl, ownerId, estimatedReading, visitor = 0) {
   const response = await fetch("/api/posts", {
     method: "POST",
-    body: JSON.stringify({ title, description, category, imageUrl, ownerId, visitor }),
+    body: JSON.stringify({ title, shortText, description, category, imageUrl, ownerId, estimatedReading, visitor }),
     headers: {
       "Content-Type": "application/json"
     },
@@ -87,6 +87,7 @@ const Toast = MySwal.mixin({
 export default function InputPost({ condition, setCondition, ownerId }) {
   const [preview, setPreview] = useState("")
   const [title, setTitle] = useState("")
+  const [shortText, setShortText] = useState("")
   const [description, setDescription] = useState("")
   const [category, setCategory] = useState("")
   const [isLoading, setIsLoading] = useState(false)
@@ -134,7 +135,7 @@ export default function InputPost({ condition, setCondition, ownerId }) {
     e.preventDefault()
     setIsLoading(true)
 
-    if (!title && !description && !category && !image) {
+    if (!title && !shortText && !description && !category && !image) {
       setIsLoading(false)
       Toast.fire({
         icon: "warning",
@@ -161,13 +162,20 @@ export default function InputPost({ condition, setCondition, ownerId }) {
       return
     }
 
+    const readingTime = () => {
+      const words = description.trim().split(/\s+/).length
+      const time = Math.ceil(words / 225)
+      return time
+    }
+    const estimatedReading = readingTime()
+
     try {
       const url = await uploadPostImageToS3(image)
       if (!url) {
         throw new Error("URL tidak ditemukan")
       }
 
-      const result = await createPost(title, description, category, url, ownerId)
+      const result = await createPost(title, shortText, description, category, url, ownerId, estimatedReading)
       
       if (result.status === "success") {
         setCondition(false)
@@ -237,6 +245,10 @@ export default function InputPost({ condition, setCondition, ownerId }) {
                   <div className="w-full flex flex-col gap-2">
                     <label className="font-semibold">Judul Postingan</label>
                     <input type="text" name="title" placeholder="Masukkan Judul Postingan" className="w-full py-1 px-2 border rounded-lg placeholder:italic" required onChange={(e) => setTitle(e.target.value)} />
+                  </div>
+                  <div className="w-full flex flex-col gap-2">
+                    <label className="font-semibold">Deskripsi Singkat Postingan</label>
+                    <input type="text" name="shortText" placeholder="Masukkan Deskripsi Singkat Postingan" className="w-full py-1 px-2 border rounded-lg placeholder:italic" required onChange={(e) => setShortText(e.target.value)} />
                   </div>
                   <div className="w-full flex flex-col gap-2">
                     <label className="font-semibold">Isi Postingan</label>

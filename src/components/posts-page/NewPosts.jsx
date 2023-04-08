@@ -48,7 +48,7 @@ export default function NewPosts({ children, posts }) {
                     className="w-full h-full rounded-lg"
                   />
                   <div className="mt-6">
-                    <p className="mb-4 text-sm capitalize text-blueDate">{date}</p>
+                    <p className="mb-4 capitalize text-blueDate">{date}</p>
                     <Link href={`/posts/${_id}`} className="hover:text-blue-600">
                       <h3 className="mt-4 font-bold text-lg">{title}</h3>
                     </Link>

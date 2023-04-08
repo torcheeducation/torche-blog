@@ -5,6 +5,10 @@ const postSchema = new mongoose.Schema({
     type: String,
     required: [true, "Please enter your title"],
   },
+  shortText: {
+    type: String,
+    required: [true, "Please enter the short text of post"]
+  },
   description: {
     type: String,
     required: [true, "Please enter your description"],
@@ -20,6 +24,10 @@ const postSchema = new mongoose.Schema({
   ownerId: {
     type: String,
     required: [true, "Please enter the owner of this post"]
+  },
+  estimatedReading: {
+    type: Number,
+    required: [true, "Please enter estimated reading the post"]
   },
   visitor: {
     type: Number,

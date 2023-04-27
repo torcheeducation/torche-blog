@@ -29,8 +29,9 @@ async function addVisitor(req, res) {
       await getVisitor.save()
     }
     
-    res.status(200).json({ message: "Update visitor success" })
+    res.status(200).json({ status: "success", message: "Update visitor success" })
   } catch (error) {
+    res.status(404).json({ status: "error", message: error })
     console.log(error)
   }
 }

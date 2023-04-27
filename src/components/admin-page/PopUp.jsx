@@ -47,7 +47,7 @@ export default function AdminAllPost({ target, PopUp, setPopUp }) {
         <>
           <div className="fixed top-0 left-0 z-10 h-full w-full bg-black opacity-70"></div>
           <div className="fixed top-0 left-0 z-20 grid h-full w-full place-items-center">
-            <div className="mx-auto h-[80vh] w-[80vw] overflow-auto rounded-lg bg-white">
+            <div className="mx-auto h-[90vh] w-[90vw] overflow-auto rounded-lg bg-white">
               <div className="py-3 px-4 flex gap-3 justify-end items-center bg-gray-100 rounded-t-lg">
                 <button
                   className="rounded-lg border p-2 hover:border-blue-500 hover:bg-blue-500 hover:text-white"

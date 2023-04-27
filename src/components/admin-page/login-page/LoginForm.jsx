@@ -56,7 +56,7 @@ export default function LoginForm() {
   }
 
   return (
-    <div className="w-full h-[88vh] flex justify-center items-center">
+    <div className="px-4 w-full h-[88vh] flex justify-center items-center">
       <div className="p-8 w-full max-w-xl border rounded-lg shadow-lg">
         <h1 className="text-center font-bold text-xl">Login to Access Admin Page</h1>
         <form className="mt-6">

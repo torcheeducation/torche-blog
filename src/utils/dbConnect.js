@@ -1,6 +1,6 @@
 import mongoose from "mongoose";
 
-const MONGODB_URI = process.env.DB_URI
+const MONGODB_URI = process.env.NEXT_PUBLIC_DBURI
 if (!MONGODB_URI) {
   throw new Error("Please define the MongoDB URI environtment variable")
 }

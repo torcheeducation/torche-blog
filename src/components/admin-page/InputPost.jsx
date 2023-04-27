@@ -217,7 +217,7 @@ export default function InputPost({ condition, setCondition, ownerId }) {
         <>
           <div className="fixed top-0 left-0 w-full h-full bg-black opacity-70 z-10"></div>
           <div className="fixed top-0 left-0 w-full h-full grid place-items-center z-20">
-            <div className="mx-auto w-[80vw] h-[80vh] bg-white rounded-lg overflow-auto">
+            <div className="mx-auto w-[90vw] h-[90vh] bg-white rounded-lg overflow-auto">
               <div className="py-3 px-4 flex gap-3 justify-end items-center bg-gray-100 rounded-t-lg">
                 <button className="p-2 border rounded-lg hover:bg-red-500 hover:text-white hover:border-red-500" onClick={handleClose}>
                   <CgClose className="text-2xl" />

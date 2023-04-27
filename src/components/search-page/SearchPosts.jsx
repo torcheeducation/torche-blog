@@ -5,93 +5,13 @@ import { useSearchParams } from "next/navigation"
 import { useState } from "react"
 import Pagination from "./Pagination"
 
-export default function SearchPosts() {
+export default function SearchPosts({ data }) {
+  const posts = data.posts.sort((a, b) => new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime())
   const searchParams = useSearchParams()
   const searchTarget = searchParams.get('target') || ''
-
   const [currentPage, setCurrentPage] = useState(1)
 
-  const searchResult = [
-    {
-      id: 1,
-      title: '10 Bahan Kimia Paling Berbahaya di Tempat Kerja',
-      description: 'Sementara banyak bahan kimia di tempat kerja mungkin tampak tidak berbahaya, beberapa di antaranya dapat menimbulkan bahaya yang signifikan. Mengetahui mana yang berbahaya dan bagaimana menangani bahan kimia berbahaya dengan benar dapat membantu mencegah cedera dan efek merugikan yang kronis. Di sini kita melihat 10 bahan kimia paling berbahaya di tempat kerja, yaitu arsenik, timbal, benzena, kromium, toluena, kadmium, zinc, merkuri, pestisida, dan limbah elektronik. ',
-      image: '/img/postingan1.png',
-      category: 'edukasi',
-    },
-    {
-      id: 2,
-      title: '10 Bahan Kimia Paling Berbahaya di Tempat Kerja',
-      description: 'Sementara banyak bahan kimia di tempat kerja mungkin tampak tidak berbahaya, beberapa di antaranya dapat menimbulkan bahaya yang signifikan. Mengetahui mana yang berbahaya dan bagaimana menangani bahan kimia berbahaya dengan benar dapat membantu mencegah cedera dan efek merugikan yang kronis. Di sini kita melihat 10 bahan kimia paling berbahaya di tempat kerja, yaitu arsenik, timbal, benzena, kromium, toluena, kadmium, zinc, merkuri, pestisida, dan limbah elektronik. ',
-      image: '/img/postingan1.png',
-      category: 'edukasi',
-    },
-    {
-      id: 3,
-      title: '10 Bahan Kimia Paling Berbahaya di Tempat Kerja',
-      description: 'Sementara banyak bahan kimia di tempat kerja mungkin tampak tidak berbahaya, beberapa di antaranya dapat menimbulkan bahaya yang signifikan. Mengetahui mana yang berbahaya dan bagaimana menangani bahan kimia berbahaya dengan benar dapat membantu mencegah cedera dan efek merugikan yang kronis. Di sini kita melihat 10 bahan kimia paling berbahaya di tempat kerja, yaitu arsenik, timbal, benzena, kromium, toluena, kadmium, zinc, merkuri, pestisida, dan limbah elektronik. ',
-      image: '/img/postingan1.png',
-      category: 'edukasi',
-    },
-    {
-      id: 4,
-      title: '10 Bahan Kimia Paling Berbahaya di Tempat Kerja',
-      description: 'Sementara banyak bahan kimia di tempat kerja mungkin tampak tidak berbahaya, beberapa di antaranya dapat menimbulkan bahaya yang signifikan. Mengetahui mana yang berbahaya dan bagaimana menangani bahan kimia berbahaya dengan benar dapat membantu mencegah cedera dan efek merugikan yang kronis. Di sini kita melihat 10 bahan kimia paling berbahaya di tempat kerja, yaitu arsenik, timbal, benzena, kromium, toluena, kadmium, zinc, merkuri, pestisida, dan limbah elektronik. ',
-      image: '/img/postingan1.png',
-      category: 'edukasi',
-    },
-    {
-      id: 5,
-      title: '10 Bahan Kimia Paling Berbahaya di Tempat Kerja',
-      description: 'Sementara banyak bahan kimia di tempat kerja mungkin tampak tidak berbahaya, beberapa di antaranya dapat menimbulkan bahaya yang signifikan. Mengetahui mana yang berbahaya dan bagaimana menangani bahan kimia berbahaya dengan benar dapat membantu mencegah cedera dan efek merugikan yang kronis. Di sini kita melihat 10 bahan kimia paling berbahaya di tempat kerja, yaitu arsenik, timbal, benzena, kromium, toluena, kadmium, zinc, merkuri, pestisida, dan limbah elektronik. ',
-      image: '/img/postingan1.png',
-      category: 'edukasi',
-    },
-    {
-      id: 6,
-      title: '10 Bahan Percobaan Paling Berbahaya di Tempat Kerja',
-      description: 'Sementara banyak bahan kimia di tempat kerja mungkin tampak tidak berbahaya, beberapa di antaranya dapat menimbulkan bahaya yang signifikan. Mengetahui mana yang berbahaya dan bagaimana menangani bahan kimia berbahaya dengan benar dapat membantu mencegah cedera dan efek merugikan yang kronis. Di sini kita melihat 10 bahan kimia paling berbahaya di tempat kerja, yaitu arsenik, timbal, benzena, kromium, toluena, kadmium, zinc, merkuri, pestisida, dan limbah elektronik. ',
-      image: '/img/postingan1.png',
-      category: 'edukasi',
-    },
-    {
-      id: 7,
-      title: '10 Bahan Percobaan Paling Berbahaya di Tempat Kerja',
-      description: 'Sementara banyak bahan kimia di tempat kerja mungkin tampak tidak berbahaya, beberapa di antaranya dapat menimbulkan bahaya yang signifikan. Mengetahui mana yang berbahaya dan bagaimana menangani bahan kimia berbahaya dengan benar dapat membantu mencegah cedera dan efek merugikan yang kronis. Di sini kita melihat 10 bahan kimia paling berbahaya di tempat kerja, yaitu arsenik, timbal, benzena, kromium, toluena, kadmium, zinc, merkuri, pestisida, dan limbah elektronik. ',
-      image: '/img/postingan1.png',
-      category: 'edukasi',
-    },
-    {
-      id: 8,
-      title: '10 Bahan Percobaan Paling Berbahaya di Tempat Kerja',
-      description: 'Sementara banyak bahan kimia di tempat kerja mungkin tampak tidak berbahaya, beberapa di antaranya dapat menimbulkan bahaya yang signifikan. Mengetahui mana yang berbahaya dan bagaimana menangani bahan kimia berbahaya dengan benar dapat membantu mencegah cedera dan efek merugikan yang kronis. Di sini kita melihat 10 bahan kimia paling berbahaya di tempat kerja, yaitu arsenik, timbal, benzena, kromium, toluena, kadmium, zinc, merkuri, pestisida, dan limbah elektronik. ',
-      image: '/img/postingan1.png',
-      category: 'edukasi',
-    },
-    {
-      id: 9,
-      title: '10 Bahan Percobaan Paling Berbahaya di Tempat Kerja',
-      description: 'Sementara banyak bahan kimia di tempat kerja mungkin tampak tidak berbahaya, beberapa di antaranya dapat menimbulkan bahaya yang signifikan. Mengetahui mana yang berbahaya dan bagaimana menangani bahan kimia berbahaya dengan benar dapat membantu mencegah cedera dan efek merugikan yang kronis. Di sini kita melihat 10 bahan kimia paling berbahaya di tempat kerja, yaitu arsenik, timbal, benzena, kromium, toluena, kadmium, zinc, merkuri, pestisida, dan limbah elektronik. ',
-      image: '/img/postingan1.png',
-      category: 'edukasi',
-    },
-    {
-      id: 10,
-      title: '10 Bahan Percobaan Paling Berbahaya di Tempat Kerja',
-      description: 'Sementara banyak bahan kimia di tempat kerja mungkin tampak tidak berbahaya, beberapa di antaranya dapat menimbulkan bahaya yang signifikan. Mengetahui mana yang berbahaya dan bagaimana menangani bahan kimia berbahaya dengan benar dapat membantu mencegah cedera dan efek merugikan yang kronis. Di sini kita melihat 10 bahan kimia paling berbahaya di tempat kerja, yaitu arsenik, timbal, benzena, kromium, toluena, kadmium, zinc, merkuri, pestisida, dan limbah elektronik. ',
-      image: '/img/postingan1.png',
-      category: 'edukasi',
-    },
-    {
-      id: 11,
-      title: '10 Bahan Percobaan Paling Aman di Tempat Kerja',
-      description: 'Sementara banyak bahan kimia di tempat kerja mungkin tampak tidak berbahaya, beberapa di antaranya dapat menimbulkan bahaya yang signifikan. Mengetahui mana yang berbahaya dan bagaimana menangani bahan kimia berbahaya dengan benar dapat membantu mencegah cedera dan efek merugikan yang kronis. Di sini kita melihat 10 bahan kimia paling berbahaya di tempat kerja, yaitu arsenik, timbal, benzena, kromium, toluena, kadmium, zinc, merkuri, pestisida, dan limbah elektronik. ',
-      image: '/img/postingan1.png',
-      category: 'edukasi',
-    },
-  ]
-
-  const result = searchResult.filter((search) => search.title.toLowerCase().includes(searchTarget.toLowerCase()))
+  const result = posts.filter((search) => search.title.toLowerCase().includes(searchTarget.toLowerCase()))
   const pageSize = 5
   const onPageChange = (page) => {
     setCurrentPage(page)
@@ -104,15 +24,15 @@ export default function SearchPosts() {
       {result.length > 0 ? (
         <>
           <div className="min-h-[30rem] flex flex-col gap-10">
-            {paginatedPosts.map(({ id, title, description }) => (
-                <Link key={id} href={`/posts/${id}`} className="group flex flex-col items-center gap-2 md:h-36 md:flex-row md:gap-4">
-                  <div className={`w-full h-4 rounded-md bg-postColor md:w-16 md:h-full`}></div>
-                  <div className="w-full bg-trendingpost p-4 rounded-md md:h-full md:w-full">
-                    <h2 className="font-bold text-xl group-hover:text-blue-600">{title}</h2>
-                    <p className="mt-4 text-sm text-slate-600 line-clamp-3">{description}</p>
-                  </div>
-                </Link>
-              ))}
+            {paginatedPosts.map(({ _id, title, description, category }) => (
+              <Link key={_id} href={`/posts/${_id}`} className="group flex flex-col items-center gap-2 md:h-36 md:flex-row md:gap-4">
+                <div className={`w-full h-4 rounded-md ${category} md:w-16 md:h-full`}></div>
+                <div className="w-full bg-trendingpost p-4 rounded-md md:h-full md:w-full">
+                  <h2 className="font-bold text-xl group-hover:text-blue-600">{title}</h2>
+                  <div className="mt-4 text-sm text-slate-600 line-clamp-3" dangerouslySetInnerHTML={{ __html: description }}></div>
+                </div>
+              </Link>
+            ))}
           </div>
           <Pagination
             items={result.length}

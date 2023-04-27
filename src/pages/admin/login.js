@@ -1,3 +1,4 @@
+import Loading from "@/components/Loading";
 import Layout from "@/components/admin-page/Layout";
 import LoginForm from "@/components/admin-page/login-page/LoginForm";
 import { getSession } from "next-auth/react";
@@ -19,7 +20,7 @@ export default function Login() {
   }, [router])
 
   if (isLoading) {
-    return <h1 className="font-bold text-2xl">Loading...</h1>
+    return <Loading />
   }
 
   return (

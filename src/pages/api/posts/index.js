@@ -8,7 +8,6 @@ handler.put(editPost)
 handler.delete(deletePost)
 
 async function createPost(req, res) {
-  console.log(req.body)
   dbConnect()
 
   try {

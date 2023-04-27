@@ -1,10 +1,11 @@
-import AWS from "aws-sdk"
-import { promisify } from "util"
+import { S3Client, PutObjectCommand } from "@aws-sdk/client-s3";
 
-const s3 = new AWS.S3({
-  accessKeyId: process.env.NEXT_PUBLIC_AWSKEY,
-  secretAccessKey: process.env.NEXT_PUBLIC_AWSSECRET,
+const s3 = new S3Client({
   region: process.env.NEXT_PUBLIC_AWSREGION,
+  credentials: {
+    accessKeyId: process.env.NEXT_PUBLIC_AWSKEY,
+    secretAccessKey: process.env.NEXT_PUBLIC_AWSSECRET,
+  }
 })
 
 export async function uploadPostImageToS3(file) {
@@ -16,10 +17,12 @@ export async function uploadPostImageToS3(file) {
     ContentType: file.type,
   }
 
-  const upload = promisify(s3.upload.bind(s3))
-  const result = await upload(params)
+  const command = new PutObjectCommand(params)
+  await s3.send(command)
+  
+  const url = `https://${params.Bucket}.s3.${process.env.NEXT_PUBLIC_AWSREGION}.amazonaws.com/${params.Key}`
 
-  return result.Location
+  return url
 }
 
 export async function uploadUserImageToS3(file) {
@@ -31,8 +34,10 @@ export async function uploadUserImageToS3(file) {
     ContentType: file.type,
   }
 
-  const upload = promisify(s3.upload.bind(s3))
-  const result = await upload(params)
+  const command = new PutObjectCommand(params)
+  await s3.send(command)
 
-  return result.Location
+  const url = `https://${params.Bucket}.s3.${process.env.NEXT_PUBLIC_AWSREGION}.amazonaws.com/${params.Key}`
+
+  return url
 }

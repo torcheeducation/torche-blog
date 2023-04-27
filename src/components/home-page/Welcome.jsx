@@ -7,7 +7,10 @@ export default function Welcome() {
             <h2 className="text-4xl font-rajdhani bg-white">Selamat Datang</h2>
           </div>
         </div>
-        <p className="mb-10 text-lg">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Consequuntur, similique debitis voluptate illum tempora repellat repudiandae aliquid ducimus ipsum sit commodi ea eveniet, unde neque doloribus cumque minus sed nemo.</p>
+        <div className="mb-10 text-lg">  
+          <p>Torche Education adalah Start-Up Teknologi Pendidikan pertama yang membantu anda belajar dalam bidang teknik khususnya di bidang Teknik Kimia.</p>
+          <p>Torche Education memiliki lebih dari 30 mata pelajaran teknik kimia, dengan 800 siswa unik yang tersebar di lebih dari 8 universitas.</p>
+        </div>
       </div>
     </>
   )

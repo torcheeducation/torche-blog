@@ -16,7 +16,9 @@ export default function NewPosts({ children, posts }) {
                     alt={title}
                     width={250}
                     height={118}
-                    sizes="100vw"
+                    sizes="(max-width: 768px) 100vw,
+                            (max-width: 1200px) 50vw,
+                            33vw"
                     style={{
                       objectFit: 'cover'
                     }}
@@ -50,7 +52,7 @@ export default function NewPosts({ children, posts }) {
                   <div className="mt-6">
                     <p className="mb-4 capitalize text-blueDate">{date}</p>
                     <Link href={`/posts/${_id}`} className="hover:text-blue-600">
-                      <h3 className="mt-4 font-bold text-lg">{title}</h3>
+                      <h3 className="mt-4 font-bold text-lg lg:text-xl">{title}</h3>
                     </Link>
                   </div>
                   <div className="mt-6 text-slate-600" dangerouslySetInnerHTML={{ __html: description }}></div>
@@ -68,7 +70,9 @@ export default function NewPosts({ children, posts }) {
                   alt={title}
                   width={128}
                   height={128}
-                  sizes="100vw"
+                  sizes="(max-width: 768px) 100vw,
+                          (max-width: 1200px) 50vw,
+                          33vw"
                   style={{
                     objectFit: 'cover',
                   }}

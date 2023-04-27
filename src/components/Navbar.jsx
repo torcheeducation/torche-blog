@@ -4,13 +4,39 @@ import { SlMenu } from "react-icons/sl";
 import { CgClose } from "react-icons/cg";
 import { ImSearch } from "react-icons/im";
 import { IoIosCloseCircle } from "react-icons/io";
-import { useState } from "react";
 import { useRouter } from "next/navigation";
+import { useEffect, useState } from "react";
+import Swal from "sweetalert2";
+import withReactContent from "sweetalert2-react-content";
+
+const MySwal = withReactContent(Swal)
+
+const Toast = MySwal.mixin({
+  toast: true,
+  position: 'top-end',
+  showConfirmButton: false,
+  timer: 3000,
+  timerProgressBar: true,
+  didOpen: (toast) => {
+    toast.addEventListener('mouseenter', MySwal.stopTimer)
+    toast.addEventListener('mouseleave', MySwal.resumeTimer)
+  }
+})
 
 export default function Navbar() {
   const router = useRouter();
   const [navbar, setNavbar] = useState(false);
   const [search, setSearch] = useState("");
+  const [clientWindowHeight, setClientWindowHeight] = useState("");
+
+  const handleScroll = () => {
+    setClientWindowHeight(window.scrollY);
+  };
+
+  useEffect(() => {
+    window.addEventListener("scroll", handleScroll); 
+    return () => window.removeEventListener("scroll", handleScroll);
+  });
 
   const links = [
     {
@@ -52,7 +78,7 @@ export default function Navbar() {
   };
 
   return (
-    <div className="flex w-full justify-between bg-navbar py-5 px-4 md:px-8 lg:items-center lg:px-5 xl:px-20">
+    <div className={"sticky top-0 flex w-full justify-between bg-navbar px-4 z-30 transition-all duration-300 md:px-8 lg:items-center lg:px-5 xl:px-20" + (clientWindowHeight > 10 ? " py-4 bg-opacity-95 shadow-xl" : " py-5")}>
       <Link href="/">
         <Image
           src="/img/logo.png"
@@ -60,6 +86,7 @@ export default function Navbar() {
           width={128}
           height={72}
           priority
+          className={"transition-all duration-300" + (clientWindowHeight > 10 ? " w-[90%]" : " w-full")}
         />
       </Link>
       <button

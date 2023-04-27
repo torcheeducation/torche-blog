@@ -35,20 +35,24 @@ export default function Home({ posts }) {
           <Welcome />
         </NewPosts>
       </div>
-      <Education />
-      <News />
-      <LifeStyle />
+      <Education posts={processData()} />
+      <News posts={processData()} />
+      <LifeStyle posts={processData()} />
     </Layout>
   );
 }
 
 export async function getServerSideProps() {
-  const res = await fetch(`${process.env.NEXTAUTH_URL}/api/posts`)
-  const posts = await res.json()
+  try {
+    const res = await fetch(`${process.env.NEXTAUTH_URL}/api/posts`)
+    const posts = await res.json()
 
-  return {
-    props: {
-      posts,
+    return {
+      props: {
+        posts,
+      }
     }
+  } catch (error) {
+    console.log(error)
   }
 }

@@ -8,3 +8,20 @@
   font-family: "Cairo Light";
   src: url("/fonts/Cairo/Cairo-Light.ttf");
 }
+
+ol {
+  list-style: decimal;
+  margin-left: 1rem;
+}
+
+.edukasi {
+  @apply bg-edukasi;
+}
+
+.berita {
+  @apply bg-berita;
+}
+
+.gaya {
+  @apply bg-gaya;
+}

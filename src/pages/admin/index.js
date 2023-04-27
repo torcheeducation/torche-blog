@@ -6,7 +6,7 @@ import { hasToken } from "@/utils/checkUser";
 import { signOut } from "next-auth/react";
 import Image from "next/image";
 
-export default function Admin({ data, allPost }) {
+export default function Admin({ data, allPost, visitor }) {
   const month = [ "januari", "februari", "maret", "april", "mei", "juni", "juli", "agustus", "september", "oktober", "november", "desember" ]
       
   const processData = () => {
@@ -52,7 +52,7 @@ export default function Admin({ data, allPost }) {
         </button>
       </div>
       <div className="p-4 md:px-8">
-        <AdminInfo />
+        <AdminInfo posts={processData()} visitor={visitor ? visitor : 0} />
         <AddPost owner={data} />
         <PostAdmin posts={processData()} owner={data} />
       </div>
@@ -62,9 +62,14 @@ export default function Admin({ data, allPost }) {
 
 export async function getServerSideProps(context) {
   const getToken = await hasToken(context.req)
-  const res = await fetch(`${process.env.NEXTAUTH_URL}/api/posts`)
-  const data = await res.json()
-  const allPost = data.posts || null
+
+  const postRes = await fetch(`${process.env.NEXTAUTH_URL}/api/posts`)
+  const postData = await postRes.json()
+  const allPost = postData.posts || null
+
+  const visitorRes = await fetch(`${process.env.NEXTAUTH_URL}/api/visitor`)
+  const visitorData = await visitorRes.json()
+  const todayVisitor = visitorData.data || null
 
   if (!getToken.isToken) {
     return {
@@ -79,6 +84,7 @@ export async function getServerSideProps(context) {
     props: {
       data: getToken.data,
       allPost,
+      visitor: todayVisitor,
     },
   };
 }

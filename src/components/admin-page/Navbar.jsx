@@ -2,7 +2,6 @@ import Image from "next/image";
 import Link from "next/link";
 
 export default function Navbar({ title }) {
-
   return (
     <div className="flex w-full justify-between items-center bg-navbar py-5 px-4 md:px-8 lg:px-5 xl:px-20">
       <Link href="/admin">

@@ -111,7 +111,7 @@ export default function AllCategories() {
     },
   ];
 
-  const categoryFilter = CategoriesResult.filter((post) => post.category.toLowerCase().includes(selectedCategory.toLowerCase()))
+  const categoryFilter = categoriesResult.filter((post) => post.category.toLowerCase().includes(selectedCategory.toLowerCase()))
   const result = categoryFilter.filter((search) => search.title.toLowerCase().includes(categoriesTarget.toLowerCase()))
 
   const pageSize = 5;

@@ -2,6 +2,7 @@ import { BsFileEarmarkPostFill } from "react-icons/bs"
 import { FiUser, FiUsers } from "react-icons/fi"
 
 export default function AdminInfo({ posts, visitor }) {
+  console.log(visitor)
   const totalVisitor = posts.map((post) => post.visitor).reduce((a, b) => a + b, 0)
 
   return (

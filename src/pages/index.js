@@ -6,24 +6,40 @@ import Welcome from "@/components/home-page/Welcome";
 import Layout from "@/components/Layout";
 import TrendingPosts from "@/components/home-page/TrendingPosts";
 import NewPosts from "@/components/posts-page/NewPosts";
+import AllCategories from "@/components/categories-page/AllCategories";
 
 export default function Home({ posts }) {
-  const month = [ "januari", "februari", "maret", "april", "mei", "juni", "juli", "agustus", "september", "oktober", "november", "desember" ]
+  const month = [
+    "januari",
+    "februari",
+    "maret",
+    "april",
+    "mei",
+    "juni",
+    "juli",
+    "agustus",
+    "september",
+    "oktober",
+    "november",
+    "desember",
+  ];
 
   const processData = () => {
-    const result = []
+    const result = [];
 
     posts.posts.forEach((d) => {
-      const date = `${new Date(d.createdAt).getDate()} ${month[new Date(d.createdAt).getMonth()]} ${new Date(d.createdAt).getFullYear()}`
-      
+      const date = `${new Date(d.createdAt).getDate()} ${
+        month[new Date(d.createdAt).getMonth()]
+      } ${new Date(d.createdAt).getFullYear()}`;
+
       result.push({
         ...d,
         date,
-      })
-    })
+      });
+    });
 
-    return result
-  }
+    return result;
+  };
 
   return (
     <Layout title="Beranda">
@@ -44,15 +60,15 @@ export default function Home({ posts }) {
 
 export async function getServerSideProps() {
   try {
-    const res = await fetch(`${process.env.NEXTAUTH_URL}/api/posts`)
-    const posts = await res.json()
+    const res = await fetch(`${process.env.NEXTAUTH_URL}/api/posts`);
+    const posts = await res.json();
 
     return {
       props: {
         posts,
-      }
-    }
+      },
+    };
   } catch (error) {
-    console.log(error)
+    console.log(error);
   }
 }

@@ -1,6 +1,7 @@
-import Layout from "@/components/Layout"
-import SearchHero from "@/components/search-page/SearchHero"
-import SearchPosts from "@/components/search-page/SearchPosts"
+import Layout from "@/components/Layout";
+import AllCategories from "@/components/categories-page/AllCategories";
+import SearchHero from "@/components/search-page/SearchHero";
+import SearchPosts from "@/components/search-page/SearchPosts";
 
 export default function Search({ data }) {
   return (
@@ -8,16 +9,16 @@ export default function Search({ data }) {
       <SearchHero />
       <SearchPosts data={data} />
     </Layout>
-  )
+  );
 }
 
 export async function getServerSideProps() {
-  const res = await fetch(`${process.env.NEXTAUTH_URL}/api/posts`)
-  const data = await res.json()
+  const res = await fetch(`${process.env.NEXTAUTH_URL}/api/posts`);
+  const data = await res.json();
 
   return {
     props: {
       data,
-    }
-  }
+    },
+  };
 }

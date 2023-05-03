@@ -13,7 +13,7 @@ async function addVisitor(id) {
 
 export default function Posts({ id, data }) {
   const [isVisitor, setIsVisitor] = useState(false)
-  const post = data.posts.filter((d) => d._id === id)[0]
+  const post = data.post
 
   const month = [ "januari", "februari", "maret", "april", "mei", "juni", "juli", "agustus", "september", "oktober", "november", "desember" ]
 
@@ -42,7 +42,7 @@ export default function Posts({ id, data }) {
 }
 
 export async function getServerSideProps(context) {
-  const res = await fetch(`${process.env.NEXTAUTH_URL}/api/posts`)
+  const res = await fetch(`${process.env.NEXTAUTH_URL}/api/posts/${context.params.id}`)
   const data = await res.json()
 
   return {

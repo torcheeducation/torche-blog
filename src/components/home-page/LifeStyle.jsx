@@ -59,7 +59,7 @@ export default function LifeStyle({ posts }) {
           }
         )}
 
-        <div className="grid col-span-4 gap-7 md:col-span-7 md:gap-7 lg:col-span-8 lg:gap-11">
+        <div className="grid col-span-4 gap-7 md:col-span-7 md:gap-7 lg:col-span-8 lg:gap-11 lg:grid-rows-3">
           {dataPost.slice(1, 4).map(
             ({ _id, title, description }) => {
               return (

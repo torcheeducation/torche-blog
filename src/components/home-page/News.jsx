@@ -59,7 +59,7 @@ export default function News({ posts }) {
           }
         )}
 
-        <div className="grid col-span-4 gap-7 md:col-span-7 md:gap-7 lg:col-span-8 lg:gap-11">
+        <div className="grid col-span-4 gap-7 md:col-span-7 md:gap-7 lg:col-span-8 lg:gap-11 lg:grid-rows-3">
           {dataPost.slice(1, 4).map(({ _id, title, description }) => {
             return (
               <article key={_id} className="rounded-t-lg border-t-[16px] border-[#FFAE5F] md:rounded-l-lg md:border-t-[0px] md:border-l-[50px] md:max-h-32 lg:max-h-36">

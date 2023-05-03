@@ -1,10 +1,7 @@
 import Post from "@/models/post"
 import dbConnect from "@/utils/dbConnect"
-import handler from "@/utils/handler"
 
-handler.get(getPostById)
-
-async function getPostById(req, res) {
+export default async function handler(req, res) {
   dbConnect()
 
   try {
@@ -16,5 +13,3 @@ async function getPostById(req, res) {
     console.log(error)
   }
 }
-
-export default handler

@@ -1,13 +1,15 @@
 import Post from "@/models/post"
 import Visitor from "@/models/visitor"
 import dbConnect from "@/utils/dbConnect"
-import handler from "@/utils/handler"
-
-handler.put(addVisitor)
 
 const month = [ "january", "february", "march", "april", "may", "june", "july", "august", "september", "october", "november", "december" ]
 
-async function addVisitor(req, res) {
+export default async function handler(req, res) {
+  if (req.method !== "PUT") {
+    res.status(404).json({ status: "error", message: "Method not found!" })
+    return
+  }
+
   dbConnect()
 
   try {
@@ -31,9 +33,7 @@ async function addVisitor(req, res) {
     
     res.status(200).json({ status: "success", message: "Update visitor success" })
   } catch (error) {
-    res.status(404).json({ status: "error", message: error })
+    res.status(500).json({ status: "error", message: error })
     console.log(error)
   }
 }
-
-export default handler

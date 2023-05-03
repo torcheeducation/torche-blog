@@ -12,35 +12,37 @@ async function addVisitor(id) {
 }
 
 export default function Posts({ id, data }) {
-  console.log(data)
   const [isVisitor, setIsVisitor] = useState(false)
+  const post = data.posts.filter((d) => d._id === id)[0]
+
   const month = [ "januari", "februari", "maret", "april", "mei", "juni", "juli", "agustus", "september", "oktober", "november", "desember" ]
 
-  const date = `${new Date(data.post.createdAt).getDate()} ${month[new Date(data.post.createdAt).getMonth()]} ${new Date(data.post.createdAt).getFullYear()}`
+  const date = `${new Date(post.createdAt).getDate()} ${month[new Date(post.createdAt).getMonth()]} ${new Date(post.createdAt).getFullYear()}`
 
   useEffect(() => {
     const addNewVisitor = async () => {
       const visitor = await addVisitor(id)
-      console.log(visitor)
       setIsVisitor(true)
     }
 
     if (!isVisitor) {
       addNewVisitor()
+      setIsVisitor(true)
     }
   }, [id, isVisitor])
 
   return (
-    <Layout title="Postingan">
+    <Layout title={post.title}>
       <div className="w-full px-4 py-6 xl:px-14">
-        <PostDetail post={data.post} date={date} />
+        <PostDetail post={post} date={date} />
+        <PostDetail post={post} date={date} />
       </div>
     </Layout>
   );
 }
 
 export async function getServerSideProps(context) {
-  const res = await fetch(`${process.env.NEXTAUTH_URL}/api/posts/${context.params.id}`)
+  const res = await fetch(`${process.env.NEXTAUTH_URL}/api/posts`)
   const data = await res.json()
 
   return {

@@ -5,11 +5,10 @@ import handler from "@/utils/handler"
 handler.get(getPostById)
 
 async function getPostById(req, res) {
-  console.log(req.query)
   dbConnect()
 
   try {
-    const post = await Post.findById(req.query.id)
+    const post = await Post.findOne({ _id: req.query.id })
     res.status(200).json({
       post,
     })

@@ -56,7 +56,7 @@ export default function AllCategories({ data }) {
           <div className="flex min-h-[30rem] flex-col gap-14">
             {paginatedPosts
               .slice(0, numPost)
-              .map(({ _id, title, description, imageUrl, date }) => (
+              .map(({ _id, title, description, imageUrl }) => (
                 <Link
                   key={_id}
                   href={`/posts/${_id}`}
@@ -76,9 +76,7 @@ export default function AllCategories({ data }) {
                     <h2 className="text-xl font-bold group-hover:text-blue-600">
                       {title}
                     </h2>
-                    <p className="mt-4 text-sm text-slate-600 line-clamp-3">
-                      {description}
-                    </p>
+                    <div className="mt-4 text-sm text-slate-600 line-clamp-3" dangerouslySetInnerHTML={{ __html: description }}></div>
                   </div>
                 </Link>
               ))}

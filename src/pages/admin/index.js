@@ -63,13 +63,16 @@ export default function Admin({ data, allPost, visitor }) {
 export async function getServerSideProps(context) {
   const getToken = await hasToken(context.req)
 
-  const postRes = await fetch(`${process.env.NEXTAUTH_URL}/api/posts`)
-  const postData = await postRes.json()
-  const allPost = postData.posts || null
-
   const visitorRes = await fetch(`${process.env.NEXTAUTH_URL}/api/visitor`)
   const visitorData = await visitorRes.json()
+  console.log(visitorData)
   const todayVisitor = visitorData.data || null
+  
+  const postRes = await fetch(`${process.env.NEXTAUTH_URL}/api/posts`)
+  const postData = await postRes.json()
+  console.log(postData)
+  const allPost = postData.posts || null
+
 
   if (!getToken.isToken) {
     return {

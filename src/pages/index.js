@@ -28,9 +28,7 @@ export default function Home({ posts }) {
     const result = [];
 
     posts.posts.forEach((d) => {
-      const date = `${new Date(d.createdAt).getDate()} ${
-        month[new Date(d.createdAt).getMonth()]
-      } ${new Date(d.createdAt).getFullYear()}`;
+      const date = `${new Date(d.createdAt).getDate()} ${month[new Date(d.createdAt).getMonth()]} ${new Date(d.createdAt).getFullYear()}`;
 
       result.push({
         ...d,

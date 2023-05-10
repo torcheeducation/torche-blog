@@ -76,9 +76,10 @@ export default function AllCategories({ data }) {
                     <h2 className="text-xl font-bold group-hover:text-blue-600">
                       {title}
                     </h2>
-                    <p className="mt-4 text-sm text-slate-600 line-clamp-3">
-                      {description}
-                    </p>
+                    <p
+                      className="mt-4 text-sm text-slate-600 line-clamp-3"
+                      dangerouslySetInnerHTML={{ __html: description }}
+                    ></p>
                   </div>
                 </Link>
               ))}

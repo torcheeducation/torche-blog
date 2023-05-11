@@ -12,7 +12,7 @@ export default function Education({ posts }) {
           EDUKASI
         </h2>
         <Link
-          href="/posts"
+          href="/categories?type=education"
           passHref
           className="absolute top-0 right-6 inline-block text-lg font-bold text-blue-600"
         >

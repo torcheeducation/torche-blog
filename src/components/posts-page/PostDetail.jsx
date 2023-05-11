@@ -1,15 +1,10 @@
-import React, { Component } from "react";
+import React from "react"
 import Image from "next/image";
 import Link from "next/link";
-import { useState } from "react";
 import { RxDotFilled } from "react-icons/rx";
-import { AiFillInstagram } from "react-icons/ai";
-import { SiFacebook, SiInstagram } from "react-icons/si";
-import { SiTwitter } from "react-icons/si";
-import { SiLinkedin } from "react-icons/si";
-import { SiDiscord } from "react-icons/si";
+import { SiFacebook, SiTwitter, SiLinkedin, SiLine } from "react-icons/si";
 import { IoLogoWhatsapp } from "react-icons/io";
-import { SiLine } from "react-icons/si";
+import { MdOutlineContentCopy } from "react-icons/md"
 import {
   FacebookShareButton,
   LineShareButton,
@@ -17,41 +12,50 @@ import {
   TwitterShareButton,
   WhatsappShareButton,
 } from "react-share";
-import ScrollToTopButton from "@/pages/ScrollToTopButton";
+import { useRouter } from "next/router";
+import Swal from "sweetalert2";
+import withReactContent from "sweetalert2-react-content";
 
-function PostDetail({ post, date, posts }) {
-  const [recommendations, setRecommendations] = useState([]);
+const MySwal = withReactContent(Swal)
 
-  useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const response = await fetch(
-          `${process.env.NEXTAUTH_URL}/api/posts=${posts}`
-        );
-        const data = await response.json();
-        setRecommendations(data.category);
-      } catch (error) {
-        console.error("Error fetching recommendations:", error);
-      }
-    };
+const Toast = MySwal.mixin({
+  toast: true,
+  position: 'top-end',
+  showConfirmButton: false,
+  timer: 3000,
+  timerProgressBar: true,
+  didOpen: (toast) => {
+    toast.addEventListener('mouseenter', MySwal.stopTimer)
+    toast.addEventListener('mouseleave', MySwal.resumeTimer)
+  }
+})
 
-    fetchData();
-  }, [posts]);
+function PostDetail({ post, relatedPost, date, owner, url }) {
+  console.log(post)
+  const router = useRouter()
+  const postUrl = `${url}${router.asPath}`
 
-  console.log();
+  function copyUrl() {
+    navigator.clipboard.writeText(postUrl)
+
+    Toast.fire({
+      icon: "success",
+      title: "Berhasil menyimpan URL ke dalam clipboard"
+    })
+  }
 
   return (
     <div className="mx-2 sm:mx-7">
       <div>
         <div className="flex gap-1 ">
-          <h6 className="text-sm font-semibold text-[#9284F1]">
+          <h6 className="text-sm capitalize font-semibold text-[#9284F1]">
             {post.category}
           </h6>
           <RxDotFilled className="mt-[2px]" />
-          <p className="text-sm text-[#A7A7A7]">{date}</p>
+          <p className="text-sm capitalize text-[#A7A7A7]">{post.estimatedReading} menit baca</p>
         </div>
         <div className="mt-4 ">
-          <h1 className="font-['Rajdhani'] text-[43px] font-bold">
+          <h1 className="font-['Rajdhani'] capitalize text-[43px] font-bold">
             {post.title}
           </h1>
           <p className="font-['Cairo Light'] text-[#727272]">
@@ -60,15 +64,15 @@ function PostDetail({ post, date, posts }) {
         </div>
         <div className="mt-9 flex">
           <Image
-            src={post.imageUrl}
+            src={owner.imageUrl}
             alt="writer"
             width={70}
             height={70}
             className="rounded-full"
           />
           <div className="m-2 ml-6">
-            <p className="text-base text-[#727272]">{post.ownerId}</p>
-            <p className="text-base text-[#A7A7A7]">{date}</p>
+            <p className="text-base text-[#727272]">{owner.name}</p>
+            <p className="text-base capitalize text-[#A7A7A7]">{date}</p>
           </div>
         </div>
         <div className="my-10">
@@ -77,7 +81,7 @@ function PostDetail({ post, date, posts }) {
             alt="writer"
             width={500}
             height={500}
-            className="h-full w-full"
+            className="h-full w-full rounded-md"
           />
           <div
             className="font-['Cairo Light'] my-10"
@@ -88,77 +92,72 @@ function PostDetail({ post, date, posts }) {
           <h2 className="font-['Cairo Light'] text-lg text-[#999999]">
             Bagikan Postingan:
           </h2>
-          <div className="flex gap-7 text-[#5885E9]">
-            <TwitterShareButton>
-              <SiTwitter />
-            </TwitterShareButton>
-            <FacebookShareButton>
-              <SiFacebook />
-            </FacebookShareButton>
-            <LinkedinShareButton>
-              <SiLinkedin />
-            </LinkedinShareButton>
-            <LineShareButton>
-              <SiLine />
-            </LineShareButton>
-            <WhatsappShareButton>
-              <IoLogoWhatsapp />
-            </WhatsappShareButton>
-            <SiDiscord />
-            <AiFillInstagram />
+          <div className="flex gap-4 text-[#5885E9]">
+            <div className="p-2 flex justify-center items-center bg-slate-100 rounded-full">
+              <TwitterShareButton url={postUrl}>
+                <SiTwitter title="Bagikan ke Twitter" />
+              </TwitterShareButton>
+            </div>
+            <div className="p-2 flex justify-center items-center bg-slate-100 rounded-full">
+              <FacebookShareButton url={postUrl}>
+                <SiFacebook title="Bagikan ke Facebook" />
+              </FacebookShareButton>
+            </div>
+            <div className="p-2 flex justify-center items-center bg-slate-100 rounded-full">
+              <LinkedinShareButton url={postUrl}>
+                <SiLinkedin title="Bagikan ke Linkedin" />
+              </LinkedinShareButton>
+            </div>
+            <div className="p-2 flex justify-center items-center bg-slate-100 rounded-full">
+              <LineShareButton url={postUrl}>
+                <SiLine title="Bagikan ke Line" />
+              </LineShareButton>
+            </div>
+            <div className="p-2 flex justify-center items-center bg-slate-100 rounded-full">
+              <WhatsappShareButton url={postUrl}>
+                <IoLogoWhatsapp title="Bagikan ke Whatsapp" />
+              </WhatsappShareButton>
+            </div>
+            <div title="Copy Link URL" className="p-2 flex justify-center items-center bg-slate-100 rounded-full">
+              <MdOutlineContentCopy className="cursor-pointer" onClick={copyUrl} />
+            </div>
           </div>
         </div>
       </div>
-      {/* <div className="mb-6 mt-24 sm:mt-32">
-        <h2 className="left-0 top-0 mb-10 inline-block text-2xl uppercase text-slate-500">
-          POSTINGAN TERKAIT
-        </h2>
+      <div className="mb-6 mt-24">
+        {relatedPost.length > 1 && (
+          <h2 className="left-0 top-0 mb-10 inline-block text-2xl uppercase text-slate-500">
+            POSTINGAN TERKAIT
+          </h2>
+        )}
 
-        <div className="flex gap-6">
-          {recommendations.map((article) => (
+        <div className="flex flex-col gap-10 sm:gap-6 sm:flex-row">
+          {relatedPost.map((article) => (
             <Link
               key={article._id}
               href={`/posts/${article._id}`}
-              className="group group-hover:text-blue-600"
+              className="sm:w-1/2 group group-hover:text-blue-600"
             >
               <Image
                 src={article.imageUrl}
                 alt={article.title}
                 width={500}
                 height={400}
-                className="w-full rounded-md "
+                style={{
+                  objectFit: "cover"
+                }}
+                className="w-full rounded-md h-52 md:h-80"
               />
               <div className="mt-5">
-                <p className="mb-4 capitalize text-blueDate">{date}</p>
-                <h2 className="font-['Cairo Light'] text-lg font-bold line-clamp-2 group-hover:text-blue-600">
+                <p className="mb-4 capitalize text-blueDate text-sm md:text-base">{date}</p>
+                <h2 className="font-['Cairo Light'] font-bold line-clamp-2 group-hover:text-blue-600 md:text-lg">
                   {article.title}
                 </h2>
               </div>
             </Link>
           ))}
-
-          <Link
-            key={post._id}
-            href={`/posts/${post._id}`}
-            className="group group-hover:text-blue-600"
-          >
-            <Image
-              src={post.imageUrl}
-              alt={post.title}
-              width={500}
-              height={400}
-              className="w-full rounded-md "
-            />
-            <div className="mt-5">
-              <p className="mb-4 capitalize text-blueDate">{date}</p>
-              <h2 className="font-['Cairo Light'] text-lg font-bold line-clamp-2 group-hover:text-blue-600">
-                {post.title}
-              </h2>
-            </div>
-          </Link>
         </div>
-      </div> */}
-      <ScrollToTopButton />
+      </div>
     </div>
   );
 }

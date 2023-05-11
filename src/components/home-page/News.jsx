@@ -13,7 +13,7 @@ export default function News({ posts }) {
         </h2>
         <Link
           key={URL}
-          href={`https://torche.app/`}
+          href="/categories?type=news"
           className="absolute top-0 right-6 inline-block text-lg font-bold text-blue-600"
         >
           <h4>Lihat Lainnya</h4>

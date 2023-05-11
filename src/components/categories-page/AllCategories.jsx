@@ -11,16 +11,26 @@ export default function AllCategories({ data }) {
 
   const categoriesParams = useSearchParams();
   const categoriesTarget = categoriesParams.get("target") || "";
+  const categoriesType = categoriesParams.get("type") || "";
 
-  const [currentPage, setCurrentPage] = useState(1);
-  const [selectedCategory, setSelectedCategory] = useState("");
-
+  const type = {
+    education: "edukasi",
+    news: "berita",
+    lifestyle: "gaya hidup"
+  }
+  
   const categories = [
     { value: "", label: "Semua" },
     { value: "edukasi", label: "Edukasi" },
     { value: "berita", label: "Berita" },
     { value: "gaya hidup", label: "Gaya Hidup" },
   ];
+
+  const defaultSelect = categories[categories.indexOf(categories.find((e) => e.value === type[categoriesType]))]
+  const defaultValue = defaultSelect ? defaultSelect.value : ""
+
+  const [currentPage, setCurrentPage] = useState(1);
+  const [selectedCategory, setSelectedCategory] = useState(defaultValue);
 
   const categoryFilter = data.posts.filter((post) =>
     post.category.toLowerCase().includes(selectedCategory.toLowerCase())
@@ -49,18 +59,19 @@ export default function AllCategories({ data }) {
         onChange={handleChange}
         options={categories}
         placeholder="Select Option"
+        defaultValue={defaultSelect}
         className="mb-10 w-48 md:h-10 md:w-72 lg:mb-14"
       />
       {result.length > 0 ? (
         <>
-          <div className="flex min-h-[30rem] flex-col gap-14">
+          <div className="flex min-h-[30rem] flex-col gap-16">
             {paginatedPosts
               .slice(0, numPost)
               .map(({ _id, title, description, imageUrl }) => (
                 <Link
                   key={_id}
                   href={`/posts/${_id}`}
-                  className="group flex flex-col items-center gap-2 md:h-36 md:flex-row md:gap-0"
+                  className="group flex flex-col items-center gap-2 md:h-36 md:flex-row md:gap-6"
                 >
                   <div className="">
                     <Image
@@ -69,7 +80,7 @@ export default function AllCategories({ data }) {
                       width={553}
                       height={154}
                       sizes="30vw"
-                      className="rounded-md md:w-[87%]"
+                      className="rounded-md md:w-96"
                     />
                   </div>
                   <div className="w-full rounded-md  p-4 md:h-full md:w-full">

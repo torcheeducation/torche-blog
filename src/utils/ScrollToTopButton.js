@@ -28,12 +28,13 @@ const ScrollToTopButton = () => {
 
   return (
     <button
+      title="Kembali ke Atas"
       onClick={scrollToTop}
-      className={`fixed bottom-9 right-5 rounded-full bg-[#003f88] p-3 text-white ${
+      className={`fixed bottom-9 right-5 rounded-full bg-[#003f88] p-4 text-white ${
         isVisible ? "opacity-100" : "opacity-0"
       }`}
     >
-      <FaArrowUp />
+      <FaArrowUp className="text-lg" />
     </button>
   );
 };

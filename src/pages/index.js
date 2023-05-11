@@ -7,6 +7,7 @@ import Layout from "@/components/Layout";
 import TrendingPosts from "@/components/home-page/TrendingPosts";
 import NewPosts from "@/components/posts-page/NewPosts";
 import AllCategories from "@/components/categories-page/AllCategories";
+import ScrollToTopButton from "@/utils/ScrollToTopButton";
 
 export default function Home({ posts }) {
   const month = [
@@ -52,6 +53,7 @@ export default function Home({ posts }) {
       <Education posts={processData()} />
       <News posts={processData()} />
       <LifeStyle posts={processData()} />
+      <ScrollToTopButton />
     </Layout>
   );
 }

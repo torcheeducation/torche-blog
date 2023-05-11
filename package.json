@@ -19,6 +19,7 @@
     "mongoose": "^7.0.2",
     "multer": "^1.4.5-lts.1",
     "next": "13.2.3",
+    "next-absolute-url": "^1.2.2",
     "next-auth": "^4.20.1",
     "next-connect": "^0.13.0",
     "next-with-workbox": "^3.0.5",

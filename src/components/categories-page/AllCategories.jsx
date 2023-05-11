@@ -64,14 +64,14 @@ export default function AllCategories({ data }) {
       />
       {result.length > 0 ? (
         <>
-          <div className="flex min-h-[30rem] flex-col gap-14">
+          <div className="flex min-h-[30rem] flex-col gap-16">
             {paginatedPosts
               .slice(0, numPost)
               .map(({ _id, title, description, imageUrl }) => (
                 <Link
                   key={_id}
                   href={`/posts/${_id}`}
-                  className="group flex flex-col items-center gap-2 md:h-36 md:flex-row md:gap-0"
+                  className="group flex flex-col items-center gap-2 md:h-36 md:flex-row md:gap-6"
                 >
                   <div className="">
                     <Image
@@ -80,7 +80,7 @@ export default function AllCategories({ data }) {
                       width={553}
                       height={154}
                       sizes="30vw"
-                      className="rounded-md md:w-[87%]"
+                      className="rounded-md md:w-96"
                     />
                   </div>
                   <div className="w-full rounded-md  p-4 md:h-full md:w-full">

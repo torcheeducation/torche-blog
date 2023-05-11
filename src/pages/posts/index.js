@@ -1,6 +1,7 @@
 import AllPosts from "@/components/posts-page/AllPosts";
 import Layout from "@/components/Layout";
 import NewPosts from "@/components/posts-page/NewPosts";
+import ScrollToTopButton from "@/utils/ScrollToTopButton";
 
 export default function Posts({ posts }) {
   const month = [
@@ -39,6 +40,7 @@ export default function Posts({ posts }) {
         <NewPosts posts={processData()} />
         <AllPosts posts={processData()} />
       </div>
+      <ScrollToTopButton />
     </Layout>
   );
 }

@@ -109,8 +109,7 @@ function PostDetail({ post, date, posts }) {
           </div>
         </div>
       </div>
-
-      <div className="mb-6 mt-24 sm:mt-32">
+      {/* <div className="mb-6 mt-24 sm:mt-32">
         <h2 className="left-0 top-0 mb-10 inline-block text-2xl uppercase text-slate-500">
           POSTINGAN TERKAIT
         </h2>
@@ -158,7 +157,7 @@ function PostDetail({ post, date, posts }) {
             </div>
           </Link>
         </div>
-      </div>
+      </div> */}
       <ScrollToTopButton />
     </div>
   );

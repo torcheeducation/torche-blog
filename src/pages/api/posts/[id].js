@@ -1,15 +1,11 @@
 import Post from "@/models/post"
 import dbConnect from "@/utils/dbConnect"
-import handler from "@/utils/handler"
 
-handler.get(getPostById)
-
-async function getPostById(req, res) {
-  console.log(req.query)
+export default async function handler(req, res) {
   dbConnect()
 
   try {
-    const post = await Post.findById(req.query.id)
+    const post = await Post.findOne({ _id: req.query.id })
     res.status(200).json({
       post,
     })
@@ -17,5 +13,3 @@ async function getPostById(req, res) {
     console.log(error)
   }
 }
-
-export default handler

@@ -1,12 +1,14 @@
 import Visitor from "@/models/visitor"
 import dbConnect from "@/utils/dbConnect"
-import handler from "@/utils/handler"
-
-handler.get(getTodayVisitor)
 
 const month = [ "january", "february", "march", "april", "may", "june", "july", "august", "september", "october", "november", "december" ]
 
-async function getTodayVisitor(req, res) {
+export default async function handler(req, res) {
+  if (req.method !== "GET") {
+    res.status(404).json({ status: "error", message: "Method not found!" })
+    return
+  }
+
   dbConnect()
 
   try {
@@ -23,5 +25,3 @@ async function getTodayVisitor(req, res) {
     console.log(error)
   }
 }
-
-export default handler

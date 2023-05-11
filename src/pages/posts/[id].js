@@ -4,11 +4,11 @@ import { useEffect, useState } from "react";
 
 async function addVisitor(id) {
   const res = await fetch(`/api/visitor/${id}`, {
-    method: "PUT",
-  });
-  const data = res.json();
+    method: "PUT"
+  })
+  const data = res.json()
 
-  return data;
+  return data
 }
 
 export default function Posts({ id, data, category }) {
@@ -63,6 +63,6 @@ export async function getServerSideProps(context) {
     props: {
       id: context.params.id,
       data,
-    },
-  };
+    }
+  }
 }

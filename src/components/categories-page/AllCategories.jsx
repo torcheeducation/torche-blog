@@ -11,16 +11,26 @@ export default function AllCategories({ data }) {
 
   const categoriesParams = useSearchParams();
   const categoriesTarget = categoriesParams.get("target") || "";
+  const categoriesType = categoriesParams.get("type") || "";
 
-  const [currentPage, setCurrentPage] = useState(1);
-  const [selectedCategory, setSelectedCategory] = useState("");
-
+  const type = {
+    education: "edukasi",
+    news: "berita",
+    lifestyle: "gaya hidup"
+  }
+  
   const categories = [
     { value: "", label: "Semua" },
     { value: "edukasi", label: "Edukasi" },
     { value: "berita", label: "Berita" },
     { value: "gaya hidup", label: "Gaya Hidup" },
   ];
+
+  const defaultSelect = categories[categories.indexOf(categories.find((e) => e.value === type[categoriesType]))]
+  const defaultValue = defaultSelect ? defaultSelect.value : ""
+
+  const [currentPage, setCurrentPage] = useState(1);
+  const [selectedCategory, setSelectedCategory] = useState(defaultValue);
 
   const categoryFilter = data.posts.filter((post) =>
     post.category.toLowerCase().includes(selectedCategory.toLowerCase())
@@ -49,6 +59,7 @@ export default function AllCategories({ data }) {
         onChange={handleChange}
         options={categories}
         placeholder="Select Option"
+        defaultValue={defaultSelect}
         className="mb-10 w-48 md:h-10 md:w-72 lg:mb-14"
       />
       {result.length > 0 ? (

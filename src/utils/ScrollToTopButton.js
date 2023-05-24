@@ -30,7 +30,7 @@ const ScrollToTopButton = () => {
     <button
       title="Kembali ke Atas"
       onClick={scrollToTop}
-      className={`fixed bottom-9 right-5 rounded-full bg-[#003f88] p-4 text-white ${
+      className={`fixed bottom-7 right-3 rounded-full bg-[#003f88] p-[10px] text-white ${
         isVisible ? "opacity-100" : "opacity-0"
       }`}
     >

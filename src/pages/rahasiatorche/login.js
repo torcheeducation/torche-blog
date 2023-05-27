@@ -12,7 +12,7 @@ export default function Login() {
   useEffect(() => {
     getSession().then((session) => {
       if (session) {
-        router.replace("/admin")
+        router.replace("/rahasiatorche")
       } else {
         setIsLoading(false)
       }

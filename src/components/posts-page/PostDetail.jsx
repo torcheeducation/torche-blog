@@ -31,7 +31,6 @@ const Toast = MySwal.mixin({
 });
 
 function PostDetail({ post, relatedPost, date, owner, url }) {
-  console.log(post);
   const router = useRouter();
   const postUrl = `${url}${router.asPath}`;
 

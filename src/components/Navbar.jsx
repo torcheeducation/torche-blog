@@ -109,7 +109,7 @@ export default function Navbar() {
       <div
         className={
           "fixed left-0 bottom-0 z-30 flex h-[70vh] w-full flex-col rounded-t-2xl bg-navbar p-5 transition-all duration-500 lg:relative lg:mb-0 lg:h-auto lg:w-auto lg:flex-row-reverse lg:justify-between lg:bg-transparent lg:p-0" +
-          (navbar ? " mb-0" : " -mb-[50rem]")
+          (navbar ? " mb-0" : " -mb-[100vh]")
         }
       >
         <button

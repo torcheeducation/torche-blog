@@ -37,7 +37,7 @@ export default function LoginForm() {
       }).then(({ ok, error }) => {
         if (ok) {
           setIsLoading(false)
-          router.push("/admin")
+          router.push("/rahasiatorche")
         } else if (error) {
           setIsLoading(false)
           Toast.fire({

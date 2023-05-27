@@ -75,7 +75,7 @@ export async function getServerSideProps(context) {
   if (!getToken.isToken) {
     return {
       redirect: {
-        destination: "/admin/login",
+        destination: "/rahasiatorche/login",
         permanent: false,
       },
     };

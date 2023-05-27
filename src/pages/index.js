@@ -6,8 +6,7 @@ import Welcome from "@/components/home-page/Welcome";
 import Layout from "@/components/Layout";
 import TrendingPosts from "@/components/home-page/TrendingPosts";
 import NewPosts from "@/components/posts-page/NewPosts";
-import AllCategories from "@/components/categories-page/AllCategories";
-import ScrollToTopButton from "@/utils/ScrollToTopButton";
+import Head from "next/head";
 
 export default function Home({ posts }) {
   const month = [
@@ -43,19 +42,24 @@ export default function Home({ posts }) {
   };
 
   return (
-    <Layout title="Beranda">
-      <Hero />
-      <TrendingPosts posts={processData()} />
-      <div className="w-full px-4 py-6 xl:px-14">
-        <div className="mb-10 h-4 w-full bg-slate-200"></div>
-        <NewPosts posts={processData()}>
-          <Welcome />
-        </NewPosts>
-      </div>
-      <Education posts={processData()} />
-      <News posts={processData()} />
-      <LifeStyle posts={processData()} />
-    </Layout>
+    <>
+      <Head>
+        <meta property="og:image" content="/img/hero.webp" />
+      </Head>
+      <Layout title="Beranda">
+        <Hero />
+        <TrendingPosts posts={processData()} />
+        <div className="w-full px-4 py-6 xl:px-14">
+          <div className="mb-10 h-4 w-full bg-slate-200"></div>
+          <NewPosts posts={processData()}>
+            <Welcome />
+          </NewPosts>
+        </div>
+        <Education posts={processData()} />
+        <News posts={processData()} />
+        <LifeStyle posts={processData()} />
+      </Layout>
+    </>
   );
 }
 

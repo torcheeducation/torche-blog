@@ -1,7 +1,6 @@
 import Layout from "@/components/Layout";
 import PostDetail from "@/components/posts-page/PostDetail";
 import ScrollToTopButton from "@/utils/ScrollToTopButton";
-import Head from "next/head";
 
 export default function Posts({ postById, allPosts, user }) {
   const post = postById.post;
@@ -35,25 +34,18 @@ export default function Posts({ postById, allPosts, user }) {
     .slice(0, 2);
 
   return (
-    <>
-      <Head>
-        <meta property="og:image" content={post.imageUrl} />
-        <meta property="og:image:width" content="1200" />
-        <meta property="og:image:height" content="630" />
-      </Head>
-      <Layout title={post.title} description={post.shortText}>
-        <div className="w-full px-4 py-6 xl:px-14">
-          <PostDetail
-            post={post}
-            relatedPost={shuffled}
-            date={date}
-            owner={user}
-            url={process.env.NEXT_PUBLIC_URL}
-          />
-        </div>
-        <ScrollToTopButton />
-      </Layout>
-    </>
+    <Layout title={post.title} description={post.shortText} image={post.imageUrl}>
+      <div className="w-full px-4 py-6 xl:px-14">
+        <PostDetail
+          post={post}
+          relatedPost={shuffled}
+          date={date}
+          owner={user}
+          url={process.env.NEXT_PUBLIC_URL}
+        />
+      </div>
+      <ScrollToTopButton />
+    </Layout>
   );
 }
 

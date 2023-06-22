@@ -1,38 +1,68 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# Torche Education Blog
+This project was created by **Muhammad Naufal Farras** and **Moh. Nurul Anwar** as Group 2 Infrastructure - Torche Education Intern. The project was built based on a design plan by the Torche Education UI/UX team, with a development time of 4 months.
 
-## Getting Started
+The technology used in this project is as follows:
+[![My Skills](https://skills.thijs.gg/icons?i=react,next,mongodb,tailwind,aws)](https://skills.thijs.gg) 
+- ReactJS
+- NextJS
+- MongoDB
+- TailwindCSS
+- Amazon Web Services (AWS)
 
-First, run the development server:
+# Getting Started
+First, you can save this project on your computer by entering the following code in your computer's command prompt:
+```
+git clone https://github.com/naufalf25/torche-blog.git
+# then
+npm install
+# all dependencies for project will installing
+```
+There is an environment variable in this project in the form of a file named **.env.local** and it needs to be added in the root of the project folder. The contents of the file are as follows:
+```
+# EXAMPLE .env.local
 
-```bash
+# mongodb
+NEXT_PUBLIC_DBURI=#Your_MongoDB_URL
+
+# secret token
+NEXTAUTH_SECRET=#Your_NEXTAUTH_Secret_Code
+NEXTAUTH_URL=http://127.0.0.1:3000 #Follow_Main_Domain
+
+# internal
+NEXT_PUBLIC_KEY=#Key_For_Signup
+NEXT_PUBLIC_URL=http://127.0.0.1:3000 #Follow_Main_Domain
+
+# AWS S3 TORCHE
+NEXT_PUBLIC_S3BUCKET=#Your_AWS_S3Bucket_Name
+NEXT_PUBLIC_AWSKEY=#Your_AWS_Access_Key
+NEXT_PUBLIC_AWSSECRET=#Your_AWS_Secret_Access_Key
+NEXT_PUBLIC_AWSREGION=#Your_AWS_Region
+```
+
+For a **development environment**, you can directly run the following command:
+```
 npm run dev
 # or
 yarn dev
 # or
 pnpm dev
+
+# open browser and insert http://localhost:3000
+```
+To enter **production environment** you need to do `npm run build` first then do `npm run start` as follows:
+```
+npm run build
+# then
+npm run start
+
+# open browser and insert http://localhost:3000
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+# Learn More
+To learn more about this project, take a look at the following resources:
+- [NextJS Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
+- [Learn NextJS](https://nextjs.org/learn) - an interactive Next.js tutorial.
+- [NextAuth.js Documentation](https://next-auth.js.org/getting-started/introduction) - for NextAuth.js tutorial, and features.
 
-You can start editing the page by modifying `pages/index.js`. The page auto-updates as you edit the file.
-
-[API routes](https://nextjs.org/docs/api-routes/introduction) can be accessed on [http://localhost:3000/api/hello](http://localhost:3000/api/hello). This endpoint can be edited in `pages/api/hello.js`.
-
-The `pages/api` directory is mapped to `/api/*`. Files in this directory are treated as [API routes](https://nextjs.org/docs/api-routes/introduction) instead of React pages.
-
-This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
-
-## Learn More
-
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+# Something Wrong ?
+Feel free to contact **contributors** for support and solutions, thank you! :blush:

@@ -66,10 +66,10 @@ const Toast = MySwal.mixin({
   }
 })
 
-async function editPost(id, title, description, category, imageUrl, estimatedReading) {
+async function editPost(id, title, shortText, description, category, imageUrl, estimatedReading) {
   const response = await fetch("/api/posts", {
     method: "PUT",
-    body: JSON.stringify({ id, title, description, category, imageUrl, estimatedReading }),
+    body: JSON.stringify({ id, title, shortText, description, category, imageUrl, estimatedReading }),
     headers: {
       "Content-Type": "application/json"
     }
@@ -195,9 +195,9 @@ export default function EditPost({ post, isEdit, setIsEdit }) {
           throw new Error("URL tidak ditemukan")
         }
         
-        result = await editPost(post._id, title, description, category, url, estimatedReading)
+        result = await editPost(post._id, title, shortText, description, category, url, estimatedReading)
       } else {
-        result = await editPost(post._id, title, description, category, preview, estimatedReading)
+        result = await editPost(post._id, title, shortText, description, category, preview, estimatedReading)
       }
 
       if (result.status === "success") {

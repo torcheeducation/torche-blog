@@ -27,9 +27,9 @@ export default async function handler(req, res) {
       console.log(error)
     }
   } else if (req.method === "PUT") {
-    const { id, title, description, category, imageUrl } = req.body
+    const { id, title, shortText, description, category, imageUrl } = req.body
     try {
-      const post = await Post.findByIdAndUpdate(id, { title, description, category, imageUrl, editedAt: new Date() })
+      const post = await Post.findByIdAndUpdate(id, { title, shortText, description, category, imageUrl, editedAt: new Date() })
       res.status(200).json({
         status: "success",
         message: "Update image successfull",

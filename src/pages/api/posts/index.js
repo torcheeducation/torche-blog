@@ -32,7 +32,7 @@ export default async function handler(req, res) {
       const post = await Post.findByIdAndUpdate(id, { title, shortText, description, category, imageUrl, editedAt: new Date() })
       res.status(200).json({
         status: "success",
-        message: "Update image successfull",
+        message: "Update post successful",
         data: {
           id: post._id,
           title: post.title,

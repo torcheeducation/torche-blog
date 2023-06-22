@@ -1,7 +1,4 @@
 # Torche Education Blog
-![GitHub top language](https://img.shields.io/github/languages/top/:user/:repo)
-![GitHub last commit (by committer)](https://img.shields.io/github/last-commit/:user/:repo)
-
 This project was created by **Muhammad Naufal Farras** and **Moh. Nurul Anwar** as Group 2 Infrastructure - Torche Education Intern. The project was built based on a design plan by the Torche Education UI/UX team, with a development time of 4 months.
 
 The technology used in this project is as follows:

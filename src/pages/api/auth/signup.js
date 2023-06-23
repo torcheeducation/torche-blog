@@ -17,7 +17,9 @@ export default async function handler(req, res) {
         },
       })
     } catch (error) {
-      if (error.keyValue.username) {
+      console.log(error);
+      
+      if (error.keyValue) {
         res.status(400).json({
           status: "fail",
           message: "username already used",
@@ -25,7 +27,6 @@ export default async function handler(req, res) {
         return
       }
 
-      console.log(error)
       res.status(400).json({ status: "fail", message: error })
     }
   } else if (req.method === "GET") {

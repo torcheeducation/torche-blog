@@ -27,7 +27,7 @@ export default async function handler(req, res) {
         return
       }
 
-      res.status(400).json({ status: "fail", message: error })
+      res.status(400).json({ status: "fail", message: error.message })
     }
   } else if (req.method === "GET") {
     try {
@@ -38,7 +38,7 @@ export default async function handler(req, res) {
       })
     } catch (error) {
       console.log(error)
-      res.status(404).json({ status: "fail", message: error })
+      res.status(404).json({ status: "fail", message: error.message })
     }
   } else if (req.method === "DELETE") {
     try {
@@ -68,7 +68,7 @@ export default async function handler(req, res) {
       });
     } catch (error) {
       console.log(error);
-      res.status(404).json({ status: "fail", message: error });
+      res.status(404).json({ status: "fail", message: error.message });
     }
   } else {
     res.status(404).json({ status: "error", message: "Method not found!" })
